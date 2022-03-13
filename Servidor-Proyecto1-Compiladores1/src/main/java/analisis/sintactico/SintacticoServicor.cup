@@ -1,0 +1,331 @@
+package analisis.sintactico;
+
+import java_cup.runtime.Symbol;
+import analisis.lexico.LexerServidor;
+
+parser code
+{:
+
+    public parser(LexerServidor lexer) {
+            super(lexer);
+    }
+    public void syntax_error(Symbol s) {
+        System.out.println("Error en: " + String.valueOf(s.value) + "Linea: " +  s.left + "columna: " +  s.right);
+    }
+
+
+:};
+
+
+terminal IMPORT, CLASS, INT, BOOLEAN, STRING, CHAR, DOUBLE, OBJECT, IF, ELSE, FOR, WHILE, DO, SWITCH, CASE, PUBLIC,
+        PROTECTED, PRIVATE, FINAL, BREAK, RETURN, VOID, THIS, TRUE, FALSE, NEW, DECIMAL, ENTERO, ID, CADENA, LETRA, LOGICO_IGUAL,
+        LOGICO_DISTINTO, MENOR_IGUAL, MAYOR_IGUAL, LOGICO_Y, LOGICO_O, INCREMENTO, DECREMENTO, SUMA, RESTA,
+        MULTIPLICACION, DIVISION, PARENTESIS_A, PARENTESIS_C, DOS_PUNTOS, PUNTO_COMA, LLAVE_A, LLAVE_C, CORCHETE_A, 
+        CORCHETE_C, SIGNO_IGUAL, COMA, MENOR, MAYOR, PUNTO, ERROR;
+
+non terminal s, s_import, id_import, clase, codigo, constructor, sentencias, variable, creacion, asignacion, bandera, numero,
+            parametros, tipo_parametro, visibilidad, final, expresion, metodo, resultado, var_int, var_double, var_string, var_char,
+            var_object, var_boolean, ciclo_for, aumento, valor, relacionales, ciclo_while, param_sentencia, logicos, sentencia_if, sentencia_else,
+            llamada, parametro_llamada, c, t, x, x_prima, t_prima, p, e, param_llamada, ciclo_do_while, sentencia_switch,
+            sentencia_case ; 
+            
+precedence left SUMA, RESTA;
+precedence left MULTIPLICACION, DIVISION;
+
+start with s;
+
+s ::=
+    s_import clase
+;
+
+s_import ::= 
+        IMPORT ID id_import PUNTO_COMA s_import 
+        | 
+        | error IMPORT
+;
+
+id_import ::=
+        PUNTO ID id_import
+        | PUNTO MULTIPLICACION
+        |
+;
+
+clase ::=
+    visibilidad final CLASS ID LLAVE_A codigo LLAVE_C
+;
+
+codigo ::= metodo codigo
+    | visibilidad creacion codigo        
+    | constructor codigo
+    |
+;
+
+constructor ::=
+        visibilidad ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C
+;
+
+metodo ::=
+        visibilidad STRING ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+        | visibilidad INT ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+        | visibilidad BOOLEAN ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+        | visibilidad CHAR ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+        | visibilidad DOUBLE ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+        | visibilidad OBJECT ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+        | visibilidad VOID ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+       
+;
+
+sentencias ::=
+        variable sentencias
+        | ciclo_for sentencias
+        | ciclo_while sentencias
+        | ciclo_do_while sentencias
+        | sentencia_if sentencias
+        | sentencia_switch sentencias
+        | llamada sentencias
+        | RETURN CADENA PUNTO_COMA sentencias
+        | RETURN ID PUNTO_COMA sentencias
+        | ID INCREMENTO PUNTO_COMA
+        | ID DECREMENTO PUNTO_COMA
+        |
+;
+
+sentencia_switch ::=
+    SWITCH PARENTESIS_A ID PARENTESIS_C LLAVE_A sentencia_case LLAVE_C
+;
+
+sentencia_case ::=
+    CASE ENTERO DOS_PUNTOS sentencias BREAK PUNTO_COMA sentencia_case
+    | CASE CADENA DOS_PUNTOS sentencias BREAK PUNTO_COMA sentencia_case
+    | CASE ENTERO DOS_PUNTOS sentencias sentencia_case
+    | CASE CADENA DOS_PUNTOS sentencias sentencia_case
+    |
+;
+
+ciclo_do_while ::=
+    DO LLAVE_A sentencias LLAVE_C WHILE PARENTESIS_A param_sentencia PARENTESIS_C PUNTO_COMA
+;
+
+llamada ::=
+        ID PARENTESIS_A param_llamada PARENTESIS_C PUNTO_COMA
+;
+
+param_llamada ::=
+    parametro_llamada
+    | 
+;
+
+parametro_llamada ::=
+    resultado COMA parametro_llamada
+    | resultado 
+    | ID 
+    | ID COMA parametro_llamada
+;
+
+sentencia_if ::=
+    IF PARENTESIS_A param_sentencia PARENTESIS_C LLAVE_A sentencias LLAVE_C sentencia_else
+;
+
+sentencia_else ::=
+    ELSE LLAVE_A sentencias LLAVE_C
+    | ELSE sentencia_if
+    | 
+;
+
+ciclo_while ::=
+      WHILE PARENTESIS_A param_sentencia PARENTESIS_C LLAVE_A sentencias LLAVE_C
+;
+
+param_sentencia ::=
+    bandera
+    | bandera logicos param_sentencia 
+    | ID
+    | ID logicos param_sentencia   
+    | ID relacionales resultado logicos param_sentencia  
+    | ID relacionales resultado 
+    | PARENTESIS_A param_sentencia PARENTESIS_C
+    | PARENTESIS_A param_sentencia PARENTESIS_C logicos param_sentencia
+;
+
+ciclo_for ::= 
+    FOR PARENTESIS_A INT ID SIGNO_IGUAL ENTERO PUNTO_COMA ID relacionales valor PUNTO_COMA ID aumento PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+;
+
+aumento ::=
+    INCREMENTO
+    | DECREMENTO
+;
+
+valor ::=
+    expresion
+    | ID
+;
+
+
+logicos ::=
+    LOGICO_Y
+    | LOGICO_O
+;
+
+relacionales ::=
+    MAYOR
+    | MENOR
+    | MAYOR_IGUAL
+    | MENOR_IGUAL
+    | LOGICO_IGUAL
+    | LOGICO_DISTINTO
+;
+
+variable ::=
+        creacion
+        | asignacion
+;
+
+creacion ::=
+        var_int
+        | var_double
+        | var_string
+        | var_char
+        | var_boolean
+        | var_object
+;
+
+var_int ::=
+    INT ID PUNTO_COMA
+    | INT ID SIGNO_IGUAL expresion PUNTO_COMA
+    | INT ID SIGNO_IGUAL ID PUNTO_COMA    
+;
+
+var_double ::=
+    DOUBLE ID PUNTO_COMA
+    | DOUBLE ID SIGNO_IGUAL expresion PUNTO_COMA
+    | DOUBLE ID SIGNO_IGUAL ID PUNTO_COMA
+;
+
+var_string ::=
+    STRING ID PUNTO_COMA
+    | STRING ID SIGNO_IGUAL CADENA c PUNTO_COMA
+    | STRING ID SIGNO_IGUAL ID PUNTO_COMA
+;
+
+var_char ::=
+    CHAR ID PUNTO_COMA
+    | CHAR ID SIGNO_IGUAL LETRA PUNTO_COMA
+    | CHAR ID SIGNO_IGUAL ID PUNTO_COMA
+;
+
+var_boolean ::=
+    BOOLEAN ID PUNTO_COMA
+    | BOOLEAN ID SIGNO_IGUAL bandera PUNTO_COMA
+    | BOOLEAN ID SIGNO_IGUAL ID PUNTO_COMA
+;
+
+var_object ::=
+    OBJECT ID PUNTO_COMA
+    | OBJECT ID SIGNO_IGUAL NEW OBJECT PARENTESIS_A PARENTESIS_C PUNTO_COMA
+    | OBJECT ID SIGNO_IGUAL ID PUNTO_COMA
+    | ID ID PUNTO_COMA
+    | ID ID SIGNO_IGUAL NEW ID PARENTESIS_A param_llamada PARENTESIS_C PUNTO_COMA
+    | ID ID SIGNO_IGUAL ID PUNTO_COMA
+;
+
+asignacion ::=
+        ID SIGNO_IGUAL ID PUNTO_COMA
+        | ID SIGNO_IGUAL resultado PUNTO_COMA
+        | THIS PUNTO ID SIGNO_IGUAL ID PUNTO_COMA
+;
+
+resultado ::=
+    expresion
+    | CADENA c
+    | LETRA
+    | bandera
+    | NEW OBJECT PARENTESIS_A PARENTESIS_C
+    | NEW ID PARENTESIS_A param_llamada PARENTESIS_C
+;
+
+c ::= 
+    SUMA CADENA c
+    | SUMA x c
+    | SUMA ID c
+    | 
+;
+
+bandera ::=
+        TRUE
+        | FALSE
+;
+
+numero ::= 
+        ENTERO
+        | DECIMAL
+;
+
+
+parametros ::= 
+        tipo_parametro ID COMA parametros
+        | tipo_parametro ID 
+        | 
+;
+
+tipo_parametro ::=
+        INT 
+        | BOOLEAN 
+        | STRING 
+        | CHAR
+        | DOUBLE
+        | OBJECT
+;
+
+visibilidad ::=
+        PRIVATE
+        | PUBLIC
+        | PROTECTED
+        |
+;
+
+final ::=
+        FINAL
+        | 
+;
+
+x ::=
+    t x_prima
+;
+
+x_prima ::=
+    SUMA t x_prima
+    | RESTA t x_prima
+    | 
+;
+
+t ::=
+    p t_prima
+;
+
+t_prima ::=
+    MULTIPLICACION p t_prima
+    | DIVISION p t_prima
+    |
+;
+
+p ::=
+    RESTA e
+    | e
+;
+
+e ::=
+    numero
+    | PARENTESIS_A x PARENTESIS_C
+;
+
+
+expresion ::=
+           numero
+        | expresion SUMA expresion:e2
+        | expresion RESTA expresion:e2
+        | expresion MULTIPLICACION expresion
+        | expresion DIVISION expresion
+        | RESTA expresion
+        | PARENTESIS_A expresion PARENTESIS_C
+;
