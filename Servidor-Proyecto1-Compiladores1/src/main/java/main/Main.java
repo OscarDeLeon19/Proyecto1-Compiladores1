@@ -28,8 +28,7 @@ public class Main {
             JOptionPane.showMessageDialog(null, "Bien");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al agregar archivo");
-        }
-        
+        }              
     }   
    
 }

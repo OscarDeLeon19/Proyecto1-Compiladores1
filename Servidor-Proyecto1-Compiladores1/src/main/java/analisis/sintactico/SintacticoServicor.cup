@@ -27,7 +27,7 @@ non terminal s, s_import, id_import, clase, codigo, constructor, sentencias, var
             parametros, tipo_parametro, visibilidad, final, expresion, metodo, resultado, var_int, var_double, var_string, var_char,
             var_object, var_boolean, ciclo_for, aumento, valor, relacionales, ciclo_while, param_sentencia, logicos, sentencia_if, sentencia_else,
             llamada, parametro_llamada, c, t, x, x_prima, t_prima, p, e, param_llamada, ciclo_do_while, sentencia_switch,
-            sentencia_case ; 
+            sentencia_case, sentencias_metodos, sentencias_if_else; 
             
 precedence left SUMA, RESTA;
 precedence left MULTIPLICACION, DIVISION;
@@ -65,14 +65,45 @@ constructor ::=
 ;
 
 metodo ::=
-        visibilidad STRING ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
-        | visibilidad INT ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
-        | visibilidad BOOLEAN ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
-        | visibilidad CHAR ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
-        | visibilidad DOUBLE ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
-        | visibilidad OBJECT ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+        visibilidad STRING ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
+        | visibilidad INT ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
+        | visibilidad BOOLEAN ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
+        | visibilidad CHAR ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
+        | visibilidad DOUBLE ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
+        | visibilidad OBJECT ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
         | visibilidad VOID ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
        
+;
+
+sentencias_metodos ::=
+    variable sentencias_metodos 
+    | ciclo_for sentencias_metodos 
+    | ciclo_while sentencias_metodos 
+    | ciclo_do_while sentencias_metodos 
+    | sentencia_if sentencias_metodos 
+    | sentencia_switch sentencias_metodos 
+    | llamada sentencias_metodos 
+    | ID INCREMENTO PUNTO_COMA sentencias_metodos 
+    | ID DECREMENTO PUNTO_COMA sentencias_metodos 
+    | RETURN resultado PUNTO_COMA 
+    | RETURN ID PUNTO_COMA
+    |
+;
+
+sentencias_if_else ::=
+        variable sentencias_if_else
+        | ciclo_for sentencias_if_else
+        | ciclo_while sentencias_if_else
+        | ciclo_do_while sentencias_if_else
+        | sentencia_if sentencias_if_else
+        | sentencia_switch sentencias_if_else
+        | llamada sentencias_if_else
+        | ID INCREMENTO PUNTO_COMA sentencias_if_else
+        | ID DECREMENTO PUNTO_COMA sentencias_if_else
+        | RETURN resultado PUNTO_COMA 
+        | RETURN ID PUNTO_COMA
+        | BREAK PUNTO_COMA
+        |
 ;
 
 sentencias ::=
@@ -83,10 +114,9 @@ sentencias ::=
         | sentencia_if sentencias
         | sentencia_switch sentencias
         | llamada sentencias
-        | RETURN CADENA PUNTO_COMA sentencias
-        | RETURN ID PUNTO_COMA sentencias
-        | ID INCREMENTO PUNTO_COMA
-        | ID DECREMENTO PUNTO_COMA
+        | ID INCREMENTO PUNTO_COMA sentencias
+        | ID DECREMENTO PUNTO_COMA sentencias
+        | BREAK PUNTO_COMA
         |
 ;
 
@@ -95,9 +125,7 @@ sentencia_switch ::=
 ;
 
 sentencia_case ::=
-    CASE ENTERO DOS_PUNTOS sentencias BREAK PUNTO_COMA sentencia_case
-    | CASE CADENA DOS_PUNTOS sentencias BREAK PUNTO_COMA sentencia_case
-    | CASE ENTERO DOS_PUNTOS sentencias sentencia_case
+     CASE ENTERO DOS_PUNTOS sentencias sentencia_case
     | CASE CADENA DOS_PUNTOS sentencias sentencia_case
     |
 ;
@@ -123,11 +151,11 @@ parametro_llamada ::=
 ;
 
 sentencia_if ::=
-    IF PARENTESIS_A param_sentencia PARENTESIS_C LLAVE_A sentencias LLAVE_C sentencia_else
+    IF PARENTESIS_A param_sentencia PARENTESIS_C LLAVE_A sentencias_if_else LLAVE_C sentencia_else
 ;
 
 sentencia_else ::=
-    ELSE LLAVE_A sentencias LLAVE_C
+    ELSE LLAVE_A sentencias_if_else LLAVE_C
     | ELSE sentencia_if
     | 
 ;
