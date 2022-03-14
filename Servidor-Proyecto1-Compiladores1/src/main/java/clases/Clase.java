@@ -1,13 +1,12 @@
-
 package clases;
 
 import java.util.ArrayList;
 
-
 public class Clase {
-    
+
     private String id;
     private ArrayList<Metodo> lista_metodos = new ArrayList<>();
+    private int cantidadMetodos = 0;
 
     public Clase() {
     }
@@ -27,9 +26,18 @@ public class Clase {
     public void setLista_metodos(ArrayList<Metodo> lista_metodos) {
         this.lista_metodos = lista_metodos;
     }
-    
-    public void agregarMetodo(Metodo nuevo_metodo){
+
+    public void agregarMetodo(Metodo nuevo_metodo) {
         lista_metodos.add(nuevo_metodo);
+        cantidadMetodos++;
     }
-    
+
+    public int getCantidadMetodos() {
+        return cantidadMetodos;
+    }
+
+    public void setCantidadMetodos(int cantidadMetodos) {
+        this.cantidadMetodos = cantidadMetodos;
+    }
+
 }

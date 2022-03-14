@@ -3,6 +3,7 @@ package analisis.lexico;
 import analisis.sintactico.sym;
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
+import main.Lista;
 
 %%
 %class LexerServidor
@@ -35,10 +36,10 @@ CommentContent       = ( [^*] | \*+ [^/*] )*
 
 %{
     
-    ArrayList<String> lista_comentarios = new ArrayList<>();
+    private Lista lista;;
 
-    public void setLista_comentarios(ArrayList<String> lista_comentarios) {
-        this.lista_comentarios = lista_comentarios;
+    public void setLista(Lista lista) {
+        this.lista = lista;
     }
 
 %}
@@ -80,7 +81,7 @@ new {return new Symbol(sym.NEW, yyline+1, yycolumn+1, yytext());}
 {id}+ {return new Symbol(sym.ID, yyline+1, yycolumn+1, yytext());}
 {comilla}({id}|{entero}|{decimal}|{espacio}|{salto}|"+"|"-"|"*"|"/"|":"|",",";")*{comilla} {return new Symbol(sym.CADENA, yyline+1, yycolumn+1, yytext());}
 {comilla_simple}{id}{comilla_simple} {return new Symbol(sym.LETRA, yyline+1, yycolumn+1, yytext());}
-{Comment} {lista_comentarios.add(yytext());}
+{Comment} {lista.añadirComentario(yytext());}
 {punto} {return new Symbol(sym.PUNTO, yyline+1, yycolumn+1, yytext()); }
 "==" {return new Symbol(sym.LOGICO_IGUAL, yyline+1, yycolumn+1, yytext());}
 "!=" {return new Symbol(sym.LOGICO_DISTINTO, yyline+1, yycolumn+1, yytext());}

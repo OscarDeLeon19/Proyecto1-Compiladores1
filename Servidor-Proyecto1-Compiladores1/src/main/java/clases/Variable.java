@@ -1,12 +1,14 @@
 
 package clases;
 
+import java.util.ArrayList;
+
 
 public class Variable {
     
     private String id;
     private String tipo;
-    private Metodo padre;
+    private ArrayList<String> padres = new ArrayList<>();
 
     public Variable() {
     }
@@ -27,14 +29,15 @@ public class Variable {
         this.tipo = tipo;
     }
 
-    public Metodo getPadre() {
-        return padre;
+    public ArrayList<String> getPadres() {
+        return padres;
     }
 
-    public void setPadre(Metodo padre) {
-        this.padre = padre;
+    public void setPadres(ArrayList<String> padres) {
+        this.padres = padres;
+    }   
+   
+    public void agregarPadre(String padre){
+        padres.add(padre);
     }
-    
-    
-    
 }

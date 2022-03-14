@@ -1,12 +1,15 @@
 
 package clases;
 
+import java.util.ArrayList;
+
 
 public class Metodo {
     
     private String id;
     private String tipo;
-    private int cantidad_parametros;
+    private int cantidad_parametros = 0;
+    private ArrayList<Variable> listaParametros = new ArrayList<>();
 
     public Metodo() {
     }
@@ -34,7 +37,20 @@ public class Metodo {
     public void setCantidad_parametros(int cantidad_parametros) {
         this.cantidad_parametros = cantidad_parametros;
     }
+
+    public ArrayList<Variable> getListaParametros() {
+        return listaParametros;
+    }
+
+    public void setListaParametros(ArrayList<Variable> listaParametros) {
+        this.listaParametros = listaParametros;
+    }
     
+    public void añadirParametro(Variable parametro){
+        listaParametros.add(0,parametro);
+    }
     
-    
+    public void reiniciarListaParametros(){
+        listaParametros.clear();
+    }
 }

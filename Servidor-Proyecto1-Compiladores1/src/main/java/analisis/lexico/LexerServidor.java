@@ -7,6 +7,7 @@ package analisis.lexico;
 import analisis.sintactico.sym;
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
+import main.Lista;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -428,10 +429,10 @@ public class LexerServidor implements java_cup.runtime.Scanner {
 
   /* user code: */
     
-    ArrayList<String> lista_comentarios = new ArrayList<>();
+    private Lista lista;;
 
-    public void setLista_comentarios(ArrayList<String> lista_comentarios) {
-        this.lista_comentarios = lista_comentarios;
+    public void setLista(Lista lista) {
+        this.lista = lista;
     }
 
 
@@ -972,7 +973,7 @@ public class LexerServidor implements java_cup.runtime.Scanner {
             // fall through
           case 85: break;
           case 27:
-            { lista_comentarios.add(yytext());
+            { lista.añadirComentario(yytext());
             }
             // fall through
           case 86: break;

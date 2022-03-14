@@ -2,9 +2,13 @@ package analisis.sintactico;
 
 import java_cup.runtime.Symbol;
 import analisis.lexico.LexerServidor;
+import main.Lista;
 
 parser code
 {:
+
+    private Lista lista;;
+    private int contadorVariable = 0; 
 
     public parser(LexerServidor lexer) {
             super(lexer);
@@ -13,21 +17,27 @@ parser code
         System.out.println("Error en: " + String.valueOf(s.value) + "Linea: " +  s.left + "columna: " +  s.right);
     }
 
-
+    public void setLista(Lista lista) {
+        this.lista = lista;
+    }
 :};
 
 
 terminal IMPORT, CLASS, INT, BOOLEAN, STRING, CHAR, DOUBLE, OBJECT, IF, ELSE, FOR, WHILE, DO, SWITCH, CASE, PUBLIC,
-        PROTECTED, PRIVATE, FINAL, BREAK, RETURN, VOID, THIS, TRUE, FALSE, NEW, DECIMAL, ENTERO, ID, CADENA, LETRA, LOGICO_IGUAL,
+        PROTECTED, PRIVATE, FINAL, BREAK, RETURN, VOID, THIS, TRUE, FALSE, NEW, DECIMAL, ENTERO, CADENA, LETRA, LOGICO_IGUAL,
         LOGICO_DISTINTO, MENOR_IGUAL, MAYOR_IGUAL, LOGICO_Y, LOGICO_O, INCREMENTO, DECREMENTO, SUMA, RESTA,
         MULTIPLICACION, DIVISION, PARENTESIS_A, PARENTESIS_C, DOS_PUNTOS, PUNTO_COMA, LLAVE_A, LLAVE_C, CORCHETE_A, 
         CORCHETE_C, SIGNO_IGUAL, COMA, MENOR, MAYOR, PUNTO, ERROR;
 
+terminal String ID;
+
 non terminal s, s_import, id_import, clase, codigo, constructor, sentencias, variable, creacion, asignacion, bandera, numero,
-            parametros, tipo_parametro, visibilidad, final, expresion, metodo, resultado, var_int, var_double, var_string, var_char,
+            parametros, visibilidad, final, expresion, metodo, resultado, var_int, var_double, var_string, var_char,
             var_object, var_boolean, ciclo_for, aumento, valor, relacionales, ciclo_while, param_sentencia, logicos, sentencia_if, sentencia_else,
             llamada, parametro_llamada, c, t, x, x_prima, t_prima, p, e, param_llamada, ciclo_do_while, sentencia_switch,
-            sentencia_case, sentencias_metodos, sentencias_if_else; 
+            sentencia_case, sentencias_metodos, sentencias_if_else;
+
+non terminal String tipo_parametro; 
             
 precedence left SUMA, RESTA;
 precedence left MULTIPLICACION, DIVISION;
@@ -51,32 +61,32 @@ id_import ::=
 ;
 
 clase ::=
-    visibilidad final CLASS ID LLAVE_A codigo LLAVE_C
+    visibilidad final CLASS ID:var LLAVE_A codigo LLAVE_C {:lista.agregarClase(var);:}
 ;
 
-codigo ::= metodo codigo
-    | visibilidad creacion codigo        
-    | constructor codigo
+codigo ::= codigo metodo  {:System.out.println("Se cumplio con este metodo");:}  
+    | codigo visibilidad creacion {:System.out.println("Hola Fuera");:}     
+    | codigo constructor  {:lista.reiniciarParametros(); contadorVariable = 0;:}  
     |
 ;
 
 constructor ::=
-        visibilidad ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C
+        visibilidad ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
 ;
 
 metodo ::=
-        visibilidad STRING ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
-        | visibilidad INT ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
-        | visibilidad BOOLEAN ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
-        | visibilidad CHAR ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
-        | visibilidad DOUBLE ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
-        | visibilidad OBJECT ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C 
-        | visibilidad VOID ID PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+        visibilidad STRING ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C {:lista.añadirMetodo(var,"String",contadorVariable); contadorVariable = 0;:}  
+        | visibilidad INT ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C {:lista.añadirMetodo(var,"int",contadorVariable); contadorVariable = 0;:}
+        | visibilidad BOOLEAN ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C {:lista.añadirMetodo(var,"boolean",contadorVariable); contadorVariable = 0;:}
+        | visibilidad CHAR ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C {:lista.añadirMetodo(var,"char",contadorVariable); contadorVariable = 0;:}
+        | visibilidad DOUBLE ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C {:lista.añadirMetodo(var,"double",contadorVariable); contadorVariable = 0;:}
+        | visibilidad OBJECT ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C {:lista.añadirMetodo(var,"Object",contadorVariable); contadorVariable = 0;:}
+        | visibilidad VOID ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C {:lista.añadirMetodo(var,"void",contadorVariable); contadorVariable = 0;:}
        
 ;
 
 sentencias_metodos ::=
-    variable sentencias_metodos 
+    variable sentencias_metodos
     | ciclo_for sentencias_metodos 
     | ciclo_while sentencias_metodos 
     | ciclo_do_while sentencias_metodos 
@@ -91,7 +101,7 @@ sentencias_metodos ::=
 ;
 
 sentencias_if_else ::=
-        variable sentencias_if_else
+        variable sentencias_if_else 
         | ciclo_for sentencias_if_else
         | ciclo_while sentencias_if_else
         | ciclo_do_while sentencias_if_else
@@ -107,7 +117,7 @@ sentencias_if_else ::=
 ;
 
 sentencias ::=
-        variable sentencias
+        variable sentencias 
         | ciclo_for sentencias
         | ciclo_while sentencias
         | ciclo_do_while sentencias
@@ -205,7 +215,7 @@ relacionales ::=
 ;
 
 variable ::=
-        creacion
+        creacion {:contadorVariable++; System.out.println("Contador: " + contadorVariable);:}
         | asignacion
 ;
 
@@ -219,42 +229,42 @@ creacion ::=
 ;
 
 var_int ::=
-    INT ID PUNTO_COMA
-    | INT ID SIGNO_IGUAL expresion PUNTO_COMA
-    | INT ID SIGNO_IGUAL ID PUNTO_COMA    
+    INT ID:var PUNTO_COMA {:lista.añadirDatosVariable(var, "int");:}
+    | INT ID:var SIGNO_IGUAL expresion PUNTO_COMA {:lista.añadirDatosVariable(var, "int");:}
+    | INT ID:var SIGNO_IGUAL ID PUNTO_COMA {:lista.añadirDatosVariable(var, "int");:}   
 ;
 
 var_double ::=
-    DOUBLE ID PUNTO_COMA
-    | DOUBLE ID SIGNO_IGUAL expresion PUNTO_COMA
-    | DOUBLE ID SIGNO_IGUAL ID PUNTO_COMA
+    DOUBLE ID:var PUNTO_COMA {:lista.añadirDatosVariable(var, "double");:}
+    | DOUBLE ID:var SIGNO_IGUAL expresion PUNTO_COMA {:lista.añadirDatosVariable(var, "double");:}
+    | DOUBLE ID:var SIGNO_IGUAL ID PUNTO_COMA {:lista.añadirDatosVariable(var, "double");:}
 ;
 
 var_string ::=
-    STRING ID PUNTO_COMA
-    | STRING ID SIGNO_IGUAL CADENA c PUNTO_COMA
-    | STRING ID SIGNO_IGUAL ID PUNTO_COMA
+    STRING ID:var PUNTO_COMA {:lista.añadirDatosVariable(var, "String");:}
+    | STRING ID:var SIGNO_IGUAL CADENA c PUNTO_COMA {:lista.añadirDatosVariable(var, "String");:}
+    | STRING ID:var SIGNO_IGUAL ID PUNTO_COMA {:lista.añadirDatosVariable(var, "String");:}
 ;
 
 var_char ::=
-    CHAR ID PUNTO_COMA
-    | CHAR ID SIGNO_IGUAL LETRA PUNTO_COMA
-    | CHAR ID SIGNO_IGUAL ID PUNTO_COMA
+    CHAR ID:var PUNTO_COMA {:lista.añadirDatosVariable(var, "char");:}
+    | CHAR ID:var SIGNO_IGUAL LETRA PUNTO_COMA {:lista.añadirDatosVariable(var, "char");:}
+    | CHAR ID:var SIGNO_IGUAL ID PUNTO_COMA {:lista.añadirDatosVariable(var, "char");:}
 ;
 
 var_boolean ::=
-    BOOLEAN ID PUNTO_COMA
-    | BOOLEAN ID SIGNO_IGUAL bandera PUNTO_COMA
-    | BOOLEAN ID SIGNO_IGUAL ID PUNTO_COMA
+    BOOLEAN ID:var PUNTO_COMA {:lista.añadirDatosVariable(var, "boolean");:}
+    | BOOLEAN ID:var SIGNO_IGUAL bandera PUNTO_COMA {:lista.añadirDatosVariable(var, "boolean");:}
+    | BOOLEAN ID:var SIGNO_IGUAL ID PUNTO_COMA {:lista.añadirDatosVariable(var, "boolean");:}
 ;
 
 var_object ::=
-    OBJECT ID PUNTO_COMA
-    | OBJECT ID SIGNO_IGUAL NEW OBJECT PARENTESIS_A PARENTESIS_C PUNTO_COMA
-    | OBJECT ID SIGNO_IGUAL ID PUNTO_COMA
-    | ID ID PUNTO_COMA
-    | ID ID SIGNO_IGUAL NEW ID PARENTESIS_A param_llamada PARENTESIS_C PUNTO_COMA
-    | ID ID SIGNO_IGUAL ID PUNTO_COMA
+    OBJECT ID:var PUNTO_COMA {:lista.añadirDatosVariable(var, "Object");:}
+    | OBJECT ID:var SIGNO_IGUAL NEW OBJECT PARENTESIS_A PARENTESIS_C PUNTO_COMA {:lista.añadirDatosVariable(var, "Object");:}
+    | OBJECT ID:var SIGNO_IGUAL ID PUNTO_COMA {:lista.añadirDatosVariable(var, "Object");:}
+    | ID:var1 ID:var2 PUNTO_COMA {:lista.añadirDatosVariable(var2, var1);:}
+    | ID:var1 ID:var2 SIGNO_IGUAL NEW ID PARENTESIS_A param_llamada PARENTESIS_C PUNTO_COMA {:lista.añadirDatosVariable(var2, var1);:}
+    | ID:var1 ID:var2 SIGNO_IGUAL ID PUNTO_COMA {:lista.añadirDatosVariable(var2, var1);:}
 ;
 
 asignacion ::=
@@ -291,18 +301,19 @@ numero ::=
 
 
 parametros ::= 
-        tipo_parametro ID COMA parametros
-        | tipo_parametro ID 
+        tipo_parametro:tipo ID:var COMA parametros {:lista.añadirParametro(var,tipo); contadorVariable++; lista.añadirDatosVariable(var, tipo);:}
+        | tipo_parametro:tipo ID:var  {:lista.añadirParametro(var,tipo); contadorVariable++; lista.añadirDatosVariable(var, tipo);:}
         | 
 ;
 
 tipo_parametro ::=
-        INT 
-        | BOOLEAN 
-        | STRING 
-        | CHAR
-        | DOUBLE
-        | OBJECT
+        INT {:RESULT = "int";:}
+        | BOOLEAN {:RESULT = "boolean";:}
+        | STRING  {:RESULT = "String";:}
+        | CHAR  {:RESULT = "char";:}
+        | DOUBLE {:RESULT = "double";:}
+        | OBJECT {:RESULT = "Object";:}
+        | ID:var {:RESULT = var;:}
 ;
 
 visibilidad ::=

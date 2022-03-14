@@ -8,65 +8,65 @@ package analisis.sintactico;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int LOGICO_IGUAL = 33;
+  public static final int LOGICO_IGUAL = 32;
   public static final int CHAR = 7;
   public static final int ENTERO = 29;
   public static final int CASE = 16;
-  public static final int RESTA = 42;
+  public static final int RESTA = 41;
   public static final int DOUBLE = 8;
-  public static final int DOS_PUNTOS = 47;
+  public static final int DOS_PUNTOS = 46;
   public static final int PRIVATE = 19;
-  public static final int CORCHETE_C = 52;
+  public static final int CORCHETE_C = 51;
   public static final int INT = 4;
-  public static final int CORCHETE_A = 51;
-  public static final int LLAVE_C = 50;
-  public static final int LOGICO_Y = 37;
-  public static final int LLAVE_A = 49;
+  public static final int CORCHETE_A = 50;
+  public static final int LLAVE_C = 49;
+  public static final int LOGICO_Y = 36;
+  public static final int LLAVE_A = 48;
   public static final int FOR = 12;
-  public static final int SIGNO_IGUAL = 53;
-  public static final int LOGICO_O = 38;
+  public static final int SIGNO_IGUAL = 52;
+  public static final int LOGICO_O = 37;
   public static final int OBJECT = 9;
-  public static final int LETRA = 32;
-  public static final int LOGICO_DISTINTO = 34;
+  public static final int LETRA = 31;
+  public static final int LOGICO_DISTINTO = 33;
   public static final int CLASS = 3;
-  public static final int INCREMENTO = 39;
-  public static final int SUMA = 41;
+  public static final int INCREMENTO = 38;
+  public static final int SUMA = 40;
   public static final int IF = 10;
   public static final int THIS = 24;
-  public static final int PUNTO_COMA = 48;
-  public static final int ID = 30;
+  public static final int ID = 58;
+  public static final int PUNTO_COMA = 47;
   public static final int EOF = 0;
   public static final int BOOLEAN = 5;
   public static final int DECIMAL = 28;
   public static final int RETURN = 22;
   public static final int TRUE = 25;
-  public static final int DECREMENTO = 40;
+  public static final int DECREMENTO = 39;
   public static final int NEW = 27;
   public static final int error = 1;
-  public static final int COMA = 54;
-  public static final int CADENA = 31;
-  public static final int MENOR = 55;
+  public static final int COMA = 53;
+  public static final int CADENA = 30;
+  public static final int MENOR = 54;
   public static final int BREAK = 21;
   public static final int VOID = 23;
-  public static final int ERROR = 58;
+  public static final int ERROR = 57;
   public static final int SWITCH = 15;
-  public static final int MAYOR = 56;
+  public static final int MAYOR = 55;
   public static final int IMPORT = 2;
   public static final int ELSE = 11;
-  public static final int PUNTO = 57;
+  public static final int PUNTO = 56;
   public static final int PROTECTED = 18;
-  public static final int PARENTESIS_C = 46;
+  public static final int PARENTESIS_C = 45;
   public static final int FINAL = 20;
   public static final int WHILE = 13;
-  public static final int PARENTESIS_A = 45;
-  public static final int MAYOR_IGUAL = 36;
+  public static final int PARENTESIS_A = 44;
+  public static final int MAYOR_IGUAL = 35;
   public static final int PUBLIC = 17;
   public static final int STRING = 6;
-  public static final int MENOR_IGUAL = 35;
+  public static final int MENOR_IGUAL = 34;
   public static final int FALSE = 26;
-  public static final int DIVISION = 44;
+  public static final int DIVISION = 43;
   public static final int DO = 14;
-  public static final int MULTIPLICACION = 43;
+  public static final int MULTIPLICACION = 42;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -98,7 +98,6 @@ public class sym {
   "NEW",
   "DECIMAL",
   "ENTERO",
-  "ID",
   "CADENA",
   "LETRA",
   "LOGICO_IGUAL",
@@ -126,7 +125,8 @@ public class sym {
   "MENOR",
   "MAYOR",
   "PUNTO",
-  "ERROR"
+  "ERROR",
+  "ID"
   };
 }
 
