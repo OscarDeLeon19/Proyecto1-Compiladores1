@@ -64,8 +64,8 @@ clase ::=
     visibilidad final CLASS ID:var LLAVE_A codigo LLAVE_C {:lista.agregarClase(var);:}
 ;
 
-codigo ::= codigo metodo  {:System.out.println("Se cumplio con este metodo");:}  
-    | codigo visibilidad creacion {:System.out.println("Hola Fuera");:}     
+codigo ::= codigo metodo  
+    | codigo visibilidad creacion  
     | codigo constructor  {:lista.reiniciarParametros(); contadorVariable = 0;:}  
     |
 ;

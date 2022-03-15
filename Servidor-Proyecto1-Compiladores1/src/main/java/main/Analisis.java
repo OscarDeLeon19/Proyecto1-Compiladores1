@@ -27,25 +27,18 @@ public class Analisis {
     public Analisis() {
     }
 
-    public void iniciarAnalisisProyecto1() {
+    public void iniciarAnalisisProyecto1(File fichero) {
         Lista lista1 = new Lista();
-        File fichero;
-        JFileChooser seleccionar = new JFileChooser();
-        seleccionar.setAcceptAllFileFilterUsed(false);
-        seleccionar.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        seleccionar.showOpenDialog(null);
-        fichero = seleccionar.getSelectedFile();
-        System.out.println(fichero.getAbsolutePath());
         try {
 
             for (File file : fichero.listFiles()) {
-                if (file.getName().endsWith(".java")){
-                FileReader Lector = new FileReader(file);
-                LexerServidor lexer = new LexerServidor(Lector);
-                lexer.setLista(lista1);
-                parser par = new parser(lexer);
-                par.setLista(lista1);
-                par.parse();
+                if (file.getName().endsWith(".java")) {
+                    FileReader Lector = new FileReader(file);
+                    LexerServidor lexer = new LexerServidor(Lector);
+                    lexer.setLista(lista1);
+                    parser par = new parser(lexer);
+                    par.setLista(lista1);
+                    par.parse();
                 } else {
                     System.out.println("Error en el archivo");
                 }
@@ -58,44 +51,47 @@ public class Analisis {
             listaMetodos1 = lista1.getListaMetodos();
             listaVariables1 = lista1.getListaVariables();
 
-            System.out.println(listaComentarios1);
-            System.out.println("Variables");
-            for (Variable var : listaVariables1) {
-                System.out.println("ID: " + var.getId());
-                System.out.println("Tipo: " + var.getTipo());
-                System.out.println("Padres: " + var.getPadres());
-                System.out.println("");
-            }
-            System.out.println("Metodos");
-            for (Metodo metodo : listaMetodos1) {
-                System.out.println("ID: " + metodo.getId());
-                System.out.println("Tipo: " + metodo.getTipo());
-                System.out.println("Cantidad de Parametros: " + metodo.getListaParametros().size());
-                System.out.println("Parametros:");
-                for (Variable parametro : metodo.getListaParametros()) {
-                    System.out.println("Id Parametro:" + parametro.getId());
-                    System.out.println("Tipo Parametro:" + parametro.getTipo());
-                    System.out.println("");
-                }
-                System.out.println("");
-            }
-            System.out.println("Clases");
-            for (Clase clase : listaClase1) {
-                System.out.println("ID: " + clase.getId());
-                System.out.println("Cantidad de Metodos: " + clase.getCantidadMetodos());
-                System.out.println("Metodos:");
-                for (Metodo parametro : clase.getLista_metodos()) {
-                    System.out.println("Id Parametro:" + parametro.getId());
-                    System.out.println("Tipo Parametro:" + parametro.getTipo());
-                    System.out.println("");
-                }
-                System.out.println("");
-            }
-
-            JOptionPane.showMessageDialog(null, "Bien");
+           
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al agregar archivo");
         }
     }
 
+    public void iniciarAnalisisProyecto2(File fichero) {
+        Lista lista2 = new Lista();
+        try {
+
+            for (File file : fichero.listFiles()) {
+                if (file.getName().endsWith(".java")) {
+                    FileReader Lector = new FileReader(file);
+                    LexerServidor lexer = new LexerServidor(Lector);
+                    lexer.setLista(lista2);
+                    parser par = new parser(lexer);
+                    par.setLista(lista2);
+                    par.parse();
+                } else {
+                    System.out.println("Error en el archivo");
+                }
+
+            }
+
+            lista2.eliminarRepetidos();
+            listaComentarios2 = lista2.getListaComentarios();
+            listaClase2 = lista2.getListaClase();
+            listaMetodos2 = lista2.getListaMetodos();
+            listaVariables2 = lista2.getListaVariables();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al agregar archivo");
+        }
+    }
+
+    public void comparar(){
+        Comparacion comparacion = new Comparacion();
+        comparacion.compararClases(listaClase1, listaClase2);
+        comparacion.compararVariables(listaVariables1, listaVariables2);
+        comparacion.compararMetodos(listaMetodos1, listaMetodos2);
+        comparacion.compararComentarios(listaComentarios1, listaComentarios2);
+        comparacion.exportar();
+    }
 }

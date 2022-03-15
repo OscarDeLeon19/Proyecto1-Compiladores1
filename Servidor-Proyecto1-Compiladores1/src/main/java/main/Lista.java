@@ -131,9 +131,7 @@ public class Lista {
                     for (int k = 0; k < padres.size(); k++) {
                         aux.agregarPadre(padres.get(k));                                         
                     }
-                    System.out.println(listaVariables.size());
                     listaVariables.remove(j);
-                    System.out.println(listaVariables.size());
                     j--;
                 }
             }
