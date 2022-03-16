@@ -28,7 +28,7 @@ public class Exportar {
             } else {
                 directorio.mkdirs();
             }
-            String pathDEF = directorio.getAbsolutePath() + "/" + carpeta + ".def";
+            String pathDEF = directorio.getAbsolutePath() + "/reportes.def";
             String pathJISON = directorio.getAbsolutePath() + "/" + carpeta + ".jison";
             String pathCOPY = directorio.getAbsolutePath() + "/" + carpeta + ".copy";
             File archivoDEF = new File(pathDEF);

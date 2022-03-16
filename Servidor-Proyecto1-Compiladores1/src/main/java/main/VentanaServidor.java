@@ -15,7 +15,7 @@ public class VentanaServidor extends javax.swing.JFrame {
    
     public void agregarErrores(ArrayList<String> errores){
         for (String error : errores) {
-            areaTexto.append(error);
+            areaTexto.append("1. " + error);
             areaTexto.append("\n");
         }
         
