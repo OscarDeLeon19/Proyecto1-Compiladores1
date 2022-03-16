@@ -23,7 +23,8 @@ public class Analisis {
     private ArrayList<Clase> listaClase2 = new ArrayList<>();
     private ArrayList<Metodo> listaMetodos2 = new ArrayList<>();
     private ArrayList<Variable> listaVariables2 = new ArrayList<>();
-
+    private ArrayList<String> errores = new ArrayList<>();
+      
     public Analisis() {
     }
 
@@ -35,8 +36,12 @@ public class Analisis {
                 if (file.getName().endsWith(".java")) {
                     FileReader Lector = new FileReader(file);
                     LexerServidor lexer = new LexerServidor(Lector);
+                    lexer.setErrores(errores);
+                    lexer.setNombre_clase(file.getName());
                     lexer.setLista(lista1);
                     parser par = new parser(lexer);
+                    par.setErrores(errores);
+                    par.setNombre_clase(file.getName());
                     par.setLista(lista1);
                     par.parse();
                 } else {
@@ -44,7 +49,8 @@ public class Analisis {
                 }
 
             }
-
+            
+            
             lista1.eliminarRepetidos();
             listaComentarios1 = lista1.getListaComentarios();
             listaClase1 = lista1.getListaClase();
@@ -65,8 +71,12 @@ public class Analisis {
                 if (file.getName().endsWith(".java")) {
                     FileReader Lector = new FileReader(file);
                     LexerServidor lexer = new LexerServidor(Lector);
+                    lexer.setErrores(errores);
+                    lexer.setNombre_clase(file.getName());
                     lexer.setLista(lista2);
                     parser par = new parser(lexer);
+                    par.setErrores(errores);
+                    par.setNombre_clase(file.getName());
                     par.setLista(lista2);
                     par.parse();
                 } else {
@@ -87,11 +97,18 @@ public class Analisis {
     }
 
     public void comparar(){
+        if (errores.isEmpty()){
         Comparacion comparacion = new Comparacion();
         comparacion.compararClases(listaClase1, listaClase2);
         comparacion.compararVariables(listaVariables1, listaVariables2);
         comparacion.compararMetodos(listaMetodos1, listaMetodos2);
         comparacion.compararComentarios(listaComentarios1, listaComentarios2);
         comparacion.exportar();
+        }
+        else {
+            VentanaServidor vtnServer = new VentanaServidor();
+            vtnServer.agregarErrores(errores);
+            vtnServer.setVisible(true);
+        }
     }
 }

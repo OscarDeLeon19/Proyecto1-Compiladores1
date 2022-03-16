@@ -3,18 +3,30 @@ package analisis.sintactico;
 import java_cup.runtime.Symbol;
 import analisis.lexico.LexerServidor;
 import main.Lista;
+import java.util.ArrayList;
 
 parser code
 {:
 
     private Lista lista;;
-    private int contadorVariable = 0; 
+    private int contadorVariable = 0;     
+    private ArrayList<String> errores = new ArrayList<>();
+    private String nombre_clase;
+
+    public void setNombre_clase(String nombre_clase) {
+        this.nombre_clase = nombre_clase;
+    }
 
     public parser(LexerServidor lexer) {
             super(lexer);
     }
+
+    public void setErrores(ArrayList<String> errores) {
+        this.errores = errores;
+    }
+  
     public void syntax_error(Symbol s) {
-        System.out.println("Error en: " + String.valueOf(s.value) + "Linea: " +  s.left + "columna: " +  s.right);
+        errores.add("Error Sintactico en: "+ nombre_clase + " | Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
     }
 
     public void setLista(Lista lista) {
@@ -49,9 +61,9 @@ s ::=
 ;
 
 s_import ::= 
-        IMPORT ID id_import PUNTO_COMA s_import 
+        s_import IMPORT ID id_import PUNTO_COMA 
         | 
-        | error IMPORT
+        | error PUNTO_COMA
 ;
 
 id_import ::=
@@ -67,7 +79,11 @@ clase ::=
 codigo ::= codigo metodo  
     | codigo visibilidad creacion  
     | codigo constructor  {:lista.reiniciarParametros(); contadorVariable = 0;:}  
-    |
+    |  
+    | error PUNTO_COMA
+    | error LLAVE_C 
+    
+
 ;
 
 constructor ::=
@@ -81,8 +97,7 @@ metodo ::=
         | visibilidad CHAR ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C {:lista.añadirMetodo(var,"char",contadorVariable); contadorVariable = 0;:}
         | visibilidad DOUBLE ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C {:lista.añadirMetodo(var,"double",contadorVariable); contadorVariable = 0;:}
         | visibilidad OBJECT ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias_metodos LLAVE_C {:lista.añadirMetodo(var,"Object",contadorVariable); contadorVariable = 0;:}
-        | visibilidad VOID ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C {:lista.añadirMetodo(var,"void",contadorVariable); contadorVariable = 0;:}
-       
+        | visibilidad VOID ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C {:lista.añadirMetodo(var,"void",contadorVariable); contadorVariable = 0;:} 
 ;
 
 sentencias_metodos ::=
@@ -113,7 +128,7 @@ sentencias_if_else ::=
         | RETURN resultado PUNTO_COMA 
         | RETURN ID PUNTO_COMA
         | BREAK PUNTO_COMA
-        |
+        |        
 ;
 
 sentencias ::=
@@ -215,8 +230,9 @@ relacionales ::=
 ;
 
 variable ::=
-        creacion {:contadorVariable++; System.out.println("Contador: " + contadorVariable);:}
+        creacion {:contadorVariable++;:}
         | asignacion
+        | error PUNTO_COMA
 ;
 
 creacion ::=

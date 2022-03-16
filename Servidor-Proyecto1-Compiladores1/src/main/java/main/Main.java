@@ -26,6 +26,8 @@ public class Main {
         analisis.iniciarAnalisisProyecto2(fichero2);
         analisis.comparar();
         
+        
+        
     }   
    
 }

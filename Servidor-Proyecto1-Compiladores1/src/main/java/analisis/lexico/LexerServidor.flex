@@ -37,10 +37,22 @@ CommentContent       = ( [^*] | \*+ [^/*] )*
 %{
     
     private Lista lista;;
+    private ArrayList<String> errores = new ArrayList<>();
+    private String nombre_clase;
 
+    public void setNombre_clase(String nombre_clase) {
+        this.nombre_clase = nombre_clase;
+    }
+
+    public void setErrores(ArrayList<String> errores) {
+        this.errores = errores;
+    }
+      
     public void setLista(Lista lista) {
         this.lista = lista;
     }
+
+
 
 %}
 
@@ -107,4 +119,4 @@ new {return new Symbol(sym.NEW, yyline+1, yycolumn+1, yytext());}
 "," {return new Symbol(sym.COMA, yyline+1, yycolumn+1, yytext());}
 "<" {return new Symbol(sym.MENOR, yyline+1, yycolumn+1, yytext());}
 ">" {return new Symbol(sym.MAYOR, yyline+1, yycolumn+1, yytext());}
-[^] {System.out.println("Error Lexico: " + yytext());return new Symbol(sym.ERROR, yyline+1, yycolumn+1, yytext());}
+[^] {errores.add("Error Lexico en: " + nombre_clase + " | Lexema: " + yytext() + " | Linea: " + (yyline+1) + " | Columna: " + (yycolumn+1));;return new Symbol(sym.ERROR, yyline+1, yycolumn+1, yytext());}

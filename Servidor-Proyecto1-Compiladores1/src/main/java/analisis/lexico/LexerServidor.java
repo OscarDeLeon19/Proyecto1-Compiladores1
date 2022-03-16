@@ -430,10 +430,22 @@ public class LexerServidor implements java_cup.runtime.Scanner {
   /* user code: */
     
     private Lista lista;;
+    private ArrayList<String> errores = new ArrayList<>();
+    private String nombre_clase;
 
+    public void setNombre_clase(String nombre_clase) {
+        this.nombre_clase = nombre_clase;
+    }
+
+    public void setErrores(ArrayList<String> errores) {
+        this.errores = errores;
+    }
+      
     public void setLista(Lista lista) {
         this.lista = lista;
     }
+
+
 
 
 
@@ -843,7 +855,7 @@ public class LexerServidor implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { System.out.println("Error Lexico: " + yytext());return new Symbol(sym.ERROR, yyline+1, yycolumn+1, yytext());
+            { errores.add("Error Lexico en: " + nombre_clase + " | Lexema: " + yytext() + " | Linea: " + (yyline+1) + " | Columna: " + (yycolumn+1));;return new Symbol(sym.ERROR, yyline+1, yycolumn+1, yytext());
             }
             // fall through
           case 60: break;
