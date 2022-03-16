@@ -7,10 +7,12 @@ import java.util.ArrayList;
 
 public class Comparacion {
 
+    private Exportar exportar = new Exportar();
     private ArrayList<String> listaComentarios = new ArrayList<>();
     private ArrayList<Clase> listaClases = new ArrayList<>();
     private ArrayList<Metodo> listaMetodos = new ArrayList<>();
     private ArrayList<Variable> listaVariables = new ArrayList<>();
+    private ArrayList<String> listaArreglados = new ArrayList<>();
     private double score = 0;
 
     public Comparacion() {
@@ -137,6 +139,21 @@ public class Comparacion {
         score = score + nuevoScore;
     }
 
+    public void arreglarComentarios() {
+        for (String comentario : listaComentarios) {
+            String nuevo = "";
+            for (int i = 0; i < comentario.length(); i++) {
+                String letra = comentario.substring(i, i + 1);
+                if ("\n".equals(letra) || "\r".equals(letra) || "\t".equals(letra)) {
+                    nuevo = nuevo + " ";
+                } else {
+                    nuevo = nuevo + letra;
+                }
+            }
+            listaArreglados.add(nuevo);
+        }
+    }
+
     public void exportar() {
         /*
         System.out.println("Score: " + score);
@@ -175,7 +192,9 @@ public class Comparacion {
             }
             System.out.println("");
         }
-        */
+         */
+
+        arreglarComentarios();
         String json = "{\n"
                 + "\tScore: \"" + score + "\",\n"
                 + "\tClases:[\n";
@@ -227,18 +246,18 @@ public class Comparacion {
         }
         json = json + "\t" + "],\n";
         json = json + "\tComentarios:[\n";
-        for (int i = 0; i < listaComentarios.size(); i++) {
-            String comentario = listaComentarios.get(i);
-            if (i == listaComentarios.size() - 1) {
-                json = json + "\t\t{Texto: \"" + comentario + "}\n";
+        for (int i = 0; i < listaArreglados.size(); i++) {
+            String comentario = listaArreglados.get(i);
+            if (i == listaArreglados.size() - 1) {
+                json = json + "\t\t{Texto: \"" + comentario + "\"}\n";
             } else {
-                json = json + "\t\t{Texto: \"" + comentario + "},\n";
+                json = json + "\t\t{Texto: \"" + comentario + "\"},\n";
             }
         }
         json = json + "\t" + "],\n";
         json = json + "}";
-        
-        System.out.println(json);
+
+        exportar.exportarJISON(json);
     }
 
 }
