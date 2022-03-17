@@ -1,13 +1,23 @@
 package main;
 
 import files.Carga;
+import java.util.ArrayList;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.text.BadLocationException;
+import jison.DatosJISON;
+import jison.Jison;
 import lineas.Numeracion;
+
+
 
 public class App extends javax.swing.JFrame {
 
-    Carga cargar = new Carga();
-    String pathDEF;
-    String pathJISON;
+    private Carga cargar = new Carga();
+    private ArrayList<String> errores = new ArrayList<String>();
+    private Jison jison;
+    private String pathDEF;
+    private String pathJISON;
 
     public App(String pathDEF, String pathJISON) {
         initComponents();
@@ -18,6 +28,20 @@ public class App extends javax.swing.JFrame {
 
         agregarNumeracion();
         cargarArchivos();
+        
+        area2.addCaretListener(new CaretListener() {
+            @Override
+            public void caretUpdate(CaretEvent e) {
+                int pos = e.getDot();
+                try {
+                    int row = area2.getLineOfOffset(pos) + 1;
+                    int col = pos - area2.getLineStartOffset(row - 1) + 1;
+                    labelPosJison.setText("Fila: " + row + " Columna: " + col);
+                } catch (BadLocationException exc) {
+                    System.out.println(exc);
+                }
+            }
+        });
     }
     
     public void cargarArchivos(){
@@ -45,6 +69,8 @@ public class App extends javax.swing.JFrame {
         panelJISON = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         area2 = new javax.swing.JTextArea();
+        botonCompilarJISON = new javax.swing.JButton();
+        labelPosJison = new javax.swing.JLabel();
         panelREPORTES = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -52,6 +78,8 @@ public class App extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         menuGuardar = new javax.swing.JMenu();
+        itemGuardarDEF = new javax.swing.JMenuItem();
+        itemGuardarJison = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,7 +95,9 @@ public class App extends javax.swing.JFrame {
         );
         panelDEFLayout.setVerticalGroup(
             panelDEFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+            .addGroup(panelDEFLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 53, Short.MAX_VALUE))
         );
 
         pestanas.addTab(".def", panelDEF);
@@ -76,15 +106,36 @@ public class App extends javax.swing.JFrame {
         area2.setRows(5);
         jScrollPane2.setViewportView(area2);
 
+        botonCompilarJISON.setText("Compilar");
+        botonCompilarJISON.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCompilarJISONActionPerformed(evt);
+            }
+        });
+
+        labelPosJison.setText("Fila: Columna:");
+
         javax.swing.GroupLayout panelJISONLayout = new javax.swing.GroupLayout(panelJISON);
         panelJISON.setLayout(panelJISONLayout);
         panelJISONLayout.setHorizontalGroup(
             panelJISONLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
+            .addGroup(panelJISONLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelPosJison)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonCompilarJISON, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
         panelJISONLayout.setVerticalGroup(
             panelJISONLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
+            .addGroup(panelJISONLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelJISONLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonCompilarJISON, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(labelPosJison))
+                .addContainerGap())
         );
 
         pestanas.addTab("jison", panelJISON);
@@ -97,7 +148,7 @@ public class App extends javax.swing.JFrame {
         );
         panelREPORTESLayout.setVerticalGroup(
             panelREPORTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 373, Short.MAX_VALUE)
+            .addGap(0, 435, Short.MAX_VALUE)
         );
 
         pestanas.addTab("reportes", panelREPORTES);
@@ -116,6 +167,18 @@ public class App extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         menuGuardar.setText("Guardar");
+
+        itemGuardarDEF.setText("Guardar .def");
+        menuGuardar.add(itemGuardarDEF);
+
+        itemGuardarJison.setText("Guardar .jison");
+        itemGuardarJison.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemGuardarJisonActionPerformed(evt);
+            }
+        });
+        menuGuardar.add(itemGuardarJison);
+
         jMenuBar1.add(menuGuardar);
 
         setJMenuBar(jMenuBar1);
@@ -137,19 +200,35 @@ public class App extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(pestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonCompilarJISONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCompilarJISONActionPerformed
+        compilarJison();
+    }//GEN-LAST:event_botonCompilarJISONActionPerformed
 
+    private void itemGuardarJisonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGuardarJisonActionPerformed
+        cargar.guardar(pathJISON, area2.getText());
+    }//GEN-LAST:event_itemGuardarJisonActionPerformed
+
+    public void compilarJison(){
+        String texto = area2.getText();
+        DatosJISON datos = new DatosJISON();
+        jison = datos.analizarJISON(texto, errores);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea area1;
     private javax.swing.JTextArea area2;
+    private javax.swing.JButton botonCompilarJISON;
+    private javax.swing.JMenuItem itemGuardarDEF;
+    private javax.swing.JMenuItem itemGuardarJison;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -157,6 +236,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel labelPosJison;
     private javax.swing.JMenu menuGuardar;
     private javax.swing.JPanel panelDEF;
     private javax.swing.JPanel panelJISON;

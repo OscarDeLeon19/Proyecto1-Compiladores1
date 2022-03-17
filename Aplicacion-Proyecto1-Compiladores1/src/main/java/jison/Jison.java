@@ -15,8 +15,8 @@ public class Jison {
     private ArrayList<Variable> variables = new ArrayList<>();
     private ArrayList<String> comentarios = new ArrayList<>();
 
-    public Jison(String score) {
-        this.score = score;
+    public Jison(){
+        
     }
 
     public String getScore() {

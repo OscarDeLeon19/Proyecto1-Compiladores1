@@ -239,9 +239,9 @@ public class Comparacion {
         for (int i = 0; i < listaMetodos.size(); i++) {
             Metodo metodo = listaMetodos.get(i);
             if (i == listaMetodos.size() - 1) {
-                json = json + "\t\t{Nombre: \"" + metodo.getId() + "\", Tipo: \"" + metodo.getTipo() + "\", Parametros: " + metodo.getListaParametros().size() + "\"}\n";
+                json = json + "\t\t{Nombre: \"" + metodo.getId() + "\", Tipo: \"" + metodo.getTipo() + "\", Parametros: " + metodo.getListaParametros().size() + "}\n";
             } else {
-                json = json + "\t\t{Nombre: \"" + metodo.getId() + "\", Tipo: \"" + metodo.getTipo() + "\", Parametros: " + metodo.getListaParametros().size() + "\"},\n";
+                json = json + "\t\t{Nombre: \"" + metodo.getId() + "\", Tipo: \"" + metodo.getTipo() + "\", Parametros: " + metodo.getListaParametros().size() + "},\n";
             }
         }
         json = json + "\t" + "],\n";
@@ -254,7 +254,7 @@ public class Comparacion {
                 json = json + "\t\t{Texto: \"" + comentario + "\"},\n";
             }
         }
-        json = json + "\t" + "],\n";
+        json = json + "\t" + "]\n";
         json = json + "}";
 
         exportar.exportarJISON(json);

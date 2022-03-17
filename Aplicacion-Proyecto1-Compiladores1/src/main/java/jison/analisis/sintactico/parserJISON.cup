@@ -1,0 +1,99 @@
+package jison.analisis.sintactico;
+
+import java_cup.runtime.Symbol;
+import jison.analisis.lexico.*;
+import java.util.ArrayList;
+import jison.Jison;
+
+parser code
+{:
+
+    private ArrayList<String> errores = new ArrayList<>();
+    private Jison jison;
+
+    public void setJison(Jison jison) {
+        this.jison = jison;
+    }
+
+    public parser(LexerJISON lexer) {
+            super(lexer);
+    }
+
+    public void setErrores(ArrayList<String> errores) {
+        this.errores = errores;
+    }
+  
+    public void syntax_error(Symbol s) {
+        errores.add("Error Sintactico:| Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
+        System.out.println("Error Sintactico:| Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
+    }
+
+:};
+
+
+terminal SCORE, CLASES, VARIABLES, METODOS, COMENTARIOS, NOMBRE, TIPO, FUNCION, PARAMETROS, TEXTO, DECIMAL, ID, ENTERO, COMILLA,
+        DOS_PUNTOS, LLAVE_A, LLAVE_C, CORCHETE_A, CORCHETE_C, COMA, COMENTARIO, ERROR;
+
+non terminal s, cuerpo, clase, gram_clase, variable, gram_variable, funciones, identificador, metodo, gram_metodo, comentario,
+            gram_comentario;
+
+start with s;
+
+s ::= 
+    LLAVE_A cuerpo LLAVE_C
+; 
+
+cuerpo ::=
+    SCORE DOS_PUNTOS COMILLA DECIMAL COMILLA COMA
+    clase COMA
+    variable COMA
+    metodo COMA
+    comentario
+;
+
+clase ::=
+    CLASES DOS_PUNTOS CORCHETE_A gram_clase CORCHETE_C
+;
+
+gram_clase ::=
+    gram_clase COMA LLAVE_A NOMBRE DOS_PUNTOS identificador LLAVE_C
+    | LLAVE_A NOMBRE DOS_PUNTOS identificador LLAVE_C
+;
+
+variable ::=
+    VARIABLES DOS_PUNTOS CORCHETE_A gram_variable CORCHETE_C
+;
+
+gram_variable ::= 
+    gram_variable COMA LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA FUNCION DOS_PUNTOS funciones LLAVE_C
+    | LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA FUNCION DOS_PUNTOS funciones LLAVE_C
+;
+
+funciones ::=
+    funciones COMA identificador 
+    | identificador
+;
+
+identificador ::=
+    COMILLA ID COMILLA
+;
+
+metodo ::=
+    METODOS DOS_PUNTOS CORCHETE_A gram_metodo CORCHETE_C
+;
+
+gram_metodo ::=
+    gram_metodo COMA LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA PARAMETROS DOS_PUNTOS ENTERO LLAVE_C
+    | LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA PARAMETROS DOS_PUNTOS ENTERO LLAVE_C
+;
+
+comentario ::=
+    COMENTARIOS DOS_PUNTOS CORCHETE_A gram_comentario CORCHETE_C
+;
+
+gram_comentario ::= 
+    gram_comentario COMA LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO COMILLA LLAVE_C
+    | gram_comentario COMA LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO LLAVE_C
+    | LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO COMILLA LLAVE_C
+    | LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO LLAVE_C
+;
