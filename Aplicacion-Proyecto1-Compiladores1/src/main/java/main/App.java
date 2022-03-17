@@ -1,5 +1,8 @@
 package main;
 
+import clases.Clase;
+import clases.Metodo;
+import clases.Variable;
 import files.Carga;
 import java.util.ArrayList;
 import javax.swing.event.CaretEvent;
@@ -221,6 +224,32 @@ public class App extends javax.swing.JFrame {
         String texto = area2.getText();
         DatosJISON datos = new DatosJISON();
         jison = datos.analizarJISON(texto, errores);
+        
+        System.out.println(jison.getScore());
+        System.out.println("Clases");
+        for (Clase clase : jison.getClases()) {
+            System.out.println(clase.getId());
+            System.out.println("");
+        }
+        System.out.println("Variables");
+        for (Variable variable : jison.getVariables()) {
+            System.out.println(variable.getId());
+            System.out.println(variable.getTipo());
+            System.out.println(variable.getPadres());
+            System.out.println("");
+        }
+        System.out.println("Metodos");
+        for (Metodo metodo : jison.getMetodos()){
+            System.out.println(metodo.getId());
+            System.out.println(metodo.getTipo());
+            System.out.println(metodo.getCantidad_parametros());
+            System.out.println("");
+        }
+        System.out.println("Comentarios");
+        for(String comentari : jison.getComentarios()){
+            System.out.println(comentari);
+            System.out.println("");
+        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

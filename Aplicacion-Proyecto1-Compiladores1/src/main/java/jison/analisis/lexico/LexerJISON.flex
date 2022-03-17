@@ -51,7 +51,7 @@ texto {return new Symbol(sym.TEXTO, yyline+1, yycolumn+1, yytext());}
 {salto} {/*ignorar*/}
 {rot} {/*ignorar*/}
 {decimal} { return new Symbol(sym.DECIMAL, yyline+1, yycolumn+1, yytext());}
-{entero} {return new Symbol(sym.ENTERO, yyline+1, yycolumn+1, yytext());}
+{entero} {return new Symbol(sym.ENTERO, yyline+1, yycolumn+1, Integer.parseInt(yytext()));}
 {id}+ {return new Symbol(sym.ID, yyline+1, yycolumn+1, yytext());}
 "/*".*"*/" {return new Symbol(sym.COMENTARIO, yyline+1, yycolumn+1, yytext()); }
 "//".*{comilla} {return new Symbol(sym.COMENTARIO, yyline+1, yycolumn+1, yytext()); }

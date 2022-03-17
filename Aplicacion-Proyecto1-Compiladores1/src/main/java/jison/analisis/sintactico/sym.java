@@ -10,27 +10,27 @@ public class sym {
   /* terminals */
   public static final int METODOS = 5;
   public static final int DECIMAL = 12;
-  public static final int ERROR = 23;
+  public static final int ERROR = 20;
   public static final int SCORE = 2;
-  public static final int ID = 13;
-  public static final int DOS_PUNTOS = 16;
+  public static final int ID = 21;
+  public static final int DOS_PUNTOS = 14;
   public static final int TIPO = 8;
-  public static final int COMA = 21;
+  public static final int COMA = 19;
   public static final int VARIABLES = 4;
   public static final int COMENTARIOS = 6;
   public static final int NOMBRE = 7;
   public static final int EOF = 0;
   public static final int PARAMETROS = 10;
-  public static final int COMILLA = 15;
+  public static final int COMILLA = 13;
   public static final int TEXTO = 11;
   public static final int error = 1;
-  public static final int LLAVE_C = 18;
+  public static final int LLAVE_C = 16;
   public static final int CLASES = 3;
-  public static final int LLAVE_A = 17;
-  public static final int ENTERO = 14;
+  public static final int LLAVE_A = 15;
+  public static final int ENTERO = 23;
   public static final int COMENTARIO = 22;
-  public static final int CORCHETE_C = 20;
-  public static final int CORCHETE_A = 19;
+  public static final int CORCHETE_C = 18;
+  public static final int CORCHETE_A = 17;
   public static final int FUNCION = 9;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -46,8 +46,6 @@ public class sym {
   "PARAMETROS",
   "TEXTO",
   "DECIMAL",
-  "ID",
-  "ENTERO",
   "COMILLA",
   "DOS_PUNTOS",
   "LLAVE_A",
@@ -55,8 +53,10 @@ public class sym {
   "CORCHETE_A",
   "CORCHETE_C",
   "COMA",
+  "ERROR",
+  "ID",
   "COMENTARIO",
-  "ERROR"
+  "ENTERO"
   };
 }
 

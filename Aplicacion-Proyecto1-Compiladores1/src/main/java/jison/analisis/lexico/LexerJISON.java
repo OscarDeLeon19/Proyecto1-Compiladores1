@@ -802,7 +802,7 @@ public class LexerJISON implements java_cup.runtime.Scanner {
             // fall through
           case 27: break;
           case 5:
-            { return new Symbol(sym.ENTERO, yyline+1, yycolumn+1, yytext());
+            { return new Symbol(sym.ENTERO, yyline+1, yycolumn+1, Integer.parseInt(yytext()));
             }
             // fall through
           case 28: break;

@@ -14,7 +14,7 @@ public class Jison {
     private ArrayList<Metodo> metodos = new ArrayList<>();
     private ArrayList<Variable> variables = new ArrayList<>();
     private ArrayList<String> comentarios = new ArrayList<>();
-
+    private Variable var = new Variable();
     public Jison(){
         
     }
@@ -59,6 +59,35 @@ public class Jison {
         this.comentarios = comentarios;
     }
     
+    public void agregarClase(String nombre){
+        Clase clase = new Clase();
+        clase.setId(nombre);
+        clases.add(clase);
+    }
     
+    public void agregarFuncion(String funcion){
+        var.agregarPadre(funcion);
+    }
+    
+    public void agregarVariable(String nombre, String tipo){
+        var.setId(nombre);
+        var.setTipo(tipo);
+        variables.add(var);
+        Variable nueva = new Variable();
+        var = nueva;
+    }
+    
+    public void agregarMetodo(String nombre, String tipo, int param){
+        System.out.println("Metodo agregado");
+        Metodo metodo = new Metodo();
+        metodo.setId(nombre);
+        metodo.setTipo(tipo);
+        metodo.setCantidad_parametros(param);
+        metodos.add(metodo);
+    }
+    
+    public void agregarComentario(String comentario){
+        comentarios.add(comentario);
+    }
     
 }
