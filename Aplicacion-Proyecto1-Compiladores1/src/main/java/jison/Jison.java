@@ -78,7 +78,6 @@ public class Jison {
     }
     
     public void agregarMetodo(String nombre, String tipo, int param){
-        System.out.println("Metodo agregado");
         Metodo metodo = new Metodo();
         metodo.setId(nombre);
         metodo.setTipo(tipo);

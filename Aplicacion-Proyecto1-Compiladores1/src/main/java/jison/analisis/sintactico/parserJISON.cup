@@ -24,8 +24,7 @@ parser code
     }
   
     public void syntax_error(Symbol s) {
-        errores.add("Error Sintactico:| Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
-        System.out.println("Error Sintactico:| Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
+        errores.add("Error Sintactico: Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
     }
 
 :};
@@ -46,7 +45,7 @@ non terminal String identificador;
 start with s;
 
 s ::= 
-    LLAVE_A cuerpo LLAVE_C
+    LLAVE_A cuerpo LLAVE_C    
 ; 
 
 cuerpo ::=
@@ -58,21 +57,25 @@ cuerpo ::=
 ;
 
 clase ::=
-    CLASES DOS_PUNTOS CORCHETE_A gram_clase CORCHETE_C
+    CLASES DOS_PUNTOS CORCHETE_A gram_clase CORCHETE_C 
+    | error CORCHETE_A
 ;
 
 gram_clase ::=
     gram_clase COMA LLAVE_A NOMBRE DOS_PUNTOS identificador:var LLAVE_C {:jison.agregarClase(var);:}
-    | LLAVE_A NOMBRE DOS_PUNTOS identificador:var LLAVE_C {:jison.agregarClase(var);:}
+    | LLAVE_A NOMBRE DOS_PUNTOS identificador:var LLAVE_C {:jison.agregarClase(var);:}  
+    | error LLAVE_C
 ;
 
 variable ::=
-    VARIABLES DOS_PUNTOS CORCHETE_A gram_variable CORCHETE_C
+    VARIABLES DOS_PUNTOS CORCHETE_A gram_variable CORCHETE_C 
+    | error CORCHETE_A
 ;
 
 gram_variable ::= 
     gram_variable COMA LLAVE_A NOMBRE DOS_PUNTOS identificador:nombre COMA TIPO DOS_PUNTOS identificador:tipo COMA FUNCION DOS_PUNTOS funciones LLAVE_C {:jison.agregarVariable(nombre, tipo);:}
     | LLAVE_A NOMBRE DOS_PUNTOS identificador:nombre COMA TIPO DOS_PUNTOS identificador:tipo COMA FUNCION DOS_PUNTOS funciones LLAVE_C {:jison.agregarVariable(nombre, tipo);:}
+    | error LLAVE_C
 ;
 
 funciones ::=
@@ -86,15 +89,18 @@ identificador ::=
 
 metodo ::=
     METODOS DOS_PUNTOS CORCHETE_A gram_metodo CORCHETE_C
+    | error CORCHETE_A
 ;
 
 gram_metodo ::=
     gram_metodo COMA LLAVE_A NOMBRE DOS_PUNTOS identificador:nombre COMA TIPO DOS_PUNTOS identificador:tipo COMA PARAMETROS DOS_PUNTOS ENTERO:param LLAVE_C {:jison.agregarMetodo(nombre, tipo, param);:}
     | LLAVE_A NOMBRE DOS_PUNTOS identificador:nombre COMA TIPO DOS_PUNTOS identificador:tipo COMA PARAMETROS DOS_PUNTOS ENTERO:param LLAVE_C {:jison.agregarMetodo(nombre, tipo, param);:}
+    | error LLAVE_C
 ;
 
 comentario ::=
     COMENTARIOS DOS_PUNTOS CORCHETE_A gram_comentario CORCHETE_C
+    | error CORCHETE_A
 ;
 
 gram_comentario ::= 
@@ -102,4 +108,5 @@ gram_comentario ::=
     | gram_comentario COMA LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO:com LLAVE_C {:jison.agregarComentario(com.substring(0,com.length() -1));:}
     | LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO:com COMILLA LLAVE_C {:jison.agregarComentario(com);:}
     | LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO:com LLAVE_C {:jison.agregarComentario(com.substring(0,com.length() -1));:}
+    | error LLAVE_C
 ;

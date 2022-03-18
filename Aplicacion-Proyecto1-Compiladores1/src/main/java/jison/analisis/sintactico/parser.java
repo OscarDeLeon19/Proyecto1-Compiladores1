@@ -34,13 +34,16 @@ public class parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\025\000\002\002\004\000\002\002\005\000\002\016" +
-    "\002\000\002\003\020\000\002\004\007\000\002\005\011" +
-    "\000\002\005\007\000\002\006\007\000\002\007\021\000" +
-    "\002\007\017\000\002\010\005\000\002\010\003\000\002" +
-    "\015\005\000\002\011\007\000\002\012\021\000\002\012" +
-    "\017\000\002\013\007\000\002\014\013\000\002\014\012" +
-    "\000\002\014\011\000\002\014\010" });
+    "\000\035\000\002\002\004\000\002\002\005\000\002\016" +
+    "\002\000\002\003\020\000\002\004\007\000\002\004\004" +
+    "\000\002\005\011\000\002\005\007\000\002\005\004\000" +
+    "\002\006\007\000\002\006\004\000\002\007\021\000\002" +
+    "\007\017\000\002\007\004\000\002\010\005\000\002\010" +
+    "\003\000\002\015\005\000\002\011\007\000\002\011\004" +
+    "\000\002\012\021\000\002\012\017\000\002\012\004\000" +
+    "\002\013\007\000\002\013\004\000\002\014\013\000\002" +
+    "\014\012\000\002\014\011\000\002\014\010\000\002\014" +
+    "\004" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -48,69 +51,78 @@ public class parser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\200\000\004\021\005\001\002\000\004\002\202\001" +
-    "\002\000\004\004\007\001\002\000\004\022\201\001\002" +
+    "\000\220\000\004\021\005\001\002\000\004\002\222\001" +
+    "\002\000\004\004\007\001\002\000\004\022\221\001\002" +
     "\000\004\020\010\001\002\000\004\017\011\001\002\000" +
     "\004\016\012\001\002\000\004\017\013\001\002\000\004" +
-    "\025\014\001\002\000\004\005\uffff\001\002\000\004\005" +
-    "\016\001\002\000\004\020\162\001\002\000\004\025\020" +
-    "\001\002\000\004\006\022\001\002\000\004\025\070\001" +
-    "\002\000\004\020\023\001\002\000\004\023\024\001\002" +
-    "\000\004\021\026\001\002\000\006\024\052\025\051\001" +
-    "\002\000\004\011\027\001\002\000\004\020\030\001\002" +
-    "\000\004\017\031\001\002\000\004\027\047\001\002\000" +
-    "\004\025\033\001\002\000\004\012\034\001\002\000\004" +
-    "\020\035\001\002\000\004\017\031\001\002\000\004\025" +
-    "\037\001\002\000\004\013\040\001\002\000\004\020\041" +
-    "\001\002\000\004\017\031\001\002\000\006\022\ufff6\025" +
-    "\ufff6\001\002\000\006\022\045\025\044\001\002\000\004" +
-    "\017\031\001\002\000\006\024\ufff8\025\ufff8\001\002\000" +
-    "\006\022\ufff7\025\ufff7\001\002\000\004\017\050\001\002" +
-    "\000\006\022\ufff5\025\ufff5\001\002\000\004\021\053\001" +
-    "\002\000\004\025\ufffa\001\002\000\004\011\054\001\002" +
-    "\000\004\020\055\001\002\000\004\017\031\001\002\000" +
-    "\004\025\057\001\002\000\004\012\060\001\002\000\004" +
-    "\020\061\001\002\000\004\017\031\001\002\000\004\025" +
-    "\063\001\002\000\004\013\064\001\002\000\004\020\065" +
-    "\001\002\000\004\017\031\001\002\000\006\022\067\025" +
-    "\044\001\002\000\006\024\ufff9\025\ufff9\001\002\000\004" +
-    "\007\072\001\002\000\004\025\132\001\002\000\004\020" +
-    "\073\001\002\000\004\023\074\001\002\000\004\021\076" +
-    "\001\002\000\006\024\114\025\113\001\002\000\004\011" +
-    "\077\001\002\000\004\020\100\001\002\000\004\017\031" +
-    "\001\002\000\004\025\102\001\002\000\004\012\103\001" +
-    "\002\000\004\020\104\001\002\000\004\017\031\001\002" +
-    "\000\004\025\106\001\002\000\004\014\107\001\002\000" +
-    "\004\020\110\001\002\000\004\031\111\001\002\000\004" +
-    "\022\112\001\002\000\006\024\ufff2\025\ufff2\001\002\000" +
-    "\004\021\115\001\002\000\004\025\ufff4\001\002\000\004" +
-    "\011\116\001\002\000\004\020\117\001\002\000\004\017" +
-    "\031\001\002\000\004\025\121\001\002\000\004\012\122" +
-    "\001\002\000\004\020\123\001\002\000\004\017\031\001" +
-    "\002\000\004\025\125\001\002\000\004\014\126\001\002" +
-    "\000\004\020\127\001\002\000\004\031\130\001\002\000" +
-    "\004\022\131\001\002\000\006\024\ufff3\025\ufff3\001\002" +
-    "\000\004\010\134\001\002\000\004\022\ufffe\001\002\000" +
-    "\004\020\135\001\002\000\004\023\136\001\002\000\004" +
-    "\021\140\001\002\000\006\024\151\025\150\001\002\000" +
-    "\004\015\141\001\002\000\004\020\142\001\002\000\004" +
-    "\017\143\001\002\000\004\030\144\001\002\000\006\017" +
-    "\145\022\146\001\002\000\004\022\147\001\002\000\006" +
-    "\024\uffed\025\uffed\001\002\000\006\024\uffee\025\uffee\001" +
-    "\002\000\004\021\152\001\002\000\004\022\ufff1\001\002" +
-    "\000\004\015\153\001\002\000\004\020\154\001\002\000" +
-    "\004\017\155\001\002\000\004\030\156\001\002\000\006" +
-    "\017\157\022\160\001\002\000\004\022\161\001\002\000" +
-    "\006\024\uffef\025\uffef\001\002\000\006\024\ufff0\025\ufff0" +
-    "\001\002\000\004\023\163\001\002\000\004\021\165\001" +
-    "\002\000\006\024\173\025\172\001\002\000\004\011\166" +
-    "\001\002\000\004\020\167\001\002\000\004\017\031\001" +
-    "\002\000\004\022\171\001\002\000\006\024\ufffb\025\ufffb" +
-    "\001\002\000\004\021\174\001\002\000\004\025\ufffd\001" +
-    "\002\000\004\011\175\001\002\000\004\020\176\001\002" +
-    "\000\004\017\031\001\002\000\004\022\200\001\002\000" +
-    "\006\024\ufffc\025\ufffc\001\002\000\004\002\000\001\002" +
-    "\000\004\002\001\001\002" });
+    "\025\014\001\002\000\006\003\uffff\005\uffff\001\002\000" +
+    "\006\003\016\005\017\001\002\000\004\023\220\001\002" +
+    "\000\004\020\177\001\002\000\004\025\021\001\002\000" +
+    "\006\003\022\006\024\001\002\000\004\023\176\001\002" +
+    "\000\004\025\074\001\002\000\004\020\025\001\002\000" +
+    "\004\023\026\001\002\000\006\003\027\021\031\001\002" +
+    "\000\004\022\073\001\002\000\006\024\055\025\054\001" +
+    "\002\000\004\011\032\001\002\000\004\020\033\001\002" +
+    "\000\004\017\035\001\002\000\004\025\040\001\002\000" +
+    "\004\027\036\001\002\000\004\017\037\001\002\000\006" +
+    "\022\ufff1\025\ufff1\001\002\000\004\012\041\001\002\000" +
+    "\004\020\042\001\002\000\004\017\035\001\002\000\004" +
+    "\025\044\001\002\000\004\013\045\001\002\000\004\020" +
+    "\046\001\002\000\004\017\035\001\002\000\006\022\ufff2" +
+    "\025\ufff2\001\002\000\006\022\052\025\051\001\002\000" +
+    "\004\017\035\001\002\000\006\024\ufff5\025\ufff5\001\002" +
+    "\000\006\022\ufff3\025\ufff3\001\002\000\004\021\056\001" +
+    "\002\000\004\025\ufff8\001\002\000\004\011\057\001\002" +
+    "\000\004\020\060\001\002\000\004\017\035\001\002\000" +
+    "\004\025\062\001\002\000\004\012\063\001\002\000\004" +
+    "\020\064\001\002\000\004\017\035\001\002\000\004\025" +
+    "\066\001\002\000\004\013\067\001\002\000\004\020\070" +
+    "\001\002\000\004\017\035\001\002\000\006\022\072\025" +
+    "\051\001\002\000\006\024\ufff6\025\ufff6\001\002\000\006" +
+    "\024\ufff4\025\ufff4\001\002\000\006\003\075\007\077\001" +
+    "\002\000\004\023\175\001\002\000\004\025\141\001\002" +
+    "\000\004\020\100\001\002\000\004\023\101\001\002\000" +
+    "\006\003\102\021\104\001\002\000\004\022\140\001\002" +
+    "\000\006\024\122\025\121\001\002\000\004\011\105\001" +
+    "\002\000\004\020\106\001\002\000\004\017\035\001\002" +
+    "\000\004\025\110\001\002\000\004\012\111\001\002\000" +
+    "\004\020\112\001\002\000\004\017\035\001\002\000\004" +
+    "\025\114\001\002\000\004\014\115\001\002\000\004\020" +
+    "\116\001\002\000\004\031\117\001\002\000\004\022\120" +
+    "\001\002\000\006\024\uffed\025\uffed\001\002\000\004\021" +
+    "\123\001\002\000\004\025\ufff0\001\002\000\004\011\124" +
+    "\001\002\000\004\020\125\001\002\000\004\017\035\001" +
+    "\002\000\004\025\127\001\002\000\004\012\130\001\002" +
+    "\000\004\020\131\001\002\000\004\017\035\001\002\000" +
+    "\004\025\133\001\002\000\004\014\134\001\002\000\004" +
+    "\020\135\001\002\000\004\031\136\001\002\000\004\022" +
+    "\137\001\002\000\006\024\uffee\025\uffee\001\002\000\006" +
+    "\024\uffec\025\uffec\001\002\000\006\003\143\010\144\001" +
+    "\002\000\004\022\ufffe\001\002\000\004\023\174\001\002" +
+    "\000\004\020\145\001\002\000\004\023\146\001\002\000" +
+    "\006\003\147\021\151\001\002\000\004\022\173\001\002" +
+    "\000\006\024\162\025\161\001\002\000\004\015\152\001" +
+    "\002\000\004\020\153\001\002\000\004\017\154\001\002" +
+    "\000\004\030\155\001\002\000\006\017\156\022\157\001" +
+    "\002\000\004\022\160\001\002\000\006\024\uffe6\025\uffe6" +
+    "\001\002\000\006\024\uffe7\025\uffe7\001\002\000\004\021" +
+    "\163\001\002\000\004\022\uffeb\001\002\000\004\015\164" +
+    "\001\002\000\004\020\165\001\002\000\004\017\166\001" +
+    "\002\000\004\030\167\001\002\000\006\017\170\022\171" +
+    "\001\002\000\004\022\172\001\002\000\006\024\uffe8\025" +
+    "\uffe8\001\002\000\006\024\uffe9\025\uffe9\001\002\000\006" +
+    "\024\uffe5\025\uffe5\001\002\000\004\022\uffea\001\002\000" +
+    "\004\025\uffef\001\002\000\004\025\ufff7\001\002\000\004" +
+    "\023\200\001\002\000\006\003\201\021\203\001\002\000" +
+    "\004\022\217\001\002\000\006\024\211\025\210\001\002" +
+    "\000\004\011\204\001\002\000\004\020\205\001\002\000" +
+    "\004\017\035\001\002\000\004\022\207\001\002\000\006" +
+    "\024\ufffa\025\ufffa\001\002\000\004\021\212\001\002\000" +
+    "\004\025\ufffd\001\002\000\004\011\213\001\002\000\004" +
+    "\020\214\001\002\000\004\017\035\001\002\000\004\022" +
+    "\216\001\002\000\006\024\ufffb\025\ufffb\001\002\000\006" +
+    "\024\ufff9\025\ufff9\001\002\000\004\025\ufffc\001\002\000" +
+    "\004\002\000\001\002\000\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -118,50 +130,55 @@ public class parser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\200\000\004\002\003\001\001\000\002\001\001\000" +
+    "\000\220\000\004\002\003\001\001\000\002\001\001\000" +
     "\004\003\005\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\016\014\001\001\000\004\004\016" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\006" +
-    "\020\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\007\024\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\015\031\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\015\035\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\010\042\015" +
-    "\041\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\015\045\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\004\016\014\001\001\000\004\004\017" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\004\006\022\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\007" +
+    "\027\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\004\015\033\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\004\015" +
-    "\055\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\015\061\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\006\010\065\015\041" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\011" +
-    "\070\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\012\074\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\015\100\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\015\104\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\015\117\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\015\123\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\013\132\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\014\136\001\001" +
+    "\042\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\006\010\047\015\046\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\015\052\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\004\015\060" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\004\015\064\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\006\010\070\015\046\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\011\075\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\004\012\102" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\015\106\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\015" +
+    "\112\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\015\125\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\004\015\131" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\013\141\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\014\147\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\005\163\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\015\167\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\001\001\000\004\005\201\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\015\176\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001" });
+    "\015\205\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\015\214\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -217,8 +234,7 @@ public class parser extends java_cup.runtime.lr_parser {
     }
   
     public void syntax_error(Symbol s) {
-        errores.add("Error Sintactico:| Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
-        System.out.println("Error Sintactico:| Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
+        errores.add("Error Sintactico: Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
     }
 
 
@@ -306,7 +322,16 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // gram_clase ::= gram_clase COMA LLAVE_A NOMBRE DOS_PUNTOS identificador LLAVE_C 
+          case 5: // clase ::= error CORCHETE_A 
+            {
+              Object RESULT =null;
+
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("clase",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 6: // gram_clase ::= gram_clase COMA LLAVE_A NOMBRE DOS_PUNTOS identificador LLAVE_C 
             {
               Object RESULT =null;
 		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
@@ -318,7 +343,7 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // gram_clase ::= LLAVE_A NOMBRE DOS_PUNTOS identificador LLAVE_C 
+          case 7: // gram_clase ::= LLAVE_A NOMBRE DOS_PUNTOS identificador LLAVE_C 
             {
               Object RESULT =null;
 		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
@@ -330,7 +355,16 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // variable ::= VARIABLES DOS_PUNTOS CORCHETE_A gram_variable CORCHETE_C 
+          case 8: // gram_clase ::= error LLAVE_C 
+            {
+              Object RESULT =null;
+
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("gram_clase",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 9: // variable ::= VARIABLES DOS_PUNTOS CORCHETE_A gram_variable CORCHETE_C 
             {
               Object RESULT =null;
 
@@ -339,7 +373,16 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // gram_variable ::= gram_variable COMA LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA FUNCION DOS_PUNTOS funciones LLAVE_C 
+          case 10: // variable ::= error CORCHETE_A 
+            {
+              Object RESULT =null;
+
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("variable",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 11: // gram_variable ::= gram_variable COMA LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA FUNCION DOS_PUNTOS funciones LLAVE_C 
             {
               Object RESULT =null;
 		int nombreleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)).left;
@@ -354,7 +397,7 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // gram_variable ::= LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA FUNCION DOS_PUNTOS funciones LLAVE_C 
+          case 12: // gram_variable ::= LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA FUNCION DOS_PUNTOS funciones LLAVE_C 
             {
               Object RESULT =null;
 		int nombreleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)).left;
@@ -369,7 +412,16 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // funciones ::= funciones COMA identificador 
+          case 13: // gram_variable ::= error LLAVE_C 
+            {
+              Object RESULT =null;
+
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("gram_variable",5, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 14: // funciones ::= funciones COMA identificador 
             {
               Object RESULT =null;
 		int funcionleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
@@ -381,7 +433,7 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // funciones ::= identificador 
+          case 15: // funciones ::= identificador 
             {
               Object RESULT =null;
 		int funcionleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
@@ -393,7 +445,7 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // identificador ::= COMILLA ID COMILLA 
+          case 16: // identificador ::= COMILLA ID COMILLA 
             {
               String RESULT =null;
 		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
@@ -405,7 +457,7 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // metodo ::= METODOS DOS_PUNTOS CORCHETE_A gram_metodo CORCHETE_C 
+          case 17: // metodo ::= METODOS DOS_PUNTOS CORCHETE_A gram_metodo CORCHETE_C 
             {
               Object RESULT =null;
 
@@ -414,7 +466,16 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // gram_metodo ::= gram_metodo COMA LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA PARAMETROS DOS_PUNTOS ENTERO LLAVE_C 
+          case 18: // metodo ::= error CORCHETE_A 
+            {
+              Object RESULT =null;
+
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("metodo",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 19: // gram_metodo ::= gram_metodo COMA LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA PARAMETROS DOS_PUNTOS ENTERO LLAVE_C 
             {
               Object RESULT =null;
 		int nombreleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)).left;
@@ -432,7 +493,7 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // gram_metodo ::= LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA PARAMETROS DOS_PUNTOS ENTERO LLAVE_C 
+          case 20: // gram_metodo ::= LLAVE_A NOMBRE DOS_PUNTOS identificador COMA TIPO DOS_PUNTOS identificador COMA PARAMETROS DOS_PUNTOS ENTERO LLAVE_C 
             {
               Object RESULT =null;
 		int nombreleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)).left;
@@ -450,7 +511,16 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // comentario ::= COMENTARIOS DOS_PUNTOS CORCHETE_A gram_comentario CORCHETE_C 
+          case 21: // gram_metodo ::= error LLAVE_C 
+            {
+              Object RESULT =null;
+
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("gram_metodo",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 22: // comentario ::= COMENTARIOS DOS_PUNTOS CORCHETE_A gram_comentario CORCHETE_C 
             {
               Object RESULT =null;
 
@@ -459,7 +529,16 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // gram_comentario ::= gram_comentario COMA LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO COMILLA LLAVE_C 
+          case 23: // comentario ::= error CORCHETE_A 
+            {
+              Object RESULT =null;
+
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("comentario",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 24: // gram_comentario ::= gram_comentario COMA LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO COMILLA LLAVE_C 
             {
               Object RESULT =null;
 		int comleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
@@ -471,7 +550,7 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // gram_comentario ::= gram_comentario COMA LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO LLAVE_C 
+          case 25: // gram_comentario ::= gram_comentario COMA LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO LLAVE_C 
             {
               Object RESULT =null;
 		int comleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
@@ -483,7 +562,7 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // gram_comentario ::= LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO COMILLA LLAVE_C 
+          case 26: // gram_comentario ::= LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO COMILLA LLAVE_C 
             {
               Object RESULT =null;
 		int comleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
@@ -495,7 +574,7 @@ jison.setScore(numero.toString());
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // gram_comentario ::= LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO LLAVE_C 
+          case 27: // gram_comentario ::= LLAVE_A TEXTO DOS_PUNTOS COMILLA COMENTARIO LLAVE_C 
             {
               Object RESULT =null;
 		int comleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
@@ -503,6 +582,15 @@ jison.setScore(numero.toString());
 		String com = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		jison.agregarComentario(com.substring(0,com.length() -1));
               CUP$parser$result = parser.getSymbolFactory().newSymbol("gram_comentario",10, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+            }
+          return CUP$parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 28: // gram_comentario ::= error LLAVE_C 
+            {
+              Object RESULT =null;
+
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("gram_comentario",10, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 

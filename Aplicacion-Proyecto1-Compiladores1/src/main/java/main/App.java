@@ -12,8 +12,6 @@ import jison.DatosJISON;
 import jison.Jison;
 import lineas.Numeracion;
 
-
-
 public class App extends javax.swing.JFrame {
 
     private Carga cargar = new Carga();
@@ -31,7 +29,7 @@ public class App extends javax.swing.JFrame {
 
         agregarNumeracion();
         cargarArchivos();
-        
+
         area2.addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
@@ -46,15 +44,15 @@ public class App extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void cargarArchivos(){
+
+    public void cargarArchivos() {
         System.out.println("DEF" + pathDEF);
         System.out.println("JISON" + pathJISON);
         cargar.cargarArchivo(pathDEF, area1);
         cargar.cargarArchivo(pathJISON, area2);
     }
-    
-    public void agregarNumeracion(){
+
+    public void agregarNumeracion() {
         Numeracion lineas1 = new Numeracion(area1);
         Numeracion lineas2 = new Numeracion(area2);
         jScrollPane1.setRowHeaderView(lineas1);
@@ -76,6 +74,8 @@ public class App extends javax.swing.JFrame {
         labelPosJison = new javax.swing.JLabel();
         panelREPORTES = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        areaErrores = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -158,6 +158,12 @@ public class App extends javax.swing.JFrame {
 
         jLabel1.setText("Consola de errores:");
 
+        areaErrores.setColumns(20);
+        areaErrores.setRows(5);
+        areaErrores.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        areaErrores.setEnabled(false);
+        jScrollPane3.setViewportView(areaErrores);
+
         jMenu1.setText("Archivo");
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -190,11 +196,12 @@ public class App extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pestanas)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3)
+                    .addComponent(pestanas, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -206,7 +213,9 @@ public class App extends javax.swing.JFrame {
                 .addComponent(pestanas, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -220,11 +229,12 @@ public class App extends javax.swing.JFrame {
         cargar.guardar(pathJISON, area2.getText());
     }//GEN-LAST:event_itemGuardarJisonActionPerformed
 
-    public void compilarJison(){
+    public void compilarJison() {
         String texto = area2.getText();
         DatosJISON datos = new DatosJISON();
+        errores.clear();
         jison = datos.analizarJISON(texto, errores);
-        
+
         System.out.println(jison.getScore());
         System.out.println("Clases");
         for (Clase clase : jison.getClases()) {
@@ -239,22 +249,34 @@ public class App extends javax.swing.JFrame {
             System.out.println("");
         }
         System.out.println("Metodos");
-        for (Metodo metodo : jison.getMetodos()){
+        for (Metodo metodo : jison.getMetodos()) {
             System.out.println(metodo.getId());
             System.out.println(metodo.getTipo());
             System.out.println(metodo.getCantidad_parametros());
             System.out.println("");
         }
         System.out.println("Comentarios");
-        for(String comentari : jison.getComentarios()){
+        for (String comentari : jison.getComentarios()) {
             System.out.println(comentari);
             System.out.println("");
         }
+
+        agregarErrores();
+
     }
-    
+
+    public void agregarErrores() {
+        areaErrores.setText("");
+        for (String error : errores) {
+            areaErrores.append(error);
+            areaErrores.append("\n");
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea area1;
     private javax.swing.JTextArea area2;
+    private javax.swing.JTextArea areaErrores;
     private javax.swing.JButton botonCompilarJISON;
     private javax.swing.JMenuItem itemGuardarDEF;
     private javax.swing.JMenuItem itemGuardarJison;
@@ -265,6 +287,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel labelPosJison;
     private javax.swing.JMenu menuGuardar;
     private javax.swing.JPanel panelDEF;
