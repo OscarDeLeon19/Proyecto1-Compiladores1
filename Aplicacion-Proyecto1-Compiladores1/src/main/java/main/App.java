@@ -4,13 +4,18 @@ import clases.Clase;
 import clases.Metodo;
 import clases.Variable;
 import files.Carga;
+import java.io.StringReader;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.BadLocationException;
 import jison.DatosJISON;
 import jison.Jison;
 import lineas.Numeracion;
+import reporte.DatosReporte;
+import reporte.analisis.lexico.LexerReporte;
+import reporte.analisis.sintactico.parser;
 
 public class App extends javax.swing.JFrame {
 
@@ -31,6 +36,8 @@ public class App extends javax.swing.JFrame {
         agregarNumeracion();
         cargarArchivos();
 
+        compilarJison();
+
         area1.addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
@@ -44,7 +51,7 @@ public class App extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         area2.addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
@@ -266,7 +273,30 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_itemGuardarJisonActionPerformed
 
     private void botonReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporteActionPerformed
-        
+        DatosReporte dtsRep = new DatosReporte(jison);
+        errores.clear();
+        try {
+            dtsRep.setErrores(errores);
+            StringReader str = new StringReader(area1.getText());
+            LexerReporte lexer = new LexerReporte(str);
+            lexer.setErrores(errores);
+            parser par = new parser(lexer);
+            par.setErrores(errores);
+            par.setDtsRep(dtsRep);
+            par.parse();
+            
+            dtsRep.pintar();
+            JOptionPane.showMessageDialog(null, "Archivo correcto");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Errors");
+            e.printStackTrace();
+        }
+
+        if (errores.isEmpty() == false) {
+            areaErrores.append("Errores en el archivo de reportes");
+            areaErrores.append("\n");
+            agregarErrores();
+        }
     }//GEN-LAST:event_botonReporteActionPerformed
 
     public void compilarJison() {
@@ -277,7 +307,7 @@ public class App extends javax.swing.JFrame {
 
         if (errores.isEmpty() == false) {
             areaErrores.append("Errores en el archivo Jison");
-            areaErrores.append("\n");    
+            areaErrores.append("\n");
             agregarErrores();
         }
 

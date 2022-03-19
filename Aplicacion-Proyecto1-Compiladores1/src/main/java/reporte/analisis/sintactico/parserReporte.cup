@@ -3,11 +3,18 @@ package reporte.analisis.sintactico;
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
 import reporte.analisis.lexico.LexerReporte;
+import reporte.DatosReporte;
 
 parser code
 {:
 
     private ArrayList<String> errores = new ArrayList<>();
+    private DatosReporte dtsRep;
+    private int contarID = 0;
+
+    public void setDtsRep(DatosReporte dtsRep) {
+        this.dtsRep = dtsRep;
+    }
 
     public parser(LexerReporte lexer) {
             super(lexer);
@@ -25,17 +32,21 @@ parser code
 
 
 terminal SCORE, CLASES, VARIABLES, METODOS, COMENTARIOS, NOMBRE, TIPO, FUNCION, PARAMETROS, TEXTO, RESULT, INTEGER,
-        STRING, HTML, H1, H2, TABLE, FOR, ITERADOR, HASTA, TR, TD, TH, BR, DECIMAL, CADENA, ID, SUMA, RESTA,
+        STRING, HTML, H1, H2, TABLE, FOR, ITERADOR, HASTA, TR, TD, TH, BR, DECIMAL, SUMA, RESTA,
         MULTIPLICACION, DIVISION, PARENTESIS_A, PARENTESIS_C, PUNTO_COMA, DOS_PUNTOS, COMA, SIGNO_IGUAL, ETIQUETA_ABRIR,
         ETIQUETA_FIN, ETIQUETA_CERRAR, CORCHETE_A, CORCHETE_C, DOLAR, PUNTO, ERROR;
+
+terminal String ID, CADENA;
 
 terminal Integer ENTERO;
 
 non terminal s, sintax_html, variable_h1, body, etiqueta_table, cuerpo_table, fila, fila_th, fila_td,etiqueta_h,
-             var, asignacion, var_jison, valor, definicion, var_integer, var_string, c, identificador,
+             var, asignacion, var_jison, definicion, var_integer, var_string, identificador,
              columna, etiqueta_for, for_table;
 
-non terminal Integer expresion, expresion_string;
+non terminal Integer expresion, expresion_string, valor;
+
+non terminal String c;
 
 precedence left SUMA, RESTA;
 precedence left MULTIPLICACION, DIVISION;
@@ -61,12 +72,13 @@ body ::=
     | body etiqueta_table
     | body etiqueta_for
     |
+    | error ETIQUETA_CERRAR
 ;
 
 etiqueta_for ::=
-    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS valor HASTA valor DOS_PUNTOS PUNTO_COMA ETIQUETA_CERRAR
+    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS valor HASTA DOS_PUNTOS valor  PUNTO_COMA ETIQUETA_CERRAR
     body
-    ETIQUETA_FIN ETIQUETA_CERRAR 
+    ETIQUETA_FIN FOR ETIQUETA_CERRAR 
 ;
 
 etiqueta_table ::=
@@ -83,9 +95,9 @@ cuerpo_table ::=
 ;
 
 for_table ::=
-    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS valor HASTA valor DOS_PUNTOS PUNTO_COMA ETIQUETA_CERRAR
+    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS valor HASTA DOS_PUNTOS valor  PUNTO_COMA ETIQUETA_CERRAR
     cuerpo_table
-    ETIQUETA_FIN ETIQUETA_CERRAR 
+    ETIQUETA_FIN FOR ETIQUETA_CERRAR 
 ;
 
 columna ::=
@@ -93,8 +105,9 @@ columna ::=
 ;
 
 fila ::=
-    fila_th
-    | fila_td
+    fila fila_th
+    | fila fila_td
+    |
 ;
 
 fila_th ::=
@@ -114,6 +127,8 @@ etiqueta_h ::=
 var ::=
       var definicion
       | var asignacion
+      | 
+      | error PUNTO_COMA
 ;
 
 asignacion ::=
@@ -124,28 +139,28 @@ asignacion ::=
 ;
 
 var_jison ::=
-    RESULT PUNTO SCORE
+    RESULT PUNTO SCORE:val {:RESULT = dtsRep.obtenerValorJISON("Score", 0, null, valleft);:}
     | RESULT PUNTO CLASES
-    | RESULT PUNTO CLASES CORCHETE_A valor CORCHETE_C 
-    | RESULT PUNTO CLASES CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
+    | RESULT PUNTO CLASES CORCHETE_A valor:val CORCHETE_C {:RESULT = dtsRep.obtenerValorJISON("Clases", val, null, valleft);:}
+    | RESULT PUNTO CLASES CORCHETE_A valor:val CORCHETE_C PUNTO NOMBRE {:RESULT = dtsRep.obtenerValorJISON("Clases", val, "Nombre", valleft);:}
     | RESULT PUNTO VARIABLES
-    | RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C 
-    | RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
-    | RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO TIPO 
-    | RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO FUNCION 
+    | RESULT PUNTO VARIABLES CORCHETE_A valor:val CORCHETE_C {:RESULT = dtsRep.obtenerValorJISON("Variables", val, null, valleft);:}
+    | RESULT PUNTO VARIABLES CORCHETE_A valor:val CORCHETE_C PUNTO NOMBRE {:RESULT = dtsRep.obtenerValorJISON("Variables", val, "Nombre", valleft);:}
+    | RESULT PUNTO VARIABLES CORCHETE_A valor:val CORCHETE_C PUNTO TIPO {:RESULT = dtsRep.obtenerValorJISON("Variables", val, "Tipo", valleft);:}
+    | RESULT PUNTO VARIABLES CORCHETE_A valor:val CORCHETE_C PUNTO FUNCION {:RESULT = dtsRep.obtenerValorJISON("Variables", val, "Funcion", valleft);:}
     | RESULT PUNTO METODOS
-    | RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C 
-    | RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
-    | RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO TIPO 
-    | RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO PARAMETROS 
+    | RESULT PUNTO METODOS CORCHETE_A valor:val CORCHETE_C {:RESULT = dtsRep.obtenerValorJISON("Metodos", val, null, valleft);:}
+    | RESULT PUNTO METODOS CORCHETE_A valor:val CORCHETE_C PUNTO NOMBRE {:RESULT = dtsRep.obtenerValorJISON("Metodos", val, "Nombre", valleft);:}
+    | RESULT PUNTO METODOS CORCHETE_A valor:val CORCHETE_C PUNTO TIPO {:RESULT = dtsRep.obtenerValorJISON("Metodos", val, "Tipo", valleft);:}
+    | RESULT PUNTO METODOS CORCHETE_A valor:val CORCHETE_C PUNTO PARAMETROS {:RESULT = dtsRep.obtenerValorJISON("Metodos", val, "Parametros", valleft);:}
     | RESULT PUNTO COMENTARIOS
-    | RESULT PUNTO COMENTARIOS CORCHETE_A valor CORCHETE_C 
-    | RESULT PUNTO COMENTARIOS CORCHETE_A valor CORCHETE_C PUNTO TEXTO 
+    | RESULT PUNTO COMENTARIOS CORCHETE_A valor:val CORCHETE_C {:RESULT = dtsRep.obtenerValorJISON("Comentarios", val, null, valleft);:}
+    | RESULT PUNTO COMENTARIOS CORCHETE_A valor:val CORCHETE_C PUNTO TEXTO {:RESULT = dtsRep.obtenerValorJISON("Comentarios", val, "Texto", valleft);:}
 ;
 
 valor ::=
-    ID
-    | ENTERO
+    ID:e {:RESULT = Integer.parseInt(dtsRep.obtenerInteger(e, eleft));:}
+    | ENTERO:e {:RESULT = e;:}
 ;
 
 definicion ::=
@@ -154,27 +169,28 @@ definicion ::=
 ;
 
 var_integer ::=
-    INTEGER identificador PUNTO_COMA
-    | INTEGER ID SIGNO_IGUAL expresion PUNTO_COMA
-    | INTEGER ID SIGNO_IGUAL var_jison PUNTO_COMA
+    INTEGER identificador PUNTO_COMA {:dtsRep.agregarSimbolosID("Integer");:}
+    | INTEGER ID:id SIGNO_IGUAL expresion:e PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "Integer", String.valueOf(e), idleft, idright);:}
+    | INTEGER ID:id SIGNO_IGUAL var_jison:var PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "Integer", String.valueOf(var), idleft, idright);:}
 ;
 
 var_string ::=
-    STRING identificador PUNTO_COMA
-    | STRING ID SIGNO_IGUAL CADENA c PUNTO_COMA
-    | STRING ID SIGNO_IGUAL var_jison PUNTO_COMA
+    STRING identificador PUNTO_COMA {:dtsRep.agregarSimbolosID("String");:}
+    | STRING ID:id SIGNO_IGUAL CADENA:cad c:resto PUNTO_COMA {:dtsRep.agregarSimboloDeclaracionString(id, "String", cad,resto, idleft, idright);:}
+    | STRING ID:id SIGNO_IGUAL var_jison:var PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "String", String.valueOf(var), idleft, idright);:}
 ;
 
 c ::= 
-    c SUMA CADENA 
-    | c SUMA expresion_string
-    | c SUMA ID
+    c SUMA CADENA:cad {:RESULT = cad.substring(1,cad.length()-1);:}
+    | c SUMA expresion_string:e {:RESULT = "" + e;:}
+    | c SUMA ID:id {:RESULT = "" + dtsRep.obtenerInteger(e, eleft);:}
+    | c SUMA var_jison:var {:RESULT = String.valueOf(var);:}
     | 
 ;
 
 identificador ::=
-        ID
-        | identificador COMA ID  
+        ID:e {:dtsRep.agregarID(e, eleft, eright);:}
+        | identificador COMA ID:e {:dtsRep.agregarID(e,eleft, eright);:}  
 ;
 
 expresion ::=

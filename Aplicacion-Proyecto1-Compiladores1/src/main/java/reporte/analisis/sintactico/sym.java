@@ -12,50 +12,50 @@ public class sym {
   public static final int TIPO = 8;
   public static final int NOMBRE = 7;
   public static final int ENTERO = 47;
-  public static final int ETIQUETA_FIN = 40;
+  public static final int ETIQUETA_FIN = 38;
   public static final int FUNCION = 9;
   public static final int SCORE = 2;
-  public static final int RESTA = 30;
+  public static final int RESTA = 28;
   public static final int INTEGER = 13;
-  public static final int DOS_PUNTOS = 36;
   public static final int COMENTARIOS = 6;
-  public static final int CORCHETE_C = 43;
-  public static final int CORCHETE_A = 42;
+  public static final int DOS_PUNTOS = 34;
+  public static final int CORCHETE_C = 41;
+  public static final int CORCHETE_A = 40;
   public static final int ITERADOR = 20;
   public static final int FOR = 19;
   public static final int HASTA = 21;
-  public static final int SIGNO_IGUAL = 38;
-  public static final int SUMA = 29;
+  public static final int SIGNO_IGUAL = 36;
+  public static final int SUMA = 27;
   public static final int CLASES = 3;
-  public static final int PUNTO_COMA = 35;
-  public static final int ID = 28;
+  public static final int ID = 45;
+  public static final int PUNTO_COMA = 33;
   public static final int EOF = 0;
   public static final int DECIMAL = 26;
   public static final int TABLE = 18;
   public static final int error = 1;
-  public static final int COMA = 37;
-  public static final int CADENA = 27;
+  public static final int COMA = 35;
+  public static final int CADENA = 46;
   public static final int BR = 25;
-  public static final int ETIQUETA_CERRAR = 41;
-  public static final int ERROR = 46;
+  public static final int ETIQUETA_CERRAR = 39;
+  public static final int ERROR = 44;
   public static final int METODOS = 5;
-  public static final int PUNTO = 45;
+  public static final int PUNTO = 43;
   public static final int TR = 22;
   public static final int VARIABLES = 4;
-  public static final int PARENTESIS_C = 34;
-  public static final int PARENTESIS_A = 33;
+  public static final int PARENTESIS_C = 32;
+  public static final int PARENTESIS_A = 31;
   public static final int TH = 24;
-  public static final int ETIQUETA_ABRIR = 39;
+  public static final int ETIQUETA_ABRIR = 37;
   public static final int STRING = 14;
   public static final int TD = 23;
   public static final int HTML = 15;
   public static final int TEXTO = 11;
-  public static final int DIVISION = 32;
-  public static final int DOLAR = 44;
+  public static final int DIVISION = 30;
+  public static final int DOLAR = 42;
   public static final int H2 = 17;
   public static final int RESULT = 12;
   public static final int H1 = 16;
-  public static final int MULTIPLICACION = 31;
+  public static final int MULTIPLICACION = 29;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -84,8 +84,6 @@ public class sym {
   "TH",
   "BR",
   "DECIMAL",
-  "CADENA",
-  "ID",
   "SUMA",
   "RESTA",
   "MULTIPLICACION",
@@ -104,6 +102,8 @@ public class sym {
   "DOLAR",
   "PUNTO",
   "ERROR",
+  "ID",
+  "CADENA",
   "ENTERO"
   };
 }

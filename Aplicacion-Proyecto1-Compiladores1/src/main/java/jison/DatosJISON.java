@@ -9,7 +9,7 @@ import jison.analisis.sintactico.parser;
 
 
 public class DatosJISON {
- 
+    
     public DatosJISON() {
     }
     

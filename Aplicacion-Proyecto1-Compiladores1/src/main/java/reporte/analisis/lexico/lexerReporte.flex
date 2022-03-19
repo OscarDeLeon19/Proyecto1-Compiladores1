@@ -49,7 +49,7 @@ funcion {return new Symbol(sym.FUNCION, yyline+1, yycolumn+1, yytext());}
 parametros {return new Symbol(sym.PARAMETROS, yyline+1, yycolumn+1, yytext());}
 texto {return new Symbol(sym.TEXTO, yyline+1, yycolumn+1, yytext());}
 RESULT {return new Symbol(sym.RESULT, yyline+1, yycolumn+1, yytext());}
-Integer {return new Symbol(sym.INTEGER, yyline+1, yycolumn+1, yytext());}
+integer {return new Symbol(sym.INTEGER, yyline+1, yycolumn+1, yytext());}
 String {return new Symbol(sym.STRING, yyline+1, yycolumn+1, yytext());}
 html {return new Symbol(sym.HTML, yyline+1, yycolumn+1, yytext());}
 h1 {return new Symbol(sym.H1, yyline+1, yycolumn+1, yytext());}
@@ -70,7 +70,7 @@ br {return new Symbol(sym.BR, yyline+1, yycolumn+1, yytext());}
 {entero} {return new Symbol(sym.ENTERO, yyline+1, yycolumn+1, Integer.parseInt(yytext()));}
 {comilla}({id}|{entero}|{decimal}|{espacio}|"+"|"-"|"*"|"/"|":"|";"|"<"|">")*{comilla} {return new Symbol(sym.CADENA, yyline+1, yycolumn+1, yytext());}
 {id}+ {return new Symbol(sym.ID, yyline+1, yycolumn+1, yytext());}
-{Comment} {System.out.println(yytext());}
+"</".*"/>" {System.out.println(yytext());}
 {punto} {return new Symbol(sym.PUNTO, yyline+1, yycolumn+1, yytext()); }
 "$$" {return new Symbol(sym.DOLAR, yyline+1, yycolumn+1, yytext());}
 "+" {return new Symbol(sym.SUMA, yyline+1, yycolumn+1, yytext());}
