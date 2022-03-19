@@ -53,19 +53,6 @@ public class DatosReporte {
         }
     }
 
-    public void agregarSimboloDeclaracionString(String id, String tipo, String valor, String resto, int linea, int columna) {
-        String cadena = valor.substring(1, valor.length() - 1);
-        if (resto != null) {
-            cadena = cadena + resto;
-        }
-        Simbolo sim = new Simbolo(id, tipo, cadena, linea, columna);
-        if (tabla.comprobarSimbolo(sim) == false) {
-            tabla.agregarSimbolo(sim);
-        } else {
-            errores.add("Error Semantico en linea: " + linea + " | La variable ya esta declarada");
-        }
-    }
-
     public Object obtenerValorJISON(String lista, int i, String parametro, int linea) {
         Object valor = null;
         try {
@@ -92,7 +79,7 @@ public class DatosReporte {
         return valor;
     }
 
-    public String obtenerInteger(String id, int linea){
+    public String obtenerID(String id, int linea){
         String valor = null;
         boolean obtencion = false;
         for (Simbolo simbolo : tabla.getTabla()) {
@@ -107,7 +94,26 @@ public class DatosReporte {
         return valor;
     }
     
+    public void asignarID(String id, String valor, int linea){
+        boolean obtencion = false;
+        for (Simbolo simbolo : tabla.getTabla()) {
+            if (simbolo.getId().equals(id)){
+                simbolo.setValor(valor);
+                obtencion = true;
+            }
+        }
+        if (obtencion == false){
+           errores.add("Error Semantico en linea: " + linea+ " | La variable no fue definida");
+        }
+    }
     
+    public String convertirCadena(String cadena, String resto){
+        String cad = cadena.substring(1, cadena.length() - 1);
+        if (resto != null) {
+            cadena = cadena + resto;
+        }
+        return cad;
+    }
     
     public void pintar() {
         tabla.pintarSimbolos();

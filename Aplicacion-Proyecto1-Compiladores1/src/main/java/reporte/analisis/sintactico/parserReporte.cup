@@ -132,10 +132,10 @@ var ::=
 ;
 
 asignacion ::=
-    ID SIGNO_IGUAL expresion PUNTO_COMA
-    | ID SIGNO_IGUAL CADENA PUNTO_COMA
-    | ID SIGNO_IGUAL ID PUNTO_COMA
-    | ID SIGNO_IGUAL var_jison PUNTO_COMA
+    ID:id SIGNO_IGUAL expresion:e PUNTO_COMA {:dtsRep.asignarID(id, String.valueOf(e), idleft);:}
+    | ID:id SIGNO_IGUAL CADENA:cad c:resto PUNTO_COMA {:dtsRep.asignarID(id, dtsRep.convertirCadena(cad, resto), idleft);:}
+    | ID:id SIGNO_IGUAL ID:asig PUNTO_COMA {:dtsRep.asignarID(id, dtsRep.obtenerID(asig, asigleft), idleft);:}
+    | ID:id SIGNO_IGUAL var_jison:var PUNTO_COMA {:dtsRep.asignarID(id, String.valueOf(var), idleft);:}
 ;
 
 var_jison ::=
@@ -159,7 +159,7 @@ var_jison ::=
 ;
 
 valor ::=
-    ID:e {:RESULT = Integer.parseInt(dtsRep.obtenerInteger(e, eleft));:}
+    ID:e {:RESULT = Integer.parseInt(dtsRep.obtenerID(e, eleft));:}
     | ENTERO:e {:RESULT = e;:}
 ;
 
@@ -176,14 +176,14 @@ var_integer ::=
 
 var_string ::=
     STRING identificador PUNTO_COMA {:dtsRep.agregarSimbolosID("String");:}
-    | STRING ID:id SIGNO_IGUAL CADENA:cad c:resto PUNTO_COMA {:dtsRep.agregarSimboloDeclaracionString(id, "String", cad,resto, idleft, idright);:}
+    | STRING ID:id SIGNO_IGUAL CADENA:cad c:resto PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "String",dtsRep.convertirCadena(cad, resto), idleft, idright);:}
     | STRING ID:id SIGNO_IGUAL var_jison:var PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "String", String.valueOf(var), idleft, idright);:}
 ;
 
 c ::= 
     c SUMA CADENA:cad {:RESULT = cad.substring(1,cad.length()-1);:}
     | c SUMA expresion_string:e {:RESULT = "" + e;:}
-    | c SUMA ID:id {:RESULT = "" + dtsRep.obtenerInteger(e, eleft);:}
+    | c SUMA ID:id {:RESULT = "" + dtsRep.obtenerID(id, idleft);:}
     | c SUMA var_jison:var {:RESULT = String.valueOf(var);:}
     | 
 ;
