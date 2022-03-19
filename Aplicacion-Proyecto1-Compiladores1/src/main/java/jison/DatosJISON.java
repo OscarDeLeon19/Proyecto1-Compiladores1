@@ -3,6 +3,7 @@ package jison;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import jison.analisis.lexico.LexerJISON;
 import jison.analisis.sintactico.parser;
 
@@ -22,8 +23,9 @@ public class DatosJISON {
             par.setErrores(errores);
             par.setJison(jison);
             par.parse();
+            JOptionPane.showMessageDialog(null, "Jison compilado correctamente");
         } catch (Exception e) {
-            System.out.println(e);
+            jison = null;
         }
         return jison;
     }

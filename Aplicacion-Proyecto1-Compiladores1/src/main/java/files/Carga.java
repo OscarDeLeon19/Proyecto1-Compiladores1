@@ -34,7 +34,7 @@ public class Carga {
     }
 
     public String[] obtenerCOPY() {
-        String[] paths = new String[2];
+        String[] paths = new String[3];
         File fichero;
         JFileChooser seleccionar = new JFileChooser();
 

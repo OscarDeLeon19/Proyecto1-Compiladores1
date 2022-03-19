@@ -1,0 +1,212 @@
+package reporte.analisis.sintactico;
+
+import java_cup.runtime.Symbol;
+import java.util.ArrayList;
+import reporte.analisis.lexico.LexerReporte;
+
+parser code
+{:
+
+    private ArrayList<String> errores = new ArrayList<>();
+
+    public parser(LexerReporte lexer) {
+            super(lexer);
+    }
+
+    public void setErrores(ArrayList<String> errores) {
+        this.errores = errores;
+    }
+  
+    public void syntax_error(Symbol s) {
+        errores.add("Error Sintactico: Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
+    }
+
+:};
+
+
+terminal SCORE, CLASES, VARIABLES, METODOS, COMENTARIOS, NOMBRE, TIPO, FUNCION, PARAMETROS, TEXTO, RESULT, INTEGER,
+        STRING, HTML, H1, H2, TABLE, FOR, ITERADOR, HASTA, TR, TD, TH, BR, DECIMAL, CADENA, ID, SUMA, RESTA,
+        MULTIPLICACION, DIVISION, PARENTESIS_A, PARENTESIS_C, PUNTO_COMA, DOS_PUNTOS, COMA, SIGNO_IGUAL, ETIQUETA_ABRIR,
+        ETIQUETA_FIN, ETIQUETA_CERRAR, CORCHETE_A, CORCHETE_C, DOLAR, PUNTO, ERROR;
+
+terminal Integer ENTERO;
+
+non terminal s, sintax_html, variable_h1, body, etiqueta_table, cuerpo_table, fila, fila_th, fila_td,etiqueta_h,
+             var, asignacion, var_jison, valor, definicion, var_integer, var_string, c, identificador,
+             columna, etiqueta_for, for_table;
+
+non terminal Integer expresion, expresion_string;
+
+precedence left SUMA, RESTA;
+precedence left MULTIPLICACION, DIVISION;
+
+start with s;
+
+s ::= 
+    var sintax_html 
+; 
+
+sintax_html ::=
+    ETIQUETA_ABRIR HTML ETIQUETA_CERRAR body ETIQUETA_FIN HTML ETIQUETA_CERRAR
+;
+
+variable_h1 ::=
+    DOLAR PARENTESIS_A ID PARENTESIS_C DOLAR
+    | DOLAR PARENTESIS_A var_jison PARENTESIS_C DOLAR
+    | CADENA c
+;
+
+body ::=
+    body etiqueta_h
+    | body etiqueta_table
+    | body etiqueta_for
+    |
+;
+
+etiqueta_for ::=
+    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS valor HASTA valor DOS_PUNTOS PUNTO_COMA ETIQUETA_CERRAR
+    body
+    ETIQUETA_FIN ETIQUETA_CERRAR 
+;
+
+etiqueta_table ::=
+    ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR 
+    cuerpo_table
+    ETIQUETA_FIN TABLE ETIQUETA_CERRAR 
+;
+
+cuerpo_table ::=
+    cuerpo_table etiqueta_h
+    | cuerpo_table columna
+    | cuerpo_table for_table
+    |
+;
+
+for_table ::=
+    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS valor HASTA valor DOS_PUNTOS PUNTO_COMA ETIQUETA_CERRAR
+    cuerpo_table
+    ETIQUETA_FIN ETIQUETA_CERRAR 
+;
+
+columna ::=
+    ETIQUETA_ABRIR TR ETIQUETA_CERRAR fila  ETIQUETA_FIN TR ETIQUETA_CERRAR 
+;
+
+fila ::=
+    fila_th
+    | fila_td
+;
+
+fila_th ::=
+    ETIQUETA_ABRIR TH ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN TH ETIQUETA_CERRAR 
+;
+
+fila_td ::=
+    ETIQUETA_ABRIR TD ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN TD ETIQUETA_CERRAR 
+;
+
+
+etiqueta_h ::=
+    ETIQUETA_ABRIR H1 ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN H1 ETIQUETA_CERRAR
+    | ETIQUETA_ABRIR H2 ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN H2 ETIQUETA_CERRAR
+;
+
+var ::=
+      var definicion
+      | var asignacion
+;
+
+asignacion ::=
+    ID SIGNO_IGUAL expresion PUNTO_COMA
+    | ID SIGNO_IGUAL CADENA PUNTO_COMA
+    | ID SIGNO_IGUAL ID PUNTO_COMA
+    | ID SIGNO_IGUAL var_jison PUNTO_COMA
+;
+
+var_jison ::=
+    RESULT PUNTO SCORE
+    | RESULT PUNTO CLASES
+    | RESULT PUNTO CLASES CORCHETE_A valor CORCHETE_C 
+    | RESULT PUNTO CLASES CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
+    | RESULT PUNTO VARIABLES
+    | RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C 
+    | RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
+    | RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO TIPO 
+    | RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO FUNCION 
+    | RESULT PUNTO METODOS
+    | RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C 
+    | RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
+    | RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO TIPO 
+    | RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO PARAMETROS 
+    | RESULT PUNTO COMENTARIOS
+    | RESULT PUNTO COMENTARIOS CORCHETE_A valor CORCHETE_C 
+    | RESULT PUNTO COMENTARIOS CORCHETE_A valor CORCHETE_C PUNTO TEXTO 
+;
+
+valor ::=
+    ID
+    | ENTERO
+;
+
+definicion ::=
+    var_integer
+    | var_string
+;
+
+var_integer ::=
+    INTEGER identificador PUNTO_COMA
+    | INTEGER ID SIGNO_IGUAL expresion PUNTO_COMA
+    | INTEGER ID SIGNO_IGUAL var_jison PUNTO_COMA
+;
+
+var_string ::=
+    STRING identificador PUNTO_COMA
+    | STRING ID SIGNO_IGUAL CADENA c PUNTO_COMA
+    | STRING ID SIGNO_IGUAL var_jison PUNTO_COMA
+;
+
+c ::= 
+    c SUMA CADENA 
+    | c SUMA expresion_string
+    | c SUMA ID
+    | 
+;
+
+identificador ::=
+        ID
+        | identificador COMA ID  
+;
+
+expresion ::=
+           ENTERO:n {: RESULT = n; :}
+        | expresion:e1 SUMA:o expresion:e2
+                    {: RESULT = e1 + e2; :}
+        | expresion:e1 RESTA:o expresion:e2
+                    {: RESULT = e1 - e2; :}
+        | expresion:e1 MULTIPLICACION:o expresion:e2
+                    {: RESULT = e1 * e2; :}
+        | expresion:e1 DIVISION:o expresion:e2
+                    {: RESULT = e1 / e2;:}
+        | RESTA expresion:e 
+                    {:RESULT = 0 - e;:}
+        | PARENTESIS_A expresion:e PARENTESIS_C
+                    {:RESULT = e;:}
+;
+
+expresion_string ::=
+           ENTERO:n {: RESULT = n; :}
+        | expresion_string:e1 SUMA:o expresion_string:e2
+                    {: RESULT = e1 + e2; :}
+        | expresion_string:e1 RESTA:o expresion_string:e2
+                    {: RESULT = e1 - e2; :}
+        | expresion_string:e1 MULTIPLICACION:o expresion_string:e2
+                    {: RESULT = e1 * e2; :}
+        | expresion_string:e1 DIVISION:o expresion_string:e2
+                    {: RESULT = e1 / e2;:}
+        | RESTA expresion_string:e
+                    {:RESULT = 0 - e;:}
+        | PARENTESIS_A expresion_string:e PARENTESIS_C
+                    {:RESULT = e;:}
+;
+
+

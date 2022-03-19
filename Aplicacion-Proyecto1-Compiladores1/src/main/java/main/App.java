@@ -19,17 +19,32 @@ public class App extends javax.swing.JFrame {
     private Jison jison;
     private String pathDEF;
     private String pathJISON;
+    private String pathReporte;
 
-    public App(String pathDEF, String pathJISON) {
+    public App(String pathDEF, String pathJISON, String pathReporte) {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         this.pathDEF = pathDEF;
         this.pathJISON = pathJISON;
-
+        this.pathReporte = pathReporte;
         agregarNumeracion();
         cargarArchivos();
 
+        area1.addCaretListener(new CaretListener() {
+            @Override
+            public void caretUpdate(CaretEvent e) {
+                int pos = e.getDot();
+                try {
+                    int row = area1.getLineOfOffset(pos) + 1;
+                    int col = pos - area1.getLineStartOffset(row - 1) + 1;
+                    labelPosDef.setText("Fila: " + row + " Columna: " + col);
+                } catch (BadLocationException exc) {
+                    System.out.println(exc);
+                }
+            }
+        });
+        
         area2.addCaretListener(new CaretListener() {
             @Override
             public void caretUpdate(CaretEvent e) {
@@ -67,6 +82,8 @@ public class App extends javax.swing.JFrame {
         panelDEF = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         area1 = new javax.swing.JTextArea();
+        botonReporte = new javax.swing.JButton();
+        labelPosDef = new javax.swing.JLabel();
         panelJISON = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         area2 = new javax.swing.JTextArea();
@@ -90,17 +107,36 @@ public class App extends javax.swing.JFrame {
         area1.setRows(5);
         jScrollPane1.setViewportView(area1);
 
+        botonReporte.setText("Crear Reporte ");
+        botonReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonReporteActionPerformed(evt);
+            }
+        });
+
+        labelPosDef.setText("Fila: Columna: ");
+
         javax.swing.GroupLayout panelDEFLayout = new javax.swing.GroupLayout(panelDEF);
         panelDEF.setLayout(panelDEFLayout);
         panelDEFLayout.setHorizontalGroup(
             panelDEFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDEFLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelPosDef)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74))
         );
         panelDEFLayout.setVerticalGroup(
             panelDEFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDEFLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 53, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelDEFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonReporte, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(labelPosDef))
+                .addContainerGap())
         );
 
         pestanas.addTab(".def", panelDEF);
@@ -229,39 +265,21 @@ public class App extends javax.swing.JFrame {
         cargar.guardar(pathJISON, area2.getText());
     }//GEN-LAST:event_itemGuardarJisonActionPerformed
 
+    private void botonReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporteActionPerformed
+        
+    }//GEN-LAST:event_botonReporteActionPerformed
+
     public void compilarJison() {
         String texto = area2.getText();
         DatosJISON datos = new DatosJISON();
         errores.clear();
         jison = datos.analizarJISON(texto, errores);
 
-        System.out.println(jison.getScore());
-        System.out.println("Clases");
-        for (Clase clase : jison.getClases()) {
-            System.out.println(clase.getId());
-            System.out.println("");
+        if (errores.isEmpty() == false) {
+            areaErrores.append("Errores en el archivo Jison");
+            areaErrores.append("\n");    
+            agregarErrores();
         }
-        System.out.println("Variables");
-        for (Variable variable : jison.getVariables()) {
-            System.out.println(variable.getId());
-            System.out.println(variable.getTipo());
-            System.out.println(variable.getPadres());
-            System.out.println("");
-        }
-        System.out.println("Metodos");
-        for (Metodo metodo : jison.getMetodos()) {
-            System.out.println(metodo.getId());
-            System.out.println(metodo.getTipo());
-            System.out.println(metodo.getCantidad_parametros());
-            System.out.println("");
-        }
-        System.out.println("Comentarios");
-        for (String comentari : jison.getComentarios()) {
-            System.out.println(comentari);
-            System.out.println("");
-        }
-
-        agregarErrores();
 
     }
 
@@ -278,6 +296,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTextArea area2;
     private javax.swing.JTextArea areaErrores;
     private javax.swing.JButton botonCompilarJISON;
+    private javax.swing.JButton botonReporte;
     private javax.swing.JMenuItem itemGuardarDEF;
     private javax.swing.JMenuItem itemGuardarJison;
     private javax.swing.JLabel jLabel1;
@@ -288,6 +307,7 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel labelPosDef;
     private javax.swing.JLabel labelPosJison;
     private javax.swing.JMenu menuGuardar;
     private javax.swing.JPanel panelDEF;

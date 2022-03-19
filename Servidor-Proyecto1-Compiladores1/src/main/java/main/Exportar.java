@@ -31,10 +31,11 @@ public class Exportar {
             String pathDEF = directorio.getAbsolutePath() + "/reportes.def";
             String pathJISON = directorio.getAbsolutePath() + "/" + carpeta + ".jison";
             String pathCOPY = directorio.getAbsolutePath() + "/" + carpeta + ".copy";
+            String pathReporte = directorio.getAbsolutePath() + "/reporte.html";
             File archivoDEF = new File(pathDEF);
             File archivoJISON = new File(pathJISON);
             File archivoCOPY = new File(pathCOPY);
-            String textoCOPY = pathDEF + "\n" + pathJISON;
+            String textoCOPY = pathDEF + "\n" + pathJISON + "\n" + pathReporte;
             
             archivoDEF.createNewFile();
             archivoJISON.createNewFile();
