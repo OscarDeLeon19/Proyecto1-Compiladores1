@@ -10,7 +10,7 @@ parser code
 
     private ArrayList<String> errores = new ArrayList<>();
     private DatosReporte dtsRep;
-    private int contarID = 0;
+    String nuevaCadena = "";
 
     public void setDtsRep(DatosReporte dtsRep) {
         this.dtsRep = dtsRep;
@@ -68,9 +68,9 @@ variable_h1 ::=
 ;
 
 body ::=
-    body etiqueta_h
-    | body etiqueta_table
-    | body etiqueta_for
+    body etiqueta_h {:System.out.println("Se puso una etiqueta");:}
+    | body etiqueta_table {:System.out.println("Se puso una tabla");:}
+    | body etiqueta_for {:System.out.println("Se puso un for");:}
     |
     | error ETIQUETA_CERRAR
 ;
@@ -82,15 +82,15 @@ etiqueta_for ::=
 ;
 
 etiqueta_table ::=
-    ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR 
+    ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR {:System.out.println("Etiqueta abrir");:} 
     cuerpo_table
     ETIQUETA_FIN TABLE ETIQUETA_CERRAR 
 ;
 
 cuerpo_table ::=
-    cuerpo_table etiqueta_h
-    | cuerpo_table columna
-    | cuerpo_table for_table
+    cuerpo_table etiqueta_h {:System.out.println("Se puso una etiqueta en tabla");:}
+    | cuerpo_table columna {:System.out.println("Se puso una columna");:}
+    | cuerpo_table for_table {:System.out.println("Se puso un for en tabla");:}
     |
 ;
 
@@ -133,13 +133,13 @@ var ::=
 
 asignacion ::=
     ID:id SIGNO_IGUAL expresion:e PUNTO_COMA {:dtsRep.asignarID(id, String.valueOf(e), idleft);:}
-    | ID:id SIGNO_IGUAL CADENA:cad c:resto PUNTO_COMA {:dtsRep.asignarID(id, dtsRep.convertirCadena(cad, resto), idleft);:}
+    | ID:id SIGNO_IGUAL CADENA:cad c PUNTO_COMA {:dtsRep.asignarID(id, dtsRep.convertirCadena(cad, nuevaCadena), idleft); nuevaCadena = "";:}
     | ID:id SIGNO_IGUAL ID:asig PUNTO_COMA {:dtsRep.asignarID(id, dtsRep.obtenerID(asig, asigleft), idleft);:}
     | ID:id SIGNO_IGUAL var_jison:var PUNTO_COMA {:dtsRep.asignarID(id, String.valueOf(var), idleft);:}
 ;
 
 var_jison ::=
-    RESULT PUNTO SCORE:val {:RESULT = dtsRep.obtenerValorJISON("Score", 0, null, valleft);:}
+    RESULT PUNTO SCORE:val {:RESULT = dtsRep.obtenerValorJISON("Score", 0, "score", valleft);:}
     | RESULT PUNTO CLASES
     | RESULT PUNTO CLASES CORCHETE_A valor:val CORCHETE_C {:RESULT = dtsRep.obtenerValorJISON("Clases", val, null, valleft);:}
     | RESULT PUNTO CLASES CORCHETE_A valor:val CORCHETE_C PUNTO NOMBRE {:RESULT = dtsRep.obtenerValorJISON("Clases", val, "Nombre", valleft);:}
@@ -176,15 +176,15 @@ var_integer ::=
 
 var_string ::=
     STRING identificador PUNTO_COMA {:dtsRep.agregarSimbolosID("String");:}
-    | STRING ID:id SIGNO_IGUAL CADENA:cad c:resto PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "String",dtsRep.convertirCadena(cad, resto), idleft, idright);:}
+    | STRING ID:id SIGNO_IGUAL CADENA:cad c PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "String",dtsRep.convertirCadena(cad, nuevaCadena), idleft, idright); nuevaCadena = "";:}
     | STRING ID:id SIGNO_IGUAL var_jison:var PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "String", String.valueOf(var), idleft, idright);:}
 ;
 
 c ::= 
-    c SUMA CADENA:cad {:RESULT = cad.substring(1,cad.length()-1);:}
-    | c SUMA expresion_string:e {:RESULT = "" + e;:}
-    | c SUMA ID:id {:RESULT = "" + dtsRep.obtenerID(id, idleft);:}
-    | c SUMA var_jison:var {:RESULT = String.valueOf(var);:}
+    c SUMA CADENA:cad {:nuevaCadena = nuevaCadena  + cad.substring(1,cad.length()-1);:}
+    | c SUMA expresion_string:e {:nuevaCadena = nuevaCadena  +e;:}
+    | c SUMA ID:id {:nuevaCadena = nuevaCadena + dtsRep.obtenerID(id, idleft);:}
+    | c SUMA var_jison:var {:nuevaCadena = nuevaCadena  + String.valueOf(var);:}
     | 
 ;
 
