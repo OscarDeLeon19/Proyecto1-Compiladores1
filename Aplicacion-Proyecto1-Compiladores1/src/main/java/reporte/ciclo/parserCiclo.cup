@@ -1,4 +1,4 @@
-package reporte.analisis.sintactico;
+package reporte.ciclo;
 
 import java_cup.runtime.Symbol;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ parser code
         this.dtsRep = dtsRep;
     }
 
-    public parser(LexerReporte lexer) {
+    public AnalizadorCiclo(LexerCiclo lexer) {
             super(lexer);
     }
 
@@ -27,26 +27,23 @@ parser code
     }
   
     public void syntax_error(Symbol s) {
-        errores.add("Error Sintactico: Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
+        errores.add("Error Sintactico Ciclo: Lexema: " + String.valueOf(s.value) + " | Linea: " +  s.left + " | columna: " +  s.right);
     }
 
 :};
 
 
-terminal SCORE, CLASES, VARIABLES, METODOS, COMENTARIOS, NOMBRE, TIPO, FUNCION, PARAMETROS, TEXTO, RESULT, INTEGER,
-        STRING, HTML, H1, H2, TABLE, FOR, ITERADOR, HASTA, TR, TD, TH, BR, DECIMAL, SUMA, RESTA,
-        MULTIPLICACION, DIVISION, PARENTESIS_A, PARENTESIS_C, PUNTO_COMA, DOS_PUNTOS, COMA, SIGNO_IGUAL, ETIQUETA_ABRIR,
-        ETIQUETA_FIN, ETIQUETA_CERRAR, CORCHETE_A, CORCHETE_C, DOLAR, PUNTO, ERROR;
+terminal INICIO, SCORE, CLASES, VARIABLES, METODOS, COMENTARIOS, NOMBRE, TIPO, FUNCION, PARAMETROS, TEXTO, H1, H2, 
+        TABLE, TR, TD, TH, BR, DECIMAL, SUMA, RESTA, MULTIPLICACION, DIVISION, ETIQUETA_ABRIR, 
+        PARENTESIS_A, PARENTESIS_C, ETIQUETA_FIN, ETIQUETA_CERRAR, CORCHETE_A, CORCHETE_C, PUNTO, RESULT, ERROR;
 
 terminal String ID, CADENA;
 
 terminal Integer ENTERO;
 
-non terminal s, sintax_html, body, etiqueta_table, cuerpo_table, fila, fila_th, fila_td,etiqueta_h,
-             var, asignacion, var_jison, definicion, var_integer, var_string, identificador,
-             columna, etiqueta_for, for_table;
+non terminal s, s1, body, etiqueta_table, columna, fila, fila_th, fila_td, etiqueta_h, var_jison;
 
-non terminal Integer expresion, expresion_string, valor;
+non terminal Integer  expresion_string, valor;
 
 non terminal String c, variable_h1;
 
@@ -56,50 +53,32 @@ precedence left MULTIPLICACION, DIVISION;
 start with s;
 
 s ::= 
-    var sintax_html 
+    INICIO body s1 {:System.out.println("Se cumplio 1"); dtsRep.aumentarID();:}
 ; 
 
-sintax_html ::=
-    ETIQUETA_ABRIR HTML ETIQUETA_CERRAR body ETIQUETA_FIN HTML ETIQUETA_CERRAR
+s1 ::= 
+    s1 INICIO body {:System.out.println("Se cumplio 2"); dtsRep.aumentarID();:}
+    | 
 ;
 
 variable_h1 ::=
-    DOLAR PARENTESIS_A ID:id PARENTESIS_C DOLAR {:RESULT = String.valueOf(dtsRep.obtenerID(id, idleft)); dtsRep.setEtiquetaValor(id); :}
-    | DOLAR PARENTESIS_A var_jison:var PARENTESIS_C DOLAR {:RESULT = String.valueOf(var);:}
+    ID:id {:RESULT = String.valueOf(dtsRep.obtenerID(id, idleft)); dtsRep.setEtiquetaValor(id); :}
+    | var_jison:var {:RESULT = String.valueOf(var);:}
     | CADENA:cad c:resto {:RESULT = dtsRep.convertirCadena(cad, nuevaCadena); nuevaCadena = ""; dtsRep.setEtiquetaValor(dtsRep.convertirCadena(cad, nuevaCadena));:}
 ;
 
 body ::=
     body etiqueta_h 
     | body etiqueta_table 
-    | body etiqueta_for 
-    |
+    | body columna
+    | 
     | error ETIQUETA_CERRAR
-;
-
-etiqueta_for ::=
-    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f, etiquetas);:}
-    body
-    ETIQUETA_FIN FOR ETIQUETA_CERRAR {:dtsRep.recorrerFor(etiquetas);:}
 ;
 
 etiqueta_table ::=
     ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<table>"); etiquetas++;:}
-    cuerpo_table
+    body
     ETIQUETA_FIN TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</table>");etiquetas++;:}
-;
-
-cuerpo_table ::=
-    cuerpo_table etiqueta_h 
-    | cuerpo_table columna 
-    | cuerpo_table for_table 
-    |
-;
-
-for_table ::=
-    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f, etiquetas);:}
-    cuerpo_table
-    ETIQUETA_FIN FOR ETIQUETA_CERRAR {:dtsRep.recorrerFor(etiquetas);:}
 ;
 
 columna ::=
@@ -128,19 +107,6 @@ etiqueta_h ::=
     | ETIQUETA_ABRIR H2 ETIQUETA_CERRAR variable_h1:var ETIQUETA_FIN H2 ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<h2>" + var + "</h2>"); etiquetas++;:}
 ;
 
-var ::=
-      var definicion
-      | var asignacion
-      | 
-      | error PUNTO_COMA
-;
-
-asignacion ::=
-    ID:id SIGNO_IGUAL expresion:e PUNTO_COMA {:dtsRep.asignarID(id, String.valueOf(e), idleft);:}
-    | ID:id SIGNO_IGUAL CADENA:cad c PUNTO_COMA {:dtsRep.asignarID(id, dtsRep.convertirCadena(cad, nuevaCadena), idleft); nuevaCadena = "";:}
-    | ID:id SIGNO_IGUAL ID:asig PUNTO_COMA {:dtsRep.asignarID(id, dtsRep.obtenerID(asig, asigleft), idleft);:}
-    | ID:id SIGNO_IGUAL var_jison:var PUNTO_COMA {:dtsRep.asignarID(id, String.valueOf(var), idleft);:}
-;
 
 var_jison ::=
     RESULT PUNTO SCORE:val {: RESULT = dtsRep.obtenerValorJISON("Score", 0, "score", valleft); dtsRep.setEtiquetaValor("RESULT.Score");:}
@@ -167,50 +133,12 @@ valor ::=
     | ENTERO:e {:RESULT = e; ultimoID = String.valueOf(e);:}
 ;
 
-definicion ::=
-    var_integer
-    | var_string
-;
-
-var_integer ::=
-    INTEGER identificador PUNTO_COMA {:dtsRep.agregarSimbolosID("Integer");:}
-    | INTEGER ID:id SIGNO_IGUAL expresion:e PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "Integer", String.valueOf(e), idleft, idright);:}
-    | INTEGER ID:id SIGNO_IGUAL var_jison:var PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "Integer", String.valueOf(var), idleft, idright);:}
-;
-
-var_string ::=
-    STRING identificador PUNTO_COMA {:dtsRep.agregarSimbolosID("String");:}
-    | STRING ID:id SIGNO_IGUAL CADENA:cad c PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "String",dtsRep.convertirCadena(cad, nuevaCadena), idleft, idright); nuevaCadena = "";:}
-    | STRING ID:id SIGNO_IGUAL var_jison:var PUNTO_COMA {:dtsRep.agregarSimboloDeclaracion(id, "String", String.valueOf(var), idleft, idright);:}
-;
-
 c ::= 
     c SUMA CADENA:cad {:nuevaCadena = nuevaCadena  + cad.substring(1,cad.length()-1);:}
     | c SUMA expresion_string:e {:nuevaCadena = nuevaCadena  +e;:}
     | c SUMA ID:id {:nuevaCadena = nuevaCadena + dtsRep.obtenerID(id, idleft);:}
     | c SUMA var_jison:var {:nuevaCadena = nuevaCadena  + String.valueOf(var);:}
     | 
-;
-
-identificador ::=
-        ID:e {:dtsRep.agregarID(e, eleft, eright);:}
-        | identificador COMA ID:e {:dtsRep.agregarID(e,eleft, eright);:}  
-;
-
-expresion ::=
-           ENTERO:n {: RESULT = n; :}
-        | expresion:e1 SUMA:o expresion:e2
-                    {: RESULT = e1 + e2; :}
-        | expresion:e1 RESTA:o expresion:e2
-                    {: RESULT = e1 - e2; :}
-        | expresion:e1 MULTIPLICACION:o expresion:e2
-                    {: RESULT = e1 * e2; :}
-        | expresion:e1 DIVISION:o expresion:e2
-                    {: RESULT = e1 / e2;:}
-        | RESTA expresion:e 
-                    {:RESULT = 0 - e;:}
-        | PARENTESIS_A expresion:e PARENTESIS_C
-                    {:RESULT = e;:}
 ;
 
 expresion_string ::=
@@ -228,5 +156,6 @@ expresion_string ::=
         | PARENTESIS_A expresion_string:e PARENTESIS_C
                     {:RESULT = e;:}
 ;
+
 
 

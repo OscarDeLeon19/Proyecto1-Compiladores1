@@ -1,9 +1,7 @@
-
 package reporte;
 
-
 public class Simbolo {
-    
+
     private String id;
     private String tipo;
     private String valor;
@@ -17,7 +15,7 @@ public class Simbolo {
         this.linea = linea;
         this.columna = columna;
     }
-    
+
     public Simbolo(String id, String tipo, int linea, int columna) {
         this.id = id;
         this.tipo = tipo;
@@ -64,6 +62,16 @@ public class Simbolo {
     public void setColumna(int columna) {
         this.columna = columna;
     }
-    
-    
+
+    public void sumarValor() {
+        try {
+            int cantidad = Integer.parseInt(valor);
+            cantidad++;
+            setValor(String.valueOf(cantidad));
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+
+    }
+
 }
