@@ -4,8 +4,11 @@ import clases.Clase;
 import clases.Metodo;
 import clases.Variable;
 import files.Carga;
+import java.io.File;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.ArrayList;
+import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
@@ -96,7 +99,6 @@ public class App extends javax.swing.JFrame {
         area2 = new javax.swing.JTextArea();
         botonCompilarJISON = new javax.swing.JButton();
         labelPosJison = new javax.swing.JLabel();
-        panelREPORTES = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         areaErrores = new javax.swing.JTextArea();
@@ -186,19 +188,6 @@ public class App extends javax.swing.JFrame {
 
         pestanas.addTab("jison", panelJISON);
 
-        javax.swing.GroupLayout panelREPORTESLayout = new javax.swing.GroupLayout(panelREPORTES);
-        panelREPORTES.setLayout(panelREPORTESLayout);
-        panelREPORTESLayout.setHorizontalGroup(
-            panelREPORTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 760, Short.MAX_VALUE)
-        );
-        panelREPORTESLayout.setVerticalGroup(
-            panelREPORTESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
-        );
-
-        pestanas.addTab("reportes", panelREPORTES);
-
         jLabel1.setText("Consola de errores:");
 
         areaErrores.setColumns(20);
@@ -221,6 +210,11 @@ public class App extends javax.swing.JFrame {
         menuGuardar.setText("Guardar");
 
         itemGuardarDEF.setText("Guardar .def");
+        itemGuardarDEF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemGuardarDEFActionPerformed(evt);
+            }
+        });
         menuGuardar.add(itemGuardarDEF);
 
         itemGuardarJison.setText("Guardar .jison");
@@ -284,20 +278,27 @@ public class App extends javax.swing.JFrame {
             par.setErrores(errores);
             par.setDtsRep(dtsRep);
             par.parse();
-            
-            dtsRep.pintar();
+
             JOptionPane.showMessageDialog(null, "Archivo correcto");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Errors");
             e.printStackTrace();
         }
 
-        if (errores.isEmpty() == false) {
+        if (errores.isEmpty() == true) {
+            String cuerpo = dtsRep.exportarHTML();
+            cargar.exportarHTML(pathReporte, cuerpo);
+            visualizarReporte();
+        } else if (errores.isEmpty() == false) {
             areaErrores.append("Errores en el archivo de reportes");
             areaErrores.append("\n");
             agregarErrores();
         }
     }//GEN-LAST:event_botonReporteActionPerformed
+
+    private void itemGuardarDEFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGuardarDEFActionPerformed
+        cargar.guardar(pathDEF, area1.getText());
+    }//GEN-LAST:event_itemGuardarDEFActionPerformed
 
     public void compilarJison() {
         String texto = area2.getText();
@@ -318,6 +319,17 @@ public class App extends javax.swing.JFrame {
         for (String error : errores) {
             areaErrores.append(error);
             areaErrores.append("\n");
+        }
+    }
+
+    public void visualizarReporte() {
+
+        try {            
+            File file = new File(pathReporte);         
+            Reporte reporte = new Reporte();
+            reporte.verReporte(file);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -342,7 +354,6 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JMenu menuGuardar;
     private javax.swing.JPanel panelDEF;
     private javax.swing.JPanel panelJISON;
-    private javax.swing.JPanel panelREPORTES;
     private javax.swing.JTabbedPane pestanas;
     // End of variables declaration//GEN-END:variables
 }

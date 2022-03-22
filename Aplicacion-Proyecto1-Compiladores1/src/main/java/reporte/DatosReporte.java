@@ -27,10 +27,14 @@ public class DatosReporte {
     private boolean forActivo = false;
     private Simbolo simFor = null;
 
+    public String getEtiquetaValor() {
+        return etiquetaValor;
+    }
+    
     public void setEtiquetaValor(String etiquetaValor) {
         this.etiquetaValor = etiquetaValor;
     }
-   
+
     public void setErrores(ArrayList<String> errores) {
         this.errores = errores;
     }
@@ -138,28 +142,31 @@ public class DatosReporte {
             System.out.println(lineasHTML.get(i));
         }
 
-         
     }
 
     public void iniciarFor(int inicioFor, int finFor, int inicioLista) {
+        System.out.println("Se inicio un for:");
         this.inicioFor = inicioFor;
         this.finFor = finFor;
         this.inicioLista = inicioLista;
         forActivo = true;
-        
 
     }
 
-    public void recorrerFor(int finLista) {        
-        
+    public void recorrerFor(int finLista) {
+
         forActivo = false;
         this.finLista = finLista;
+        System.out.println("Etiquetas: " + etiquetasFor);
         String texto = "INICIO\n";
         for (int i = 0; i < etiquetasFor.size(); i++) {
             texto = texto + etiquetasFor.get(i);
             texto = texto + "\n";
         }
+        System.out.println(texto);
         String completo = "";
+        System.out.println(inicioFor);
+        System.out.println(finFor);
         for (int i = inicioFor; i <= finFor; i++) {
             completo = completo + texto;
         }
@@ -174,8 +181,8 @@ public class DatosReporte {
             errores.add("Error en el ciclo");
             e.printStackTrace();
         }
-        
-        
+        forActivo = false;
+        etiquetasFor.clear();
         simFor = null;
         inicioFor = 0;
         finFor = 0;
@@ -201,6 +208,7 @@ public class DatosReporte {
 
     public void agregarH1(String valor) {
         if (forActivo == true) {
+            System.out.println("EtiquetaValor: " + etiquetaValor);
             etiquetasFor.add("<h1>" + etiquetaValor + "</h1>");
         } else {
             lineasHTML.add("<h1>" + valor + "</h1>");
@@ -214,26 +222,34 @@ public class DatosReporte {
             lineasHTML.add("<h2>" + valor + "</h2>");
         }
     }
-    
-    public void agregarFilaTH(String valor){
+
+    public void agregarFilaTH(String valor) {
         if (forActivo == true) {
-            etiquetasFor.add("<th>" + etiquetaValor + "</th>");
+            etiquetasFor.add("<th scope=\"col\">" + etiquetaValor + "</th>");
         } else {
-            lineasHTML.add("<th>" + valor + "</th>");
+            lineasHTML.add("<th scope=\"col\">" + valor + "</th>");
         }
     }
 
-    public void agregarFilaTD(String valor){
+    public void agregarFilaTD(String valor) {
         if (forActivo == true) {
+            System.out.println("EtiquetaValor: " + etiquetaValor);
             etiquetasFor.add("<td>" + etiquetaValor + "</td>");
         } else {
             lineasHTML.add("<td>" + valor + "</td>");
         }
     }
-    
-    public void aumentarID(){
-        System.out.println("Se aumento el valor");
+
+    public void aumentarID() {
         simFor.sumarValor();
     }
-    
+
+    public String exportarHTML() {
+        String cuerpo = "";
+        for (String linea : lineasHTML) {
+            cuerpo = cuerpo + linea + "\n";
+        }
+        return cuerpo;
+    }
+
 }

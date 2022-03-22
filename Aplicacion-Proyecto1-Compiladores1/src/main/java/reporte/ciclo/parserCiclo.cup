@@ -53,7 +53,8 @@ precedence left MULTIPLICACION, DIVISION;
 start with s;
 
 s ::= 
-    INICIO body s1 {:System.out.println("Se cumplio 1"); dtsRep.aumentarID();:}
+    INICIO body {:System.out.println("Se cumplio 1"); dtsRep.aumentarID();:}     
+    s1 
 ; 
 
 s1 ::= 

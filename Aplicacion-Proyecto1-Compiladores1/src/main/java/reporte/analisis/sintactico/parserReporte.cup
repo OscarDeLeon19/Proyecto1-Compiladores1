@@ -44,11 +44,11 @@ terminal Integer ENTERO;
 
 non terminal s, sintax_html, body, etiqueta_table, cuerpo_table, fila, fila_th, fila_td,etiqueta_h,
              var, asignacion, var_jison, definicion, var_integer, var_string, identificador,
-             columna, etiqueta_for, for_table;
+             columna, etiqueta_for, for_table ;
 
 non terminal Integer expresion, expresion_string, valor;
 
-non terminal String c, variable_h1;
+non terminal String c, variable_html,  variable_h1,cadena_html, c_html ;
 
 precedence left SUMA, RESTA;
 precedence left MULTIPLICACION, DIVISION;
@@ -63,10 +63,24 @@ sintax_html ::=
     ETIQUETA_ABRIR HTML ETIQUETA_CERRAR body ETIQUETA_FIN HTML ETIQUETA_CERRAR
 ;
 
+variable_html ::=
+    cadena_html:cad {:RESULT = cad;:}
+    | variable_h1:var {:RESULT = var;:}
+;
+
+cadena_html ::=
+    CADENA:cad c_html:resto {:RESULT = dtsRep.convertirCadena(cad, nuevaCadena); dtsRep.setEtiquetaValor("\"" + dtsRep.convertirCadena(cad, nuevaCadena) + "\""); nuevaCadena = "";:}
+;
 variable_h1 ::=
     DOLAR PARENTESIS_A ID:id PARENTESIS_C DOLAR {:RESULT = String.valueOf(dtsRep.obtenerID(id, idleft)); dtsRep.setEtiquetaValor(id); :}
-    | DOLAR PARENTESIS_A var_jison:var PARENTESIS_C DOLAR {:RESULT = String.valueOf(var);:}
-    | CADENA:cad c:resto {:RESULT = dtsRep.convertirCadena(cad, nuevaCadena); nuevaCadena = ""; dtsRep.setEtiquetaValor(dtsRep.convertirCadena(cad, nuevaCadena));:}
+    | DOLAR PARENTESIS_A var_jison:var PARENTESIS_C DOLAR {:RESULT = String.valueOf(var);:}    
+;
+
+c_html ::= 
+    c_html SUMA CADENA:cad {:nuevaCadena = nuevaCadena  + cad.substring(1,cad.length()-1);:}
+    | c_html SUMA expresion_string:e {:nuevaCadena = nuevaCadena  +e;:}
+    | c_html SUMA variable_h1:id {:nuevaCadena = nuevaCadena + id;:}
+    | 
 ;
 
 body ::=
@@ -77,6 +91,12 @@ body ::=
     | error ETIQUETA_CERRAR
 ;
 
+body_for ::=
+    body etiqueta_h 
+    | body etiqueta_table 
+    | 
+;
+
 etiqueta_for ::=
     ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f, etiquetas);:}
     body
@@ -84,7 +104,7 @@ etiqueta_for ::=
 ;
 
 etiqueta_table ::=
-    ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<table>"); etiquetas++;:}
+    ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<table border = \"1\" class=\"table\">"); etiquetas++;:}
     cuerpo_table
     ETIQUETA_FIN TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</table>");etiquetas++;:}
 ;
@@ -115,17 +135,17 @@ fila ::=
 ;
 
 fila_th ::=
-    ETIQUETA_ABRIR TH ETIQUETA_CERRAR variable_h1:var ETIQUETA_FIN TH ETIQUETA_CERRAR {:dtsRep.agregarFilaTH(var); etiquetas++;:}
+    ETIQUETA_ABRIR TH ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN TH ETIQUETA_CERRAR {:dtsRep.agregarFilaTH(var); etiquetas++;:}
 ;
 
 fila_td ::=
-    ETIQUETA_ABRIR TD ETIQUETA_CERRAR variable_h1:var ETIQUETA_FIN TD ETIQUETA_CERRAR {:dtsRep.agregarFilaTD(var); etiquetas++;:}
+    ETIQUETA_ABRIR TD ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN TD ETIQUETA_CERRAR {:dtsRep.agregarFilaTD(var); etiquetas++;:}
 ;
 
 
 etiqueta_h ::=
-    ETIQUETA_ABRIR H1 ETIQUETA_CERRAR variable_h1:var ETIQUETA_FIN H1 ETIQUETA_CERRAR  {:dtsRep.agregarEtiqueta("<h1>" + var + "</h1>"); etiquetas++;:}
-    | ETIQUETA_ABRIR H2 ETIQUETA_CERRAR variable_h1:var ETIQUETA_FIN H2 ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<h2>" + var + "</h2>"); etiquetas++;:}
+    ETIQUETA_ABRIR H1 ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN H1 ETIQUETA_CERRAR  {:dtsRep.agregarH1("<h1>" + var + "</h1>"); etiquetas++;:}
+    | ETIQUETA_ABRIR H2 ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN H2 ETIQUETA_CERRAR {:dtsRep.agregarH2("<h2>" + var + "</h2>"); etiquetas++;:}
 ;
 
 var ::=
