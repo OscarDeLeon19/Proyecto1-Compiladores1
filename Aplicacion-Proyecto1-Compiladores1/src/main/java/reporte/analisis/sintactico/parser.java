@@ -343,8 +343,8 @@ public class parser extends java_cup.runtime.lr_parser {
     private ArrayList<String> errores = new ArrayList<>();
     private DatosReporte dtsRep;
     private String nuevaCadena = "";
-    private int etiquetas = 0;
     private String ultimoID = "";
+    private String cadenaValor = "";
 
     public void setDtsRep(DatosReporte dtsRep) {
         this.dtsRep = dtsRep;
@@ -454,7 +454,7 @@ class CUP$parser$actions {
 		int restoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int restoright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String resto = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		RESULT = dtsRep.convertirCadena(cad, nuevaCadena); dtsRep.setEtiquetaValor("\"" + dtsRep.convertirCadena(cad, nuevaCadena) + "\""); nuevaCadena = "";
+		RESULT = dtsRep.convertirCadena(cad, nuevaCadena); dtsRep.setEtiquetaValor("\"" + dtsRep.convertirCadena(cad, null) + "\"" + cadenaValor); nuevaCadena = "";
               CUP$parser$result = parser.getSymbolFactory().newSymbol("cadena_html",25, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -490,7 +490,7 @@ class CUP$parser$actions {
 		int cadleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int cadright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String cad = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		nuevaCadena = nuevaCadena  + cad.substring(1,cad.length()-1);
+		nuevaCadena = nuevaCadena  + cad.substring(1,cad.length()-1); cadenaValor = cadenaValor + " + \"" + nuevaCadena + "\""; System.out.println(nuevaCadena);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("c_html",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -502,7 +502,7 @@ class CUP$parser$actions {
 		int eleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Integer e = (Integer)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		nuevaCadena = nuevaCadena  +e;
+		nuevaCadena = nuevaCadena  +e; cadenaValor = cadenaValor + " + " + nuevaCadena; System.out.println(cadenaValor);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("c_html",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -514,7 +514,7 @@ class CUP$parser$actions {
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		nuevaCadena = nuevaCadena + id;
+		nuevaCadena = nuevaCadena + id; cadenaValor = cadenaValor + " + " +dtsRep.getEtiquetaValor(); System.out.println(cadenaValor);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("c_html",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -583,7 +583,7 @@ class CUP$parser$actions {
 		int finleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int finright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		String fin = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f, etiquetas);
+int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$0",27, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -600,7 +600,7 @@ int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.
 		int finleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).left;
 		int finright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).right;
 		String fin = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
-		dtsRep.recorrerFor(etiquetas);
+		dtsRep.recorrerFor();
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_for",17, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-14)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -609,7 +609,7 @@ int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.
           case 19: // NT$1 ::= 
             {
               Object RESULT =null;
-dtsRep.agregarEtiqueta("<table border = \"1\" class=\"table\">"); etiquetas++;
+dtsRep.agregarEtiqueta("<table border = \"1\" class=\"table\">");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$1",28, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -620,7 +620,7 @@ dtsRep.agregarEtiqueta("<table border = \"1\" class=\"table\">"); etiquetas++;
               Object RESULT =null;
               // propagate RESULT from NT$1
                 RESULT = (Object) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
-		dtsRep.agregarEtiqueta("</table>");etiquetas++;
+		dtsRep.agregarEtiqueta("</table>");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_table",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -671,7 +671,7 @@ dtsRep.agregarEtiqueta("<table border = \"1\" class=\"table\">"); etiquetas++;
 		int finleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int finright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		String fin = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f, etiquetas);
+int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$2",29, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -688,7 +688,7 @@ int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.
 		int finleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).left;
 		int finright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).right;
 		String fin = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
-		dtsRep.recorrerFor(etiquetas);
+		dtsRep.recorrerFor();
               CUP$parser$result = parser.getSymbolFactory().newSymbol("for_table",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-14)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -697,7 +697,7 @@ int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.
           case 27: // NT$3 ::= 
             {
               Object RESULT =null;
-dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
+dtsRep.agregarEtiqueta("<tr>");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$3",30, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -708,7 +708,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
               Object RESULT =null;
               // propagate RESULT from NT$3
                 RESULT = (Object) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
-		dtsRep.agregarEtiqueta("</tr>"); etiquetas++;
+		dtsRep.agregarEtiqueta("</tr>");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("columna",16, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -747,7 +747,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
 		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		String var = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
-		dtsRep.agregarFilaTH(var); etiquetas++;
+		dtsRep.agregarFilaTH(var);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("fila_th",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -759,7 +759,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
 		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		String var = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
-		dtsRep.agregarFilaTD(var); etiquetas++;
+		dtsRep.agregarFilaTD(var);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("fila_td",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -771,7 +771,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
 		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		String var = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
-		dtsRep.agregarH1("<h1>" + var + "</h1>"); etiquetas++;
+		dtsRep.agregarH1("<h1>" + var + "</h1>");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_h",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -783,7 +783,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
 		int varleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int varright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		String var = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
-		dtsRep.agregarH2("<h2>" + var + "</h2>"); etiquetas++;
+		dtsRep.agregarH2("<h2>" + var + "</h2>");
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_h",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

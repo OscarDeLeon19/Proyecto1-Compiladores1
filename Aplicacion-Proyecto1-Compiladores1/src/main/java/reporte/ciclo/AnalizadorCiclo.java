@@ -34,24 +34,23 @@ public class AnalizadorCiclo extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\067\000\002\002\004\000\002\020\002\000\002\002" +
+    "\000\066\000\002\002\004\000\002\020\002\000\002\002" +
     "\006\000\002\003\005\000\002\003\002\000\002\017\003" +
     "\000\002\017\003\000\002\017\004\000\002\004\004\000" +
     "\002\004\004\000\002\004\004\000\002\004\002\000\002" +
-    "\004\004\000\002\021\002\000\002\005\012\000\002\022" +
-    "\002\000\002\006\012\000\002\007\004\000\002\007\004" +
-    "\000\002\007\002\000\002\010\011\000\002\011\011\000" +
-    "\002\012\011\000\002\012\011\000\002\013\005\000\002" +
-    "\013\005\000\002\013\010\000\002\013\012\000\002\013" +
-    "\005\000\002\013\010\000\002\013\012\000\002\013\012" +
-    "\000\002\013\012\000\002\013\005\000\002\013\010\000" +
-    "\002\013\012\000\002\013\012\000\002\013\012\000\002" +
-    "\013\005\000\002\013\010\000\002\013\012\000\002\015" +
-    "\003\000\002\015\003\000\002\016\005\000\002\016\005" +
-    "\000\002\016\005\000\002\016\005\000\002\016\002\000" +
-    "\002\014\003\000\002\014\005\000\002\014\005\000\002" +
-    "\014\005\000\002\014\005\000\002\014\004\000\002\014" +
-    "\005" });
+    "\021\002\000\002\005\012\000\002\022\002\000\002\006" +
+    "\012\000\002\007\004\000\002\007\004\000\002\007\002" +
+    "\000\002\010\011\000\002\011\011\000\002\012\011\000" +
+    "\002\012\011\000\002\013\005\000\002\013\005\000\002" +
+    "\013\010\000\002\013\012\000\002\013\005\000\002\013" +
+    "\010\000\002\013\012\000\002\013\012\000\002\013\012" +
+    "\000\002\013\005\000\002\013\010\000\002\013\012\000" +
+    "\002\013\012\000\002\013\012\000\002\013\005\000\002" +
+    "\013\010\000\002\013\012\000\002\015\003\000\002\015" +
+    "\003\000\002\016\005\000\002\016\005\000\002\016\005" +
+    "\000\002\016\005\000\002\016\002\000\002\014\003\000" +
+    "\002\014\005\000\002\014\005\000\002\014\005\000\002" +
+    "\014\005\000\002\014\004\000\002\014\005" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -59,83 +58,81 @@ public class AnalizadorCiclo extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\160\000\004\004\005\001\002\000\004\002\162\001" +
-    "\002\000\012\002\ufff6\003\007\004\ufff6\033\ufff6\001\002" +
-    "\000\010\002\000\004\000\033\012\001\002\000\004\037" +
-    "\010\001\002\000\012\002\ufff5\004\ufff5\033\ufff5\036\ufff5" +
-    "\001\002\000\012\002\ufff7\004\ufff7\033\ufff7\036\ufff7\001" +
-    "\002\000\012\017\022\020\021\021\023\022\024\001\002" +
-    "\000\012\002\ufff9\004\ufff9\033\ufff9\036\ufff9\001\002\000" +
-    "\006\002\ufffd\004\ufffd\001\002\000\012\002\ufff8\004\ufff8" +
-    "\033\ufff8\036\ufff8\001\002\000\006\002\uffff\004\017\001" +
-    "\002\000\012\002\ufff6\003\007\004\ufff6\033\ufff6\001\002" +
-    "\000\010\002\ufffe\004\ufffe\033\012\001\002\000\004\037" +
-    "\155\001\002\000\004\037\150\001\002\000\004\037\142" +
-    "\001\002\000\004\037\025\001\002\000\006\033\ufff2\036" +
-    "\ufff2\001\002\000\006\033\uffee\036\uffee\001\002\000\006" +
-    "\033\030\036\031\001\002\000\006\023\036\024\037\001" +
-    "\002\000\004\022\034\001\002\000\006\033\ufff0\036\ufff0" +
-    "\001\002\000\006\033\uffef\036\uffef\001\002\000\004\037" +
-    "\035\001\002\000\012\002\ufff1\004\ufff1\033\ufff1\036\ufff1" +
-    "\001\002\000\004\037\135\001\002\000\004\037\040\001" +
-    "\002\000\010\043\045\045\041\046\044\001\002\000\004" +
-    "\036\ufffc\001\002\000\004\036\ufffb\001\002\000\004\036" +
-    "\132\001\002\000\006\027\uffd2\036\uffd2\001\002\000\004" +
-    "\042\046\001\002\000\014\005\051\006\047\007\050\010" +
-    "\053\011\052\001\002\000\010\027\uffe8\036\uffe8\040\101" +
-    "\001\002\000\010\027\uffe5\036\uffe5\040\072\001\002\000" +
-    "\006\027\uffe9\036\uffe9\001\002\000\010\027\uffdb\036\uffdb" +
-    "\040\065\001\002\000\010\027\uffe0\036\uffe0\040\054\001" +
-    "\002\000\006\045\055\047\057\001\002\000\004\041\uffd8" +
-    "\001\002\000\004\041\060\001\002\000\004\041\uffd7\001" +
-    "\002\000\010\027\uffdf\036\uffdf\042\061\001\002\000\010" +
-    "\012\063\013\064\015\062\001\002\000\006\027\uffdc\036" +
-    "\uffdc\001\002\000\006\027\uffde\036\uffde\001\002\000\006" +
-    "\027\uffdd\036\uffdd\001\002\000\006\045\055\047\057\001" +
-    "\002\000\004\041\067\001\002\000\010\027\uffda\036\uffda" +
-    "\042\070\001\002\000\004\016\071\001\002\000\006\027" +
-    "\uffd9\036\uffd9\001\002\000\006\045\055\047\057\001\002" +
-    "\000\004\041\074\001\002\000\010\027\uffe4\036\uffe4\042" +
-    "\075\001\002\000\010\012\077\013\100\014\076\001\002" +
-    "\000\006\027\uffe1\036\uffe1\001\002\000\006\027\uffe3\036" +
-    "\uffe3\001\002\000\006\027\uffe2\036\uffe2\001\002\000\006" +
-    "\045\055\047\057\001\002\000\004\041\103\001\002\000" +
-    "\010\027\uffe7\036\uffe7\042\104\001\002\000\004\012\105" +
-    "\001\002\000\006\027\uffe6\036\uffe6\001\002\000\006\027" +
-    "\107\036\ufffa\001\002\000\016\030\110\034\112\043\045" +
-    "\045\111\046\116\047\115\001\002\000\010\030\110\034" +
-    "\112\047\115\001\002\000\006\027\uffd4\036\uffd4\001\002" +
-    "\000\010\030\110\034\112\047\115\001\002\000\006\027" +
-    "\uffd3\036\uffd3\001\002\000\014\027\uffd5\030\117\031\120" +
-    "\032\122\036\uffd5\001\002\000\016\027\uffd1\030\uffd1\031" +
-    "\uffd1\032\uffd1\035\uffd1\036\uffd1\001\002\000\006\027\uffd6" +
-    "\036\uffd6\001\002\000\010\030\110\034\112\047\115\001" +
-    "\002\000\010\030\110\034\112\047\115\001\002\000\010" +
-    "\030\110\034\112\047\115\001\002\000\010\030\110\034" +
-    "\112\047\115\001\002\000\016\027\uffcd\030\uffcd\031\uffcd" +
-    "\032\uffcd\035\uffcd\036\uffcd\001\002\000\016\027\uffd0\030" +
-    "\uffd0\031\120\032\122\035\uffd0\036\uffd0\001\002\000\016" +
-    "\027\uffce\030\uffce\031\uffce\032\uffce\035\uffce\036\uffce\001" +
-    "\002\000\016\027\uffcf\030\uffcf\031\120\032\122\035\uffcf" +
-    "\036\uffcf\001\002\000\014\027\121\030\117\031\120\032" +
-    "\122\035\130\001\002\000\016\027\uffcb\030\uffcb\031\uffcb" +
-    "\032\uffcb\035\uffcb\036\uffcb\001\002\000\016\027\uffcc\030" +
-    "\uffcc\031\120\032\122\035\uffcc\036\uffcc\001\002\000\004" +
-    "\024\133\001\002\000\004\037\134\001\002\000\006\033" +
-    "\uffed\036\uffed\001\002\000\010\043\045\045\041\046\044" +
-    "\001\002\000\004\036\137\001\002\000\004\023\140\001" +
-    "\002\000\004\037\141\001\002\000\006\033\uffec\036\uffec" +
-    "\001\002\000\010\003\ufff4\033\ufff4\036\ufff4\001\002\000" +
-    "\010\003\007\033\ufff6\036\ufff6\001\002\000\006\033\012" +
-    "\036\145\001\002\000\004\021\146\001\002\000\004\037" +
-    "\147\001\002\000\012\002\ufff3\004\ufff3\033\ufff3\036\ufff3" +
-    "\001\002\000\010\043\045\045\041\046\044\001\002\000" +
-    "\004\036\152\001\002\000\004\017\153\001\002\000\004" +
-    "\037\154\001\002\000\012\002\uffeb\004\uffeb\033\uffeb\036" +
-    "\uffeb\001\002\000\010\043\045\045\041\046\044\001\002" +
-    "\000\004\036\157\001\002\000\004\020\160\001\002\000" +
-    "\004\037\161\001\002\000\012\002\uffea\004\uffea\033\uffea" +
-    "\036\uffea\001\002\000\004\002\001\001\002" });
+    "\000\156\000\004\004\005\001\002\000\004\002\160\001" +
+    "\002\000\010\002\ufff6\004\ufff6\033\ufff6\001\002\000\010" +
+    "\002\000\004\000\033\010\001\002\000\012\002\ufff7\004" +
+    "\ufff7\033\ufff7\036\ufff7\001\002\000\012\017\020\020\017" +
+    "\021\021\022\022\001\002\000\012\002\ufff9\004\ufff9\033" +
+    "\ufff9\036\ufff9\001\002\000\006\002\ufffd\004\ufffd\001\002" +
+    "\000\012\002\ufff8\004\ufff8\033\ufff8\036\ufff8\001\002\000" +
+    "\006\002\uffff\004\015\001\002\000\010\002\ufff6\004\ufff6" +
+    "\033\ufff6\001\002\000\010\002\ufffe\004\ufffe\033\010\001" +
+    "\002\000\004\037\153\001\002\000\004\037\146\001\002" +
+    "\000\004\037\140\001\002\000\004\037\023\001\002\000" +
+    "\006\033\ufff3\036\ufff3\001\002\000\006\033\uffef\036\uffef" +
+    "\001\002\000\006\033\026\036\027\001\002\000\006\023" +
+    "\034\024\035\001\002\000\004\022\032\001\002\000\006" +
+    "\033\ufff1\036\ufff1\001\002\000\006\033\ufff0\036\ufff0\001" +
+    "\002\000\004\037\033\001\002\000\012\002\ufff2\004\ufff2" +
+    "\033\ufff2\036\ufff2\001\002\000\004\037\133\001\002\000" +
+    "\004\037\036\001\002\000\010\043\043\045\037\046\042" +
+    "\001\002\000\004\036\ufffc\001\002\000\004\036\ufffb\001" +
+    "\002\000\004\036\130\001\002\000\006\027\uffd3\036\uffd3" +
+    "\001\002\000\004\042\044\001\002\000\014\005\047\006" +
+    "\045\007\046\010\050\011\051\001\002\000\010\027\uffe9" +
+    "\036\uffe9\040\077\001\002\000\010\027\uffe6\036\uffe6\040" +
+    "\070\001\002\000\006\027\uffea\036\uffea\001\002\000\010" +
+    "\027\uffe1\036\uffe1\040\061\001\002\000\010\027\uffdc\036" +
+    "\uffdc\040\052\001\002\000\006\045\053\047\055\001\002" +
+    "\000\004\041\uffd9\001\002\000\004\041\056\001\002\000" +
+    "\004\041\uffd8\001\002\000\010\027\uffdb\036\uffdb\042\057" +
+    "\001\002\000\004\016\060\001\002\000\006\027\uffda\036" +
+    "\uffda\001\002\000\006\045\053\047\055\001\002\000\004" +
+    "\041\063\001\002\000\010\027\uffe0\036\uffe0\042\064\001" +
+    "\002\000\010\012\066\013\067\015\065\001\002\000\006" +
+    "\027\uffdd\036\uffdd\001\002\000\006\027\uffdf\036\uffdf\001" +
+    "\002\000\006\027\uffde\036\uffde\001\002\000\006\045\053" +
+    "\047\055\001\002\000\004\041\072\001\002\000\010\027" +
+    "\uffe5\036\uffe5\042\073\001\002\000\010\012\075\013\076" +
+    "\014\074\001\002\000\006\027\uffe2\036\uffe2\001\002\000" +
+    "\006\027\uffe4\036\uffe4\001\002\000\006\027\uffe3\036\uffe3" +
+    "\001\002\000\006\045\053\047\055\001\002\000\004\041" +
+    "\101\001\002\000\010\027\uffe8\036\uffe8\042\102\001\002" +
+    "\000\004\012\103\001\002\000\006\027\uffe7\036\uffe7\001" +
+    "\002\000\006\027\105\036\ufffa\001\002\000\016\030\107" +
+    "\034\110\043\043\045\106\046\114\047\113\001\002\000" +
+    "\006\027\uffd5\036\uffd5\001\002\000\010\030\107\034\110" +
+    "\047\113\001\002\000\010\030\107\034\110\047\113\001" +
+    "\002\000\006\027\uffd4\036\uffd4\001\002\000\014\027\uffd6" +
+    "\030\116\031\115\032\120\036\uffd6\001\002\000\016\027" +
+    "\uffd2\030\uffd2\031\uffd2\032\uffd2\035\uffd2\036\uffd2\001\002" +
+    "\000\006\027\uffd7\036\uffd7\001\002\000\010\030\107\034" +
+    "\110\047\113\001\002\000\010\030\107\034\110\047\113" +
+    "\001\002\000\010\030\107\034\110\047\113\001\002\000" +
+    "\010\030\107\034\110\047\113\001\002\000\016\027\uffce" +
+    "\030\uffce\031\uffce\032\uffce\035\uffce\036\uffce\001\002\000" +
+    "\016\027\uffd1\030\uffd1\031\115\032\120\035\uffd1\036\uffd1" +
+    "\001\002\000\016\027\uffd0\030\uffd0\031\115\032\120\035" +
+    "\uffd0\036\uffd0\001\002\000\016\027\uffcf\030\uffcf\031\uffcf" +
+    "\032\uffcf\035\uffcf\036\uffcf\001\002\000\014\027\117\030" +
+    "\116\031\115\032\120\035\126\001\002\000\016\027\uffcc" +
+    "\030\uffcc\031\uffcc\032\uffcc\035\uffcc\036\uffcc\001\002\000" +
+    "\016\027\uffcd\030\uffcd\031\115\032\120\035\uffcd\036\uffcd" +
+    "\001\002\000\004\024\131\001\002\000\004\037\132\001" +
+    "\002\000\006\033\uffee\036\uffee\001\002\000\010\043\043" +
+    "\045\037\046\042\001\002\000\004\036\135\001\002\000" +
+    "\004\023\136\001\002\000\004\037\137\001\002\000\006" +
+    "\033\uffed\036\uffed\001\002\000\006\033\ufff5\036\ufff5\001" +
+    "\002\000\006\033\ufff6\036\ufff6\001\002\000\006\033\010" +
+    "\036\143\001\002\000\004\021\144\001\002\000\004\037" +
+    "\145\001\002\000\012\002\ufff4\004\ufff4\033\ufff4\036\ufff4" +
+    "\001\002\000\010\043\043\045\037\046\042\001\002\000" +
+    "\004\036\150\001\002\000\004\017\151\001\002\000\004" +
+    "\037\152\001\002\000\012\002\uffec\004\uffec\033\uffec\036" +
+    "\uffec\001\002\000\010\043\043\045\037\046\042\001\002" +
+    "\000\004\036\155\001\002\000\004\020\156\001\002\000" +
+    "\004\037\157\001\002\000\012\002\uffeb\004\uffeb\033\uffeb" +
+    "\036\uffeb\001\002\000\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -143,47 +140,47 @@ public class AnalizadorCiclo extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\160\000\004\002\003\001\001\000\002\001\001\000" +
-    "\004\004\005\001\001\000\012\005\014\006\010\012\012" +
-    "\020\013\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\003\015\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\004\017\001\001\000\010\005\014\006\010\012\012" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\022\025\001\001\000\004" +
-    "\007\026\001\001\000\006\010\031\011\032\001\001\000" +
+    "\000\156\000\004\002\003\001\001\000\002\001\001\000" +
+    "\004\004\005\001\001\000\012\005\012\006\006\012\010" +
+    "\020\011\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\004\003\013\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\004\015\001\001\000\010\005" +
+    "\012\006\006\012\010\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\022" +
+    "\023\001\001\000\004\007\024\001\001\000\006\010\027" +
+    "\011\030\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\006\013\041\017\042\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\016\105\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\015\055\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\015\065\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\004\015\072\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\015\101\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\006\013\112\014\113\001" +
-    "\001\000\004\014\130\001\001\000\002\001\001\000\004" +
-    "\014\126\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\014\125\001\001" +
-    "\000\004\014\124\001\001\000\004\014\123\001\001\000" +
-    "\004\014\122\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\006\013\041\017\135\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\021\142\001\001\000\004\004" +
-    "\143\001\001\000\010\005\014\006\010\012\012\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\006\013\041\017\150\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\006\013" +
-    "\041\017\155\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001" });
+    "\037\017\040\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\016\103\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\015\053\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\004\015\061\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\015\070\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\015\077\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\006" +
+    "\013\110\014\111\001\001\000\002\001\001\000\004\014" +
+    "\126\001\001\000\004\014\124\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\004\014\123\001\001\000\004\014\122\001\001\000\004" +
+    "\014\121\001\001\000\004\014\120\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\006" +
+    "\013\037\017\133\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\004\021\140" +
+    "\001\001\000\004\004\141\001\001\000\010\005\012\006" +
+    "\006\012\010\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\006\013\037\017\146\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\006\013\037\017\153\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -289,7 +286,7 @@ class CUP$AnalizadorCiclo$actions {
           case 1: // NT$0 ::= 
             {
               Object RESULT =null;
-System.out.println("Se cumplio 1"); dtsRep.aumentarID();
+dtsRep.aumentarID();
               CUP$AnalizadorCiclo$result = parser.getSymbolFactory().newSymbol("NT$0",14, ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()), RESULT);
             }
           return CUP$AnalizadorCiclo$result;
@@ -309,7 +306,7 @@ System.out.println("Se cumplio 1"); dtsRep.aumentarID();
           case 3: // s1 ::= s1 INICIO body 
             {
               Object RESULT =null;
-		System.out.println("Se cumplio 2"); dtsRep.aumentarID();
+		dtsRep.aumentarID();
               CUP$AnalizadorCiclo$result = parser.getSymbolFactory().newSymbol("s1",1, ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-2)), ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()), RESULT);
             }
           return CUP$AnalizadorCiclo$result;
@@ -399,56 +396,47 @@ System.out.println("Se cumplio 1"); dtsRep.aumentarID();
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // body ::= error ETIQUETA_CERRAR 
+          case 12: // NT$1 ::= 
             {
               Object RESULT =null;
-
-              CUP$AnalizadorCiclo$result = parser.getSymbolFactory().newSymbol("body",2, ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-1)), ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()), RESULT);
-            }
-          return CUP$AnalizadorCiclo$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // NT$1 ::= 
-            {
-              Object RESULT =null;
-dtsRep.agregarEtiqueta("<table>"); etiquetas++;
+dtsRep.agregarEtiqueta("<table>");
               CUP$AnalizadorCiclo$result = parser.getSymbolFactory().newSymbol("NT$1",15, ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()), RESULT);
             }
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // etiqueta_table ::= ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR NT$1 body ETIQUETA_FIN TABLE ETIQUETA_CERRAR 
+          case 13: // etiqueta_table ::= ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR NT$1 body ETIQUETA_FIN TABLE ETIQUETA_CERRAR 
             {
               Object RESULT =null;
               // propagate RESULT from NT$1
                 RESULT = (Object) ((java_cup.runtime.Symbol) CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-4)).value;
-		dtsRep.agregarEtiqueta("</table>");etiquetas++;
+		dtsRep.agregarEtiqueta("</table>");
               CUP$AnalizadorCiclo$result = parser.getSymbolFactory().newSymbol("etiqueta_table",3, ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-7)), ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()), RESULT);
             }
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // NT$2 ::= 
+          case 14: // NT$2 ::= 
             {
               Object RESULT =null;
-dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
+dtsRep.agregarEtiqueta("<tr>");
               CUP$AnalizadorCiclo$result = parser.getSymbolFactory().newSymbol("NT$2",16, ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()), RESULT);
             }
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // columna ::= ETIQUETA_ABRIR TR ETIQUETA_CERRAR NT$2 fila ETIQUETA_FIN TR ETIQUETA_CERRAR 
+          case 15: // columna ::= ETIQUETA_ABRIR TR ETIQUETA_CERRAR NT$2 fila ETIQUETA_FIN TR ETIQUETA_CERRAR 
             {
               Object RESULT =null;
               // propagate RESULT from NT$2
                 RESULT = (Object) ((java_cup.runtime.Symbol) CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-4)).value;
-		dtsRep.agregarEtiqueta("</tr>"); etiquetas++;
+		dtsRep.agregarEtiqueta("</tr>");
               CUP$AnalizadorCiclo$result = parser.getSymbolFactory().newSymbol("columna",4, ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-7)), ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()), RESULT);
             }
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // fila ::= fila fila_th 
+          case 16: // fila ::= fila fila_th 
             {
               Object RESULT =null;
 
@@ -457,7 +445,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // fila ::= fila fila_td 
+          case 17: // fila ::= fila fila_td 
             {
               Object RESULT =null;
 
@@ -466,7 +454,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // fila ::= 
+          case 18: // fila ::= 
             {
               Object RESULT =null;
 
@@ -475,7 +463,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // fila_th ::= ETIQUETA_ABRIR TH ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN TH ETIQUETA_CERRAR 
+          case 19: // fila_th ::= ETIQUETA_ABRIR TH ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN TH ETIQUETA_CERRAR 
             {
               Object RESULT =null;
 		int varleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -487,7 +475,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // fila_td ::= ETIQUETA_ABRIR TD ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN TD ETIQUETA_CERRAR 
+          case 20: // fila_td ::= ETIQUETA_ABRIR TD ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN TD ETIQUETA_CERRAR 
             {
               Object RESULT =null;
 		int varleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -499,7 +487,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // etiqueta_h ::= ETIQUETA_ABRIR H1 ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN H1 ETIQUETA_CERRAR 
+          case 21: // etiqueta_h ::= ETIQUETA_ABRIR H1 ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN H1 ETIQUETA_CERRAR 
             {
               Object RESULT =null;
 		int varleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -511,7 +499,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // etiqueta_h ::= ETIQUETA_ABRIR H2 ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN H2 ETIQUETA_CERRAR 
+          case 22: // etiqueta_h ::= ETIQUETA_ABRIR H2 ETIQUETA_CERRAR variable_h1 ETIQUETA_FIN H2 ETIQUETA_CERRAR 
             {
               Object RESULT =null;
 		int varleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -523,7 +511,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // var_jison ::= RESULT PUNTO SCORE 
+          case 23: // var_jison ::= RESULT PUNTO SCORE 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
@@ -535,7 +523,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // var_jison ::= RESULT PUNTO CLASES 
+          case 24: // var_jison ::= RESULT PUNTO CLASES 
             {
               Object RESULT =null;
 
@@ -544,7 +532,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // var_jison ::= RESULT PUNTO CLASES CORCHETE_A valor CORCHETE_C 
+          case 25: // var_jison ::= RESULT PUNTO CLASES CORCHETE_A valor CORCHETE_C 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-1)).left;
@@ -556,7 +544,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // var_jison ::= RESULT PUNTO CLASES CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
+          case 26: // var_jison ::= RESULT PUNTO CLASES CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -568,7 +556,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // var_jison ::= RESULT PUNTO VARIABLES 
+          case 27: // var_jison ::= RESULT PUNTO VARIABLES 
             {
               Object RESULT =null;
 
@@ -577,7 +565,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // var_jison ::= RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C 
+          case 28: // var_jison ::= RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-1)).left;
@@ -589,7 +577,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // var_jison ::= RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
+          case 29: // var_jison ::= RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -601,7 +589,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // var_jison ::= RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO TIPO 
+          case 30: // var_jison ::= RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO TIPO 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -613,7 +601,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // var_jison ::= RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO FUNCION 
+          case 31: // var_jison ::= RESULT PUNTO VARIABLES CORCHETE_A valor CORCHETE_C PUNTO FUNCION 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -625,7 +613,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // var_jison ::= RESULT PUNTO METODOS 
+          case 32: // var_jison ::= RESULT PUNTO METODOS 
             {
               Object RESULT =null;
 
@@ -634,7 +622,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // var_jison ::= RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C 
+          case 33: // var_jison ::= RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-1)).left;
@@ -646,7 +634,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // var_jison ::= RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
+          case 34: // var_jison ::= RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO NOMBRE 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -658,7 +646,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // var_jison ::= RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO TIPO 
+          case 35: // var_jison ::= RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO TIPO 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -670,7 +658,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 37: // var_jison ::= RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO PARAMETROS 
+          case 36: // var_jison ::= RESULT PUNTO METODOS CORCHETE_A valor CORCHETE_C PUNTO PARAMETROS 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -682,7 +670,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // var_jison ::= RESULT PUNTO COMENTARIOS 
+          case 37: // var_jison ::= RESULT PUNTO COMENTARIOS 
             {
               Object RESULT =null;
 
@@ -691,7 +679,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 39: // var_jison ::= RESULT PUNTO COMENTARIOS CORCHETE_A valor CORCHETE_C 
+          case 38: // var_jison ::= RESULT PUNTO COMENTARIOS CORCHETE_A valor CORCHETE_C 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-1)).left;
@@ -703,7 +691,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 40: // var_jison ::= RESULT PUNTO COMENTARIOS CORCHETE_A valor CORCHETE_C PUNTO TEXTO 
+          case 39: // var_jison ::= RESULT PUNTO COMENTARIOS CORCHETE_A valor CORCHETE_C PUNTO TEXTO 
             {
               Object RESULT =null;
 		int valleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-3)).left;
@@ -715,7 +703,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 41: // valor ::= ID 
+          case 40: // valor ::= ID 
             {
               Integer RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
@@ -727,7 +715,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 42: // valor ::= ENTERO 
+          case 41: // valor ::= ENTERO 
             {
               Integer RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
@@ -739,7 +727,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 43: // c ::= c SUMA CADENA 
+          case 42: // c ::= c SUMA CADENA 
             {
               String RESULT =null;
 		int cadleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
@@ -751,7 +739,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 44: // c ::= c SUMA expresion_string 
+          case 43: // c ::= c SUMA expresion_string 
             {
               String RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
@@ -763,7 +751,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 45: // c ::= c SUMA ID 
+          case 44: // c ::= c SUMA ID 
             {
               String RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
@@ -775,7 +763,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 46: // c ::= c SUMA var_jison 
+          case 45: // c ::= c SUMA var_jison 
             {
               String RESULT =null;
 		int varleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
@@ -787,7 +775,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 47: // c ::= 
+          case 46: // c ::= 
             {
               String RESULT =null;
 
@@ -796,7 +784,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 48: // expresion_string ::= ENTERO 
+          case 47: // expresion_string ::= ENTERO 
             {
               Integer RESULT =null;
 		int nleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
@@ -808,7 +796,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 49: // expresion_string ::= expresion_string SUMA expresion_string 
+          case 48: // expresion_string ::= expresion_string SUMA expresion_string 
             {
               Integer RESULT =null;
 		int e1left = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-2)).left;
@@ -826,7 +814,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 50: // expresion_string ::= expresion_string RESTA expresion_string 
+          case 49: // expresion_string ::= expresion_string RESTA expresion_string 
             {
               Integer RESULT =null;
 		int e1left = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-2)).left;
@@ -844,7 +832,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 51: // expresion_string ::= expresion_string MULTIPLICACION expresion_string 
+          case 50: // expresion_string ::= expresion_string MULTIPLICACION expresion_string 
             {
               Integer RESULT =null;
 		int e1left = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-2)).left;
@@ -862,7 +850,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 52: // expresion_string ::= expresion_string DIVISION expresion_string 
+          case 51: // expresion_string ::= expresion_string DIVISION expresion_string 
             {
               Integer RESULT =null;
 		int e1left = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-2)).left;
@@ -880,7 +868,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 53: // expresion_string ::= RESTA expresion_string 
+          case 52: // expresion_string ::= RESTA expresion_string 
             {
               Integer RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
@@ -892,7 +880,7 @@ dtsRep.agregarEtiqueta("<tr>"); etiquetas++;
           return CUP$AnalizadorCiclo$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 54: // expresion_string ::= PARENTESIS_A expresion_string PARENTESIS_C 
+          case 53: // expresion_string ::= PARENTESIS_A expresion_string PARENTESIS_C 
             {
               Integer RESULT =null;
 		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.elementAt(CUP$AnalizadorCiclo$top-1)).left;

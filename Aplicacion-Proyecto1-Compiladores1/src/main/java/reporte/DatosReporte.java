@@ -22,15 +22,13 @@ public class DatosReporte {
     private String etiquetaValor = "";
     private int inicioFor = 0;
     private int finFor = 0;
-    private int inicioLista = 0;
-    private int finLista = 0;
     private boolean forActivo = false;
     private Simbolo simFor = null;
 
     public String getEtiquetaValor() {
         return etiquetaValor;
     }
-    
+
     public void setEtiquetaValor(String etiquetaValor) {
         this.etiquetaValor = etiquetaValor;
     }
@@ -92,7 +90,7 @@ public class DatosReporte {
             }
 
         } catch (Exception e) {
-            errores.add("Error Semantico en linea: " + linea);
+            errores.add("Error Semantico en linea: " + linea + " | La variable solicitada no existe");
         }
         return valor;
     }
@@ -144,50 +142,45 @@ public class DatosReporte {
 
     }
 
-    public void iniciarFor(int inicioFor, int finFor, int inicioLista) {
-        System.out.println("Se inicio un for:");
+    public void iniciarFor(int inicioFor, int finFor) {
         this.inicioFor = inicioFor;
         this.finFor = finFor;
-        this.inicioLista = inicioLista;
         forActivo = true;
 
     }
 
-    public void recorrerFor(int finLista) {
-
-        forActivo = false;
-        this.finLista = finLista;
-        System.out.println("Etiquetas: " + etiquetasFor);
-        String texto = "INICIO\n";
-        for (int i = 0; i < etiquetasFor.size(); i++) {
-            texto = texto + etiquetasFor.get(i);
-            texto = texto + "\n";
+    public void recorrerFor() {
+        if (forActivo == true || errores.isEmpty() == false) {
+            forActivo = false;
+            String texto = "INICIO\n";
+            for (int i = 0; i < etiquetasFor.size(); i++) {
+                texto = texto + etiquetasFor.get(i);
+                texto = texto + "\n";
+            }
+            System.out.println(texto);
+            String completo = "";
+            for (int i = inicioFor; i < finFor; i++) {
+                completo = completo + texto;
+            }
+            try {
+                if (completo.equals("") == false) {
+                    StringReader str = new StringReader(completo);
+                    LexerCiclo lexer = new LexerCiclo(str);
+                    AnalizadorCiclo ciclo = new AnalizadorCiclo(lexer);
+                    ciclo.setDtsRep(this);
+                    ciclo.setErrores(errores);
+                    ciclo.parse();
+                }
+            } catch (Exception e) {
+                errores.add("Error en el ciclo");
+            }
+            etiquetasFor.clear();
+            simFor = null;
+            inicioFor = 0;
+            finFor = 0;
+        } else {
+            errores.add("No puede haber un ciclo dentro de otro ciclo");
         }
-        System.out.println(texto);
-        String completo = "";
-        System.out.println(inicioFor);
-        System.out.println(finFor);
-        for (int i = inicioFor; i <= finFor; i++) {
-            completo = completo + texto;
-        }
-        try {
-            StringReader str = new StringReader(completo);
-            LexerCiclo lexer = new LexerCiclo(str);
-            AnalizadorCiclo ciclo = new AnalizadorCiclo(lexer);
-            ciclo.setDtsRep(this);
-            ciclo.setErrores(errores);
-            ciclo.parse();
-        } catch (Exception e) {
-            errores.add("Error en el ciclo");
-            e.printStackTrace();
-        }
-        forActivo = false;
-        etiquetasFor.clear();
-        simFor = null;
-        inicioFor = 0;
-        finFor = 0;
-        inicioLista = 0;
-        this.finLista = 0;
     }
 
     public void obtenerSimboloFor(String id) {
@@ -208,7 +201,6 @@ public class DatosReporte {
 
     public void agregarH1(String valor) {
         if (forActivo == true) {
-            System.out.println("EtiquetaValor: " + etiquetaValor);
             etiquetasFor.add("<h1>" + etiquetaValor + "</h1>");
         } else {
             lineasHTML.add("<h1>" + valor + "</h1>");
@@ -233,7 +225,6 @@ public class DatosReporte {
 
     public void agregarFilaTD(String valor) {
         if (forActivo == true) {
-            System.out.println("EtiquetaValor: " + etiquetaValor);
             etiquetasFor.add("<td>" + etiquetaValor + "</td>");
         } else {
             lineasHTML.add("<td>" + valor + "</td>");

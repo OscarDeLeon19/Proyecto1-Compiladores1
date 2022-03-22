@@ -53,12 +53,12 @@ precedence left MULTIPLICACION, DIVISION;
 start with s;
 
 s ::= 
-    INICIO body {:System.out.println("Se cumplio 1"); dtsRep.aumentarID();:}     
+    INICIO body {:dtsRep.aumentarID();:}     
     s1 
 ; 
 
 s1 ::= 
-    s1 INICIO body {:System.out.println("Se cumplio 2"); dtsRep.aumentarID();:}
+    s1 INICIO body {:dtsRep.aumentarID();:}
     | 
 ;
 
@@ -73,19 +73,18 @@ body ::=
     | body etiqueta_table 
     | body columna
     | 
-    | error ETIQUETA_CERRAR
 ;
 
 etiqueta_table ::=
-    ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<table>"); etiquetas++;:}
+    ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<table>");:}
     body
-    ETIQUETA_FIN TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</table>");etiquetas++;:}
+    ETIQUETA_FIN TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</table>");:}
 ;
 
 columna ::=
-    ETIQUETA_ABRIR TR ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<tr>"); etiquetas++;:}
+    ETIQUETA_ABRIR TR ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<tr>");:}
     fila  
-    ETIQUETA_FIN TR ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</tr>"); etiquetas++;:}
+    ETIQUETA_FIN TR ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</tr>");:}
 ;
 
 fila ::=

@@ -11,8 +11,9 @@ parser code
     private ArrayList<String> errores = new ArrayList<>();
     private DatosReporte dtsRep;
     private String nuevaCadena = "";
-    private int etiquetas = 0;
     private String ultimoID = "";
+    private String cadenaValor = "";
+    private String cadenaHTML = "";
 
     public void setDtsRep(DatosReporte dtsRep) {
         this.dtsRep = dtsRep;
@@ -69,7 +70,7 @@ variable_html ::=
 ;
 
 cadena_html ::=
-    CADENA:cad c_html:resto {:RESULT = dtsRep.convertirCadena(cad, nuevaCadena); dtsRep.setEtiquetaValor("\"" + dtsRep.convertirCadena(cad, nuevaCadena) + "\""); nuevaCadena = "";:}
+    CADENA:cad c_html:resto {:RESULT = dtsRep.convertirCadena(cad, nuevaCadena); dtsRep.setEtiquetaValor("\"" + dtsRep.convertirCadena(cad, null) + "\"" + cadenaValor); nuevaCadena = "";:}
 ;
 variable_h1 ::=
     DOLAR PARENTESIS_A ID:id PARENTESIS_C DOLAR {:RESULT = String.valueOf(dtsRep.obtenerID(id, idleft)); dtsRep.setEtiquetaValor(id); :}
@@ -77,9 +78,9 @@ variable_h1 ::=
 ;
 
 c_html ::= 
-    c_html SUMA CADENA:cad {:nuevaCadena = nuevaCadena  + cad.substring(1,cad.length()-1);:}
-    | c_html SUMA expresion_string:e {:nuevaCadena = nuevaCadena  +e;:}
-    | c_html SUMA variable_h1:id {:nuevaCadena = nuevaCadena + id;:}
+    c_html SUMA CADENA:cad {:nuevaCadena = nuevaCadena  + cad.substring(1,cad.length()-1); cadenaValor = cadenaValor + " + \"" + nuevaCadena + "\""; System.out.println(nuevaCadena);:}
+    | c_html SUMA expresion_string:e {:nuevaCadena = nuevaCadena  +e; cadenaValor = cadenaValor + " + " + nuevaCadena; System.out.println(cadenaValor);:}
+    | c_html SUMA variable_h1:id {:nuevaCadena = nuevaCadena + id; cadenaValor = cadenaValor + " + " +dtsRep.getEtiquetaValor(); System.out.println(cadenaValor);:}
     | 
 ;
 
@@ -91,22 +92,16 @@ body ::=
     | error ETIQUETA_CERRAR
 ;
 
-body_for ::=
-    body etiqueta_h 
-    | body etiqueta_table 
-    | 
-;
-
 etiqueta_for ::=
-    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f, etiquetas);:}
+    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f);:}
     body
-    ETIQUETA_FIN FOR ETIQUETA_CERRAR {:dtsRep.recorrerFor(etiquetas);:}
+    ETIQUETA_FIN FOR ETIQUETA_CERRAR {:dtsRep.recorrerFor();:}
 ;
 
 etiqueta_table ::=
-    ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<table border = \"1\" class=\"table\">"); etiquetas++;:}
+    ETIQUETA_ABRIR TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<table border = \"1\" class=\"table\">");:}
     cuerpo_table
-    ETIQUETA_FIN TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</table>");etiquetas++;:}
+    ETIQUETA_FIN TABLE ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</table>");:}
 ;
 
 cuerpo_table ::=
@@ -117,15 +112,15 @@ cuerpo_table ::=
 ;
 
 for_table ::=
-    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f, etiquetas);:}
+    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f);:}
     cuerpo_table
-    ETIQUETA_FIN FOR ETIQUETA_CERRAR {:dtsRep.recorrerFor(etiquetas);:}
+    ETIQUETA_FIN FOR ETIQUETA_CERRAR {:dtsRep.recorrerFor();:}
 ;
 
 columna ::=
-    ETIQUETA_ABRIR TR ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<tr>"); etiquetas++;:}
+    ETIQUETA_ABRIR TR ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("<tr>");:}
     fila  
-    ETIQUETA_FIN TR ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</tr>"); etiquetas++;:}
+    ETIQUETA_FIN TR ETIQUETA_CERRAR {:dtsRep.agregarEtiqueta("</tr>");:}
 ;
 
 fila ::=
@@ -135,17 +130,17 @@ fila ::=
 ;
 
 fila_th ::=
-    ETIQUETA_ABRIR TH ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN TH ETIQUETA_CERRAR {:dtsRep.agregarFilaTH(var); etiquetas++;:}
+    ETIQUETA_ABRIR TH ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN TH ETIQUETA_CERRAR {:dtsRep.agregarFilaTH(var);:}
 ;
 
 fila_td ::=
-    ETIQUETA_ABRIR TD ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN TD ETIQUETA_CERRAR {:dtsRep.agregarFilaTD(var); etiquetas++;:}
+    ETIQUETA_ABRIR TD ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN TD ETIQUETA_CERRAR {:dtsRep.agregarFilaTD(var);:}
 ;
 
 
 etiqueta_h ::=
-    ETIQUETA_ABRIR H1 ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN H1 ETIQUETA_CERRAR  {:dtsRep.agregarH1("<h1>" + var + "</h1>"); etiquetas++;:}
-    | ETIQUETA_ABRIR H2 ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN H2 ETIQUETA_CERRAR {:dtsRep.agregarH2("<h2>" + var + "</h2>"); etiquetas++;:}
+    ETIQUETA_ABRIR H1 ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN H1 ETIQUETA_CERRAR  {:dtsRep.agregarH1("<h1>" + var + "</h1>");:}
+    | ETIQUETA_ABRIR H2 ETIQUETA_CERRAR variable_html:var ETIQUETA_FIN H2 ETIQUETA_CERRAR {:dtsRep.agregarH2("<h2>" + var + "</h2>");:}
 ;
 
 var ::=
