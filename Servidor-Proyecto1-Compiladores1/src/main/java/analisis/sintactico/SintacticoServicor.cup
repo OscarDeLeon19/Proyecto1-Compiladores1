@@ -39,15 +39,14 @@ terminal IMPORT, CLASS, INT, BOOLEAN, STRING, CHAR, DOUBLE, OBJECT, IF, ELSE, FO
         PROTECTED, PRIVATE, FINAL, BREAK, RETURN, VOID, THIS, TRUE, FALSE, NEW, DECIMAL, ENTERO, CADENA, LETRA, LOGICO_IGUAL,
         LOGICO_DISTINTO, MENOR_IGUAL, MAYOR_IGUAL, LOGICO_Y, LOGICO_O, INCREMENTO, DECREMENTO, SUMA, RESTA,
         MULTIPLICACION, DIVISION, PARENTESIS_A, PARENTESIS_C, DOS_PUNTOS, PUNTO_COMA, LLAVE_A, LLAVE_C, CORCHETE_A, 
-        CORCHETE_C, SIGNO_IGUAL, COMA, MENOR, MAYOR, PUNTO, ERROR;
-
+        CORCHETE_C, SIGNO_IGUAL, COMA, MENOR, MAYOR, PUNTO, DEFAULT, ERROR;
 terminal String ID;
 
 non terminal s, s_import, id_import, clase, codigo, constructor, sentencias, variable, creacion, asignacion, bandera, numero,
             parametros, visibilidad, final, expresion, metodo, resultado, var_int, var_double, var_string, var_char,
             var_object, var_boolean, ciclo_for, aumento, valor, relacionales, ciclo_while, param_sentencia, logicos, sentencia_if, sentencia_else,
             llamada, parametro_llamada, c, t, x, x_prima, t_prima, p, e, param_llamada, ciclo_do_while, sentencia_switch,
-            sentencia_case, sentencias_metodos, sentencias_if_else;
+            sentencia_case, sentencias_metodos, sentencia_default, sentencias_if_else;
 
 non terminal String tipo_parametro; 
             
@@ -147,6 +146,11 @@ sentencias ::=
 
 sentencia_switch ::=
     SWITCH PARENTESIS_A ID PARENTESIS_C LLAVE_A sentencia_case LLAVE_C
+    | SWITCH PARENTESIS_A ID PARENTESIS_C LLAVE_A sentencia_case sentencia_default LLAVE_C
+;
+
+sentencia_default ::=
+    DEFAULT ENTERO DOS_PUNTOS sentencias sentencia_case
 ;
 
 sentencia_case ::=

@@ -33,7 +33,7 @@ public class sym {
   public static final int SUMA = 40;
   public static final int IF = 10;
   public static final int THIS = 24;
-  public static final int ID = 58;
+  public static final int ID = 59;
   public static final int PUNTO_COMA = 47;
   public static final int EOF = 0;
   public static final int BOOLEAN = 5;
@@ -48,7 +48,7 @@ public class sym {
   public static final int MENOR = 54;
   public static final int BREAK = 21;
   public static final int VOID = 23;
-  public static final int ERROR = 57;
+  public static final int ERROR = 58;
   public static final int SWITCH = 15;
   public static final int MAYOR = 55;
   public static final int IMPORT = 2;
@@ -59,6 +59,7 @@ public class sym {
   public static final int FINAL = 20;
   public static final int WHILE = 13;
   public static final int PARENTESIS_A = 44;
+  public static final int DEFAULT = 57;
   public static final int MAYOR_IGUAL = 35;
   public static final int PUBLIC = 17;
   public static final int STRING = 6;
@@ -125,6 +126,7 @@ public class sym {
   "MENOR",
   "MAYOR",
   "PUNTO",
+  "DEFAULT",
   "ERROR",
   "ID"
   };

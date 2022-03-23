@@ -7,7 +7,7 @@ public class Clase {
     private String id;
     private ArrayList<Metodo> lista_metodos = new ArrayList<>();
     private int cantidadMetodos = 0;
-
+    
     public Clase() {
     }
 

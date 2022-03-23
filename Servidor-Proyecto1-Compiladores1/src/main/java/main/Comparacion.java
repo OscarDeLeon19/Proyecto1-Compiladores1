@@ -31,11 +31,25 @@ public class Comparacion {
                 }
             }
         }
+        eliminarClasesRepetidas();
         double tamanioClase = listaClases.size();
         double tamaño1 = lista1.size();
         double tamaño2 = lista2.size();
-        double nuevoScore = tamanioClase / (tamaño1 + tamaño2);
+        double nuevoScore = (tamanioClase / (tamaño1 + tamaño2))*0.25;
         score = score + nuevoScore;
+    }
+
+    public void eliminarClasesRepetidas() {
+        for (int i = 0; i < listaClases.size(); i++) {
+            Clase aux = listaClases.get(i);
+            for (int j = i + 1; j < listaClases.size(); j++) {
+                Clase repetida = listaClases.get(j);
+                if (aux.getId().equals(repetida.getId())) {
+                    listaClases.remove(j);
+                    j--;
+                }
+            }
+        }
     }
 
     private boolean compararMetodosClase(ArrayList<Metodo> lista1, ArrayList<Metodo> lista2) {
@@ -75,10 +89,10 @@ public class Comparacion {
                 }
             }
         }
-        double tamanioClase = listaVariables.size();
+        double tamanioVariable = listaVariables.size();
         double tamaño1 = lista1.size();
         double tamaño2 = lista2.size();
-        double nuevoScore = tamanioClase / (tamaño1 + tamaño2);
+        double nuevoScore = (tamanioVariable / (tamaño1 + tamaño2))*0.25;
         score = score + nuevoScore;
     }
 
@@ -95,11 +109,25 @@ public class Comparacion {
                 }
             }
         }
-        double tamanioClase = listaMetodos.size();
+        eliminarMetodosRepetidos();
+        double tamanioMetodos = listaMetodos.size();
         double tamaño1 = lista1.size();
         double tamaño2 = lista2.size();
-        double nuevoScore = tamanioClase / (tamaño1 + tamaño2);
+        double nuevoScore = (tamanioMetodos / (tamaño1 + tamaño2))*0.25;
         score = score + nuevoScore;
+    }
+
+    public void eliminarMetodosRepetidos() {
+        for (int i = 0; i < listaMetodos.size(); i++) {
+            Metodo aux = listaMetodos.get(i);
+            for (int j = i + 1; j < listaMetodos.size(); j++) {
+                Metodo repetida = listaMetodos.get(j);
+                if (aux.getId().equals(repetida.getId()) && aux.getTipo().equals(repetida.getTipo()) && aux.getCantidad_parametros() == repetida.getCantidad_parametros()) {
+                    listaMetodos.remove(j);
+                    j--;
+                }
+            }
+        }
     }
 
     private boolean compararParametrosMetodo(ArrayList<Variable> lista1, ArrayList<Variable> lista2) {
@@ -132,13 +160,27 @@ public class Comparacion {
                 }
             }
         }
-        double tamanioClase = listaComentarios.size();
+        eliminarComentariosRepetidos();
+        double tamanioComentarios = listaComentarios.size();
         double tamaño1 = lista1.size();
         double tamaño2 = lista2.size();
-        double nuevoScore = tamanioClase / (tamaño1 + tamaño2);
+        double nuevoScore = (tamanioComentarios / (tamaño1 + tamaño2))*0.25;
         score = score + nuevoScore;
     }
 
+    public void eliminarComentariosRepetidos(){
+        for (int i = 0; i < listaComentarios.size(); i++) {
+            String aux = listaComentarios.get(i);
+            for (int j = i + 1; j < listaComentarios.size(); j++) {
+                String repetida = listaComentarios.get(j);
+                if (aux.equals(repetida)) {
+                    listaComentarios.remove(j);
+                    j--;
+                }
+            }
+        }
+    }
+    
     public void arreglarComentarios() {
         for (String comentario : listaComentarios) {
             String nuevo = "";
@@ -155,45 +197,6 @@ public class Comparacion {
     }
 
     public void exportar() {
-        /*
-        System.out.println("Score: " + score);
-
-        System.out.println("Comentarios");
-        System.out.println(listaComentarios);
-        System.out.println("Variables");
-        for (Variable var : listaVariables) {
-            System.out.println("ID: " + var.getId());
-            System.out.println("Tipo: " + var.getTipo());
-            System.out.println("Padres: " + var.getPadres());
-            System.out.println("");
-        }
-        System.out.println("Metodos");
-        for (Metodo metodo : listaMetodos) {
-            System.out.println("ID: " + metodo.getId());
-            System.out.println("Tipo: " + metodo.getTipo());
-            System.out.println("Cantidad de Parametros: " + metodo.getListaParametros().size());
-            System.out.println("Parametros:");
-            for (Variable parametro : metodo.getListaParametros()) {
-                System.out.println("Id Parametro:" + parametro.getId());
-                System.out.println("Tipo Parametro:" + parametro.getTipo());
-                System.out.println("");
-            }
-            System.out.println("");
-        }
-        System.out.println("Clases");
-        for (Clase clase : listaClases) {
-            System.out.println("ID: " + clase.getId());
-            System.out.println("Cantidad de Metodos: " + clase.getCantidadMetodos());
-            System.out.println("Metodos:");
-            for (Metodo parametro : clase.getLista_metodos()) {
-                System.out.println("Id Parametro:" + parametro.getId());
-                System.out.println("Tipo Parametro:" + parametro.getTipo());
-                System.out.println("");
-            }
-            System.out.println("");
-        }
-         */
-
         arreglarComentarios();
         String json = "{\n"
                 + "\tScore: \"" + score + "\",\n"

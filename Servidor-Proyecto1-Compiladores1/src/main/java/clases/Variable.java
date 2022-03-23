@@ -7,7 +7,7 @@ public class Variable {
     private String id;
     private String tipo;
     private ArrayList<String> padres = new ArrayList<>();
-
+    
     public Variable() {
     }
 

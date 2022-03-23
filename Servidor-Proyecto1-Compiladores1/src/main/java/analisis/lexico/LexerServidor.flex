@@ -84,6 +84,7 @@ this {return new Symbol(sym.THIS, yyline+1, yycolumn+1, yytext());}
 true {return new Symbol(sym.TRUE, yyline+1, yycolumn+1, yytext());}
 false {return new Symbol(sym.FALSE, yyline+1, yycolumn+1, yytext());}
 new {return new Symbol(sym.NEW, yyline+1, yycolumn+1, yytext());}
+default {return new Symbol(sym.DEFAULT, yyline+1, yycolumn+1, yytext());}
 {espacio} {/*ignorar*/}
 {tab} {/*ignorar*/}
 {salto} {/*ignorar*/}
