@@ -108,7 +108,6 @@ public class Carga {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error " + e);
-            e.printStackTrace();
         }
     }
 

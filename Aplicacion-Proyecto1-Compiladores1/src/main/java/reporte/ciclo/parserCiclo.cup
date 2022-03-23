@@ -129,7 +129,7 @@ var_jison ::=
 ;
 
 valor ::=
-    ID:e {:RESULT = Integer.parseInt(dtsRep.obtenerID(e, eleft)); ultimoID = e;:}
+    ID:e {:try{ RESULT = Integer.parseInt(dtsRep.obtenerID(e, eleft)); ultimoID = e;}catch(Exception ex){errores.add("Error al obtener valor de ID: "+ e +" en Linea: " + eleft); RESULT = 0;}:}
     | ENTERO:e {:RESULT = e; ultimoID = String.valueOf(e);:}
 ;
 

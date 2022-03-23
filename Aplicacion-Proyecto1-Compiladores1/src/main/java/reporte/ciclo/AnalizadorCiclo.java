@@ -709,7 +709,7 @@ dtsRep.agregarEtiqueta("<tr>");
 		int eleft = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()).right;
 		String e = (String)((java_cup.runtime.Symbol) CUP$AnalizadorCiclo$stack.peek()).value;
-		RESULT = Integer.parseInt(dtsRep.obtenerID(e, eleft)); ultimoID = e;
+		try{ RESULT = Integer.parseInt(dtsRep.obtenerID(e, eleft)); ultimoID = e;}catch(Exception ex){errores.add("Error al obtener valor de ID: "+ e +" en Linea: " + eleft); RESULT = 0;}
               CUP$AnalizadorCiclo$result = parser.getSymbolFactory().newSymbol("valor",11, ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()), ((java_cup.runtime.Symbol)CUP$AnalizadorCiclo$stack.peek()), RESULT);
             }
           return CUP$AnalizadorCiclo$result;

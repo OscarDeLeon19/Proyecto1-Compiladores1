@@ -78,9 +78,9 @@ variable_h1 ::=
 ;
 
 c_html ::= 
-    c_html SUMA CADENA:cad {:nuevaCadena = nuevaCadena  + cad.substring(1,cad.length()-1); cadenaValor = cadenaValor + " + \"" + nuevaCadena + "\""; System.out.println(nuevaCadena);:}
-    | c_html SUMA expresion_string:e {:nuevaCadena = nuevaCadena  +e; cadenaValor = cadenaValor + " + " + nuevaCadena; System.out.println(cadenaValor);:}
-    | c_html SUMA variable_h1:id {:nuevaCadena = nuevaCadena + id; cadenaValor = cadenaValor + " + " +dtsRep.getEtiquetaValor(); System.out.println(cadenaValor);:}
+    c_html SUMA CADENA:cad {:nuevaCadena = nuevaCadena  + cad.substring(1,cad.length()-1); cadenaValor = cadenaValor + " + \"" + nuevaCadena + "\"";:}
+    | c_html SUMA expresion_string:e {:nuevaCadena = nuevaCadena  +e; cadenaValor = cadenaValor + " + " + nuevaCadena;:}
+    | c_html SUMA variable_h1:id {:nuevaCadena = nuevaCadena + id; cadenaValor = cadenaValor + " + " +dtsRep.getEtiquetaValor(); :}
     | 
 ;
 
@@ -93,7 +93,7 @@ body ::=
 ;
 
 etiqueta_for ::=
-    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f);:}
+    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:try {int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f); } catch(Exception e){errores.add("Error al obtener valor de ID en Linea: " + inicioleft);}:}
     body
     ETIQUETA_FIN FOR ETIQUETA_CERRAR {:dtsRep.recorrerFor();:}
 ;
@@ -112,7 +112,7 @@ cuerpo_table ::=
 ;
 
 for_table ::=
-    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f);:}
+    ETIQUETA_ABRIR FOR ITERADOR DOS_PUNTOS ID:inicio HASTA DOS_PUNTOS ID:fin  PUNTO_COMA ETIQUETA_CERRAR {:try{ int i = Integer.parseInt(dtsRep.obtenerID(inicio, inicioleft)); int f = Integer.parseInt(dtsRep.obtenerID(fin, finleft)); dtsRep.obtenerSimboloFor(inicio); dtsRep.iniciarFor(i, f); } catch(Exception e){errores.add("Error al obtener valor de ID en Linea: " + inicioleft);}:}
     cuerpo_table
     ETIQUETA_FIN FOR ETIQUETA_CERRAR {:dtsRep.recorrerFor();:}
 ;
@@ -178,7 +178,7 @@ var_jison ::=
 ;
 
 valor ::=
-    ID:e {:RESULT = Integer.parseInt(dtsRep.obtenerID(e, eleft)); ultimoID = e;:}
+    ID:e {:try{ RESULT = Integer.parseInt(dtsRep.obtenerID(e, eleft)); ultimoID = e;}catch(Exception ex){errores.add("Error al obtener valor de ID: "+ e +" en Linea: " + eleft); RESULT = 0;}:}
     | ENTERO:e {:RESULT = e; ultimoID = String.valueOf(e);:}
 ;
 

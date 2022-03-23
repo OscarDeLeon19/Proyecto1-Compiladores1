@@ -1,10 +1,12 @@
-
 package main;
 
 import files.Carga;
+import javax.swing.JOptionPane;
 
 public class Inicio extends javax.swing.JFrame {
+
     Carga carga = new Carga();
+
     public Inicio() {
         initComponents();
         setResizable(false);
@@ -19,7 +21,7 @@ public class Inicio extends javax.swing.JFrame {
         BotonAbrir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pagina Inicio");
 
         BotonComparar.setText("Comparar Dos Proyectos");
@@ -67,9 +69,14 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonCompararActionPerformed
 
     private void BotonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbrirActionPerformed
-        String[] paths = carga.obtenerCOPY();
-        App app = new App(paths[0], paths[1], paths[2]);
-        app.setVisible(true);
+        try {
+            String[] paths = carga.obtenerCOPY();
+            App app = new App(paths[0], paths[1], paths[2]);
+            app.setVisible(true);
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se eligio un archivo correctamente");
+        }
     }//GEN-LAST:event_BotonAbrirActionPerformed
 
     /**

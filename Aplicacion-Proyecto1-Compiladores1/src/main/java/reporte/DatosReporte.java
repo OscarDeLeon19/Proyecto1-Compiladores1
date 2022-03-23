@@ -72,7 +72,7 @@ public class DatosReporte {
 
     public Object obtenerValorJISON(String lista, int i, String parametro, int linea) {
         Object valor = null;
-        try {
+        try {            
             if (parametro == null) {
                 errores.add("Error Semantico en linea: " + linea + "No se pueden usar objetos en el programa");
             } else {
@@ -131,17 +131,6 @@ public class DatosReporte {
         return cad;
     }
 
-    public void pintar() {
-        tabla.pintarSimbolos();
-        System.out.println("HTML");
-        //System.out.println(etiquetasFor);
-        System.out.println("");
-        for (int i = 0; i < lineasHTML.size(); i++) {
-            System.out.println(lineasHTML.get(i));
-        }
-
-    }
-
     public void iniciarFor(int inicioFor, int finFor) {
         this.inicioFor = inicioFor;
         this.finFor = finFor;
@@ -157,7 +146,6 @@ public class DatosReporte {
                 texto = texto + etiquetasFor.get(i);
                 texto = texto + "\n";
             }
-            System.out.println(texto);
             String completo = "";
             for (int i = inicioFor; i < finFor; i++) {
                 completo = completo + texto;

@@ -22,7 +22,7 @@ import reporte.analisis.sintactico.parser;
 
 public class App extends javax.swing.JFrame {
 
-    private Carga cargar = new Carga();
+    private Carga carga = new Carga();
     private ArrayList<String> errores = new ArrayList<String>();
     private Jison jison;
     private String pathDEF;
@@ -71,10 +71,8 @@ public class App extends javax.swing.JFrame {
     }
 
     public void cargarArchivos() {
-        System.out.println("DEF" + pathDEF);
-        System.out.println("JISON" + pathJISON);
-        cargar.cargarArchivo(pathDEF, area1);
-        cargar.cargarArchivo(pathJISON, area2);
+        carga.cargarArchivo(pathDEF, area1);
+        carga.cargarArchivo(pathJISON, area2);
     }
 
     public void agregarNumeracion() {
@@ -104,8 +102,8 @@ public class App extends javax.swing.JFrame {
         areaErrores = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        itemAbrirProyecto = new javax.swing.JMenuItem();
+        itemComparar = new javax.swing.JMenuItem();
         menuGuardar = new javax.swing.JMenu();
         itemGuardarDEF = new javax.swing.JMenuItem();
         itemGuardarJison = new javax.swing.JMenuItem();
@@ -186,7 +184,7 @@ public class App extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pestanas.addTab("jison", panelJISON);
+        pestanas.addTab("json", panelJISON);
 
         jLabel1.setText("Consola de errores:");
 
@@ -198,12 +196,22 @@ public class App extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem1.setText("Abrir Proyecto");
-        jMenu1.add(jMenuItem1);
+        itemAbrirProyecto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itemAbrirProyecto.setText("Abrir Proyecto");
+        itemAbrirProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemAbrirProyectoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemAbrirProyecto);
 
-        jMenuItem3.setText("Comparar Proyectos");
-        jMenu1.add(jMenuItem3);
+        itemComparar.setText("Comparar Proyectos");
+        itemComparar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCompararActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemComparar);
 
         jMenuBar1.add(jMenu1);
 
@@ -263,11 +271,12 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCompilarJISONActionPerformed
 
     private void itemGuardarJisonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGuardarJisonActionPerformed
-        cargar.guardar(pathJISON, area2.getText());
+        carga.guardar(pathJISON, area2.getText());
     }//GEN-LAST:event_itemGuardarJisonActionPerformed
 
     private void botonReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporteActionPerformed
         DatosReporte dtsRep = new DatosReporte(jison);
+        areaErrores.setText("");        
         errores.clear();
         try {
             dtsRep.setErrores(errores);
@@ -279,15 +288,13 @@ public class App extends javax.swing.JFrame {
             par.setDtsRep(dtsRep);
             par.parse();
 
-            JOptionPane.showMessageDialog(null, "Archivo correcto");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Errors");
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error de compilacion de archivo");
         }
 
         if (errores.isEmpty() == true) {
             String cuerpo = dtsRep.exportarHTML();
-            cargar.exportarHTML(pathReporte, cuerpo);
+            carga.exportarHTML(pathReporte, cuerpo);
             visualizarReporte();
         } else if (errores.isEmpty() == false) {
             areaErrores.append("Errores en el archivo de reportes");
@@ -297,12 +304,29 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_botonReporteActionPerformed
 
     private void itemGuardarDEFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGuardarDEFActionPerformed
-        cargar.guardar(pathDEF, area1.getText());
+        carga.guardar(pathDEF, area1.getText());
     }//GEN-LAST:event_itemGuardarDEFActionPerformed
+
+    private void itemAbrirProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAbrirProyectoActionPerformed
+        try {
+            String[] paths = carga.obtenerCOPY();
+            App app = new App(paths[0], paths[1], paths[2]);
+            app.setVisible(true);
+            dispose();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se eligio un archivo correctamente");
+        }
+    }//GEN-LAST:event_itemAbrirProyectoActionPerformed
+
+    private void itemCompararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCompararActionPerformed
+        VentanaComparar vtnComparar = new VentanaComparar();
+        vtnComparar.setVisible(true);
+    }//GEN-LAST:event_itemCompararActionPerformed
 
     public void compilarJison() {
         String texto = area2.getText();
         DatosJISON datos = new DatosJISON();
+        areaErrores.setText("");   
         errores.clear();
         jison = datos.analizarJISON(texto, errores);
 
@@ -329,7 +353,7 @@ public class App extends javax.swing.JFrame {
             Reporte reporte = new Reporte();
             reporte.verReporte(file);
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al visualizar reporte");
         }
     }
 
@@ -339,13 +363,13 @@ public class App extends javax.swing.JFrame {
     private javax.swing.JTextArea areaErrores;
     private javax.swing.JButton botonCompilarJISON;
     private javax.swing.JButton botonReporte;
+    private javax.swing.JMenuItem itemAbrirProyecto;
+    private javax.swing.JMenuItem itemComparar;
     private javax.swing.JMenuItem itemGuardarDEF;
     private javax.swing.JMenuItem itemGuardarJison;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
