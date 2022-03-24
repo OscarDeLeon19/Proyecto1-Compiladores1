@@ -3,28 +3,29 @@ package main;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 public class Exportar {
 
+    
     public Exportar() {
+          
     }
 
-    public void exportarJISON(String jison) {
+    public void exportarJISON(String jison, String carpeta) {
         try {
             File fichero;
-
+            System.out.println("Inicio exportacion");
             JFileChooser seleccionar = new JFileChooser();
             seleccionar.setAcceptAllFileFilterUsed(false);
             seleccionar.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             seleccionar.showOpenDialog(null);
             fichero = seleccionar.getSelectedFile();
 
-            String carpeta = JOptionPane.showInputDialog("Ingresa el nombre de tu proyecto");
             File directorio = new File(fichero.getAbsolutePath() + "/" + carpeta);
             if (directorio.exists()) {
-                JOptionPane.showMessageDialog(null, "El directorio ya existe");
+                Alerta alerta = new Alerta("El directorio ya existe");
             } else {
                 directorio.mkdirs();
             }
@@ -47,7 +48,7 @@ public class Exportar {
             escribirCOPY.write(textoCOPY);
             escribirCOPY.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al crear directorio de archivos");
+            Alerta alerta = new Alerta("Error al crear directorio de archivos");
         }
     }
 

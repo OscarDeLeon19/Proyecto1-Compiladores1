@@ -49,10 +49,20 @@ public class Carga {
             String linea = "";
             int i = 0;
             while ((linea = bufer.readLine()) != null) {
+
                 paths[i] = linea;
                 i++;
-            }
 
+            }
+            if (paths[0].endsWith(".def") == false) {
+                JOptionPane.showMessageDialog(null, "Error al obtener DEF");
+            }
+            if (paths[1].endsWith(".json") == false) {
+                JOptionPane.showMessageDialog(null, "Error al obtener JSON");
+            }
+            if (paths[2].endsWith(".html") == false) {
+                JOptionPane.showMessageDialog(null, "Error al obtener HTML");
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al agregar archivo");
         }

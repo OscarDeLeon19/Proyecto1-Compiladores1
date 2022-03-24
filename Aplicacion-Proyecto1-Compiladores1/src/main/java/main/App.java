@@ -26,15 +26,15 @@ public class App extends javax.swing.JFrame {
     private ArrayList<String> errores = new ArrayList<String>();
     private Jison jison;
     private String pathDEF;
-    private String pathJISON;
+    private String pathJSON;
     private String pathReporte;
 
-    public App(String pathDEF, String pathJISON, String pathReporte) {
+    public App(String pathDEF, String pathJSON, String pathReporte) {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
         this.pathDEF = pathDEF;
-        this.pathJISON = pathJISON;
+        this.pathJSON = pathJSON;
         this.pathReporte = pathReporte;
         agregarNumeracion();
         cargarArchivos();
@@ -72,7 +72,7 @@ public class App extends javax.swing.JFrame {
 
     public void cargarArchivos() {
         carga.cargarArchivo(pathDEF, area1);
-        carga.cargarArchivo(pathJISON, area2);
+        carga.cargarArchivo(pathJSON, area2);
     }
 
     public void agregarNumeracion() {
@@ -271,7 +271,7 @@ public class App extends javax.swing.JFrame {
     }//GEN-LAST:event_botonCompilarJISONActionPerformed
 
     private void itemGuardarJisonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGuardarJisonActionPerformed
-        carga.guardar(pathJISON, area2.getText());
+        carga.guardar(pathJSON, area2.getText());
     }//GEN-LAST:event_itemGuardarJisonActionPerformed
 
     private void botonReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporteActionPerformed

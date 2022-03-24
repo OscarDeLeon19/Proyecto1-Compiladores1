@@ -260,7 +260,8 @@ public class Comparacion {
         json = json + "\t" + "]\n";
         json = json + "}";
 
-        exportar.exportarJISON(json);
+        Carpeta carpeta = new Carpeta(json);
+        carpeta.setVisible(true);
     }
 
 }

@@ -111,4 +111,6 @@ public class Analisis {
             vtnServer.setVisible(true);
         }
     }
+    
+    
 }
