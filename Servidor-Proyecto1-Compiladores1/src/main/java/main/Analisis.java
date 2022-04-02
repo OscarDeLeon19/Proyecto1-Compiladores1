@@ -3,6 +3,7 @@ package main;
 import analisis.lexico.LexerServidor;
 import analisis.sintactico.parser;
 import clases.Clase;
+import clases.Comentario;
 import clases.Metodo;
 import clases.Variable;
 import java.io.File;
@@ -11,12 +12,12 @@ import java.util.ArrayList;
 
 public class Analisis {
 
-    private ArrayList<String> listaComentarios1 = new ArrayList<>();
+    private ArrayList<Comentario> listaComentarios1 = new ArrayList<>();
     private ArrayList<Clase> listaClase1 = new ArrayList<>();
     private ArrayList<Metodo> listaMetodos1 = new ArrayList<>();
     private ArrayList<Variable> listaVariables1 = new ArrayList<>();
 
-    private ArrayList<String> listaComentarios2 = new ArrayList<>();
+    private ArrayList<Comentario> listaComentarios2 = new ArrayList<>();
     private ArrayList<Clase> listaClase2 = new ArrayList<>();
     private ArrayList<Metodo> listaMetodos2 = new ArrayList<>();
     private ArrayList<Variable> listaVariables2 = new ArrayList<>();
@@ -49,8 +50,10 @@ public class Analisis {
                 }
 
             }
-                        
-            lista1.eliminarRepetidos();
+            lista1.eliminarClasesRepetidas();
+            lista1.eliminarMetodosRepetidos();
+            lista1.eliminarVariablesRepetidas();
+            lista1.eliminarComentariosRepetidos();
             listaComentarios1 = lista1.getListaComentarios();
             listaClase1 = lista1.getListaClase();
             listaMetodos1 = lista1.getListaMetodos();
@@ -87,7 +90,10 @@ public class Analisis {
 
             }
 
-            lista2.eliminarRepetidos();
+            lista2.eliminarClasesRepetidas();
+            lista2.eliminarMetodosRepetidos();
+            lista2.eliminarVariablesRepetidas();
+            lista2.eliminarComentariosRepetidos();
             listaComentarios2 = lista2.getListaComentarios();
             listaClase2 = lista2.getListaClase();
             listaMetodos2 = lista2.getListaMetodos();

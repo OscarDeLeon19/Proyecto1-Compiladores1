@@ -86,7 +86,7 @@ codigo ::= codigo metodo
 ;
 
 constructor ::=
-        visibilidad ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+        visibilidad ID:var PARENTESIS_A parametros PARENTESIS_C LLAVE_A sentencias LLAVE_C {:lista.añadirMetodo(var,"Constructor",contadorVariable); contadorVariable = 0;:}  
 ;
 
 metodo ::=
@@ -150,7 +150,7 @@ sentencia_switch ::=
 ;
 
 sentencia_default ::=
-    DEFAULT ENTERO DOS_PUNTOS sentencias sentencia_case
+    DEFAULT DOS_PUNTOS sentencias sentencia_case
 ;
 
 sentencia_case ::=

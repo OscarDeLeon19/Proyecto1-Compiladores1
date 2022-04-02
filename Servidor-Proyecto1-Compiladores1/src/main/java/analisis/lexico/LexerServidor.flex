@@ -14,7 +14,7 @@ import main.Lista;
 %cupdebug
 
 
-L=[a-zA-Z_]
+L=[a-zA-Z_ñÑ]
 D=[0-9]
 punto=[.]
 espacio=[ ]+
@@ -92,7 +92,7 @@ default {return new Symbol(sym.DEFAULT, yyline+1, yycolumn+1, yytext());}
 {decimal} { return new Symbol(sym.DECIMAL, yyline+1, yycolumn+1, yytext());}
 {entero} {return new Symbol(sym.ENTERO, yyline+1, yycolumn+1, yytext());}
 {id}+ {return new Symbol(sym.ID, yyline+1, yycolumn+1, yytext());}
-{comilla}({id}|{entero}|{decimal}|{espacio}|{salto}|"+"|"-"|"*"|"/"|":"|",",";")*{comilla} {return new Symbol(sym.CADENA, yyline+1, yycolumn+1, yytext());}
+{comilla}({id}|{entero}|{decimal}|{espacio}|{salto}|"+"|"-"|"*"|"/"|":"|","|"="|"!"|"<"|">"|"("|")"|"["|"]")*{comilla} {return new Symbol(sym.CADENA, yyline+1, yycolumn+1, yytext());}
 {comilla_simple}{id}{comilla_simple} {return new Symbol(sym.LETRA, yyline+1, yycolumn+1, yytext());}
 {Comment} {lista.añadirComentario(yytext());}
 {punto} {return new Symbol(sym.PUNTO, yyline+1, yycolumn+1, yytext()); }

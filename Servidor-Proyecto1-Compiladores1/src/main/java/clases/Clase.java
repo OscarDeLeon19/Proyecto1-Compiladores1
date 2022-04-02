@@ -7,10 +7,19 @@ public class Clase {
     private String id;
     private ArrayList<Metodo> lista_metodos = new ArrayList<>();
     private int cantidadMetodos = 0;
+    private int repeticiones = 1;
     /**
      * Constructor de la clase "Clase"
      */
     public Clase() {
+    }
+
+    public int getRepeticiones() {
+        return repeticiones;
+    }
+
+    public void setRepeticiones(int repeticiones) {
+        this.repeticiones = repeticiones;
     }
 
     public String getId() {
@@ -43,6 +52,10 @@ public class Clase {
 
     public void setCantidadMetodos(int cantidadMetodos) {
         this.cantidadMetodos = cantidadMetodos;
+    }
+    
+    public void aumentarRepeticiones(int cantidad){
+        repeticiones += cantidad;
     }
 
 }

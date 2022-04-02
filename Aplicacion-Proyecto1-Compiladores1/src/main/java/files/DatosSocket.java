@@ -20,7 +20,7 @@ public class DatosSocket {
      * @param path2 La direccion de la carpeta del proyecto 2
      */
     public void enviarParametros(String path1, String path2){       
-        final String HOST = "192.168.1.13";
+        final String HOST = "192.168.1.2";
         final int puerto = 6000;
         DataInputStream in;
         DataOutputStream out;

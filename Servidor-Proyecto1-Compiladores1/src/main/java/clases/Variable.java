@@ -7,6 +7,7 @@ public class Variable {
     private String id;
     private String tipo;
     private ArrayList<String> padres = new ArrayList<>();
+    private int repeticiones = 1;
     /**
      * Constructor de la clase variable.
      * Crea un objeto de tipo variable obtenido del analisis sintactico.
@@ -14,6 +15,14 @@ public class Variable {
     public Variable() {
     }
 
+    public int getRepeticiones() {
+        return repeticiones;
+    }
+
+    public void setRepeticiones(int repeticiones) {
+        this.repeticiones = repeticiones;
+    }
+    
     public String getId() {
         return id;
     }
@@ -49,5 +58,9 @@ public class Variable {
         if (comprobacion == false) {
             padres.add(padre);
         }
+    }
+    
+    public void aumentarRepeticiones(int cantidad){
+        repeticiones += cantidad;
     }
 }

@@ -51,6 +51,7 @@ public class Exportar {
             escribirJISON.close();
             escribirCOPY.write(textoCOPY);
             escribirCOPY.close();
+            Alerta alerta = new Alerta("Archivos Exportados");
         } catch (Exception e) {
             Alerta alerta = new Alerta("Error al crear directorio de archivos");
         }

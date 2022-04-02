@@ -1,6 +1,7 @@
 package main;
 
 import clases.Clase;
+import clases.Comentario;
 import clases.Metodo;
 import clases.Variable;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 public class Comparacion {
 
     private Exportar exportar = new Exportar();
-    private ArrayList<String> listaComentarios = new ArrayList<>();
+    private ArrayList<Comentario> listaComentarios = new ArrayList<>();
     private ArrayList<Clase> listaClases = new ArrayList<>();
     private ArrayList<Metodo> listaMetodos = new ArrayList<>();
     private ArrayList<Variable> listaVariables = new ArrayList<>();
@@ -32,33 +33,33 @@ public class Comparacion {
                 if (clase.getId().equals(nueva.getId())) {
                     boolean comparacion = compararMetodosClase(clase.getLista_metodos(), nueva.getLista_metodos());
                     if (comparacion == true) {
-                        listaClases.add(clase);
+                        Clase copia = new Clase();
+                        copia.setId(clase.getId());
+                        copia.setCantidadMetodos(clase.getCantidadMetodos());
+                        copia.setLista_metodos(clase.getLista_metodos());
+                        copia.setRepeticiones(clase.getRepeticiones() + nueva.getRepeticiones());
+                        listaClases.add(copia);
                     }
                 }
             }
         }
-        eliminarClasesRepetidas();
-        double tamanioClase = listaClases.size();
-        double tamaño1 = lista1.size();
-        double tamaño2 = lista2.size();
-        double nuevoScore = (tamanioClase / (tamaño1 + tamaño2))*0.25;
+        double clasesRepetidas = 0;
+        double clasesProyecto1 = 0;
+        double clasesProyecto2 = 0;
+        for (int i = 0; i < listaClases.size(); i++) {
+            clasesRepetidas += listaClases.get(i).getRepeticiones();
+        }
+        for (int i = 0; i < lista1.size(); i++) {
+            clasesProyecto1 += lista1.get(i).getRepeticiones();
+        }
+        for (int i = 0; i < lista2.size(); i++) {
+            clasesProyecto2 += lista2.get(i).getRepeticiones();
+        }
+        
+        double nuevoScore = (clasesRepetidas / (clasesProyecto1 + clasesProyecto2))*0.25;
         score = score + nuevoScore;
     }
-    /**
-     * Elimina las clases repetidas que se encuentren en la lista final
-     */
-    public void eliminarClasesRepetidas() {
-        for (int i = 0; i < listaClases.size(); i++) {
-            Clase aux = listaClases.get(i);
-            for (int j = i + 1; j < listaClases.size(); j++) {
-                Clase repetida = listaClases.get(j);
-                if (aux.getId().equals(repetida.getId())) {
-                    listaClases.remove(j);
-                    j--;
-                }
-            }
-        }
-    }
+    
     /**
      * Compara los metodos de una clase con la de otra para corroborar que son clases repetidas.
      * @param lista1 Lista de metodos del proyecto 1
@@ -101,15 +102,30 @@ public class Comparacion {
                     for (String padre : var2.getPadres()) {
                         nuevaVariable.agregarPadre(padre);
                     }
-                    listaVariables.add(nuevaVariable);
+                    Variable copia = new Variable();
+                    copia.setId(var1.getId());
+                    copia.setPadres(nuevaVariable.getPadres());
+                    copia.setTipo(var1.getTipo());
+                    copia.setRepeticiones(var1.getRepeticiones() + var2.getRepeticiones());
+                    listaVariables.add(copia);
                     break;
                 }
             }
         }
-        double tamanioVariable = listaVariables.size();
-        double tamaño1 = lista1.size();
-        double tamaño2 = lista2.size();
-        double nuevoScore = (tamanioVariable / (tamaño1 + tamaño2))*0.25;
+        double variablesRepetidas = 0;
+        double variablesProyecto1 = 0;
+        double variablesProyecto2 = 0;
+        for (int i = 0; i < listaVariables.size(); i++) {
+            variablesRepetidas += listaVariables.get(i).getRepeticiones();
+        }
+        for (int i = 0; i < lista1.size(); i++) {
+            variablesProyecto1 += lista1.get(i).getRepeticiones();
+        }
+        for (int i = 0; i < lista2.size(); i++) {
+            variablesProyecto2 += lista2.get(i).getRepeticiones();
+        }
+        
+        double nuevoScore = (variablesRepetidas / (variablesProyecto1 + variablesProyecto2))*0.25;
         score = score + nuevoScore;
     }
     /**
@@ -125,33 +141,33 @@ public class Comparacion {
                 if (metodo.getId().equals(nuevo.getId())) {
                     boolean comparacion = compararParametrosMetodo(metodo.getListaParametros(), nuevo.getListaParametros());
                     if (comparacion == true) {
-                        listaMetodos.add(metodo);
+                        Metodo copia = new Metodo();
+                        copia.setId(metodo.getId());
+                        copia.setTipo(metodo.getTipo());
+                        copia.setCantidad_parametros(metodo.getCantidad_parametros());
+                        copia.setListaParametros(metodo.getListaParametros());
+                        copia.setRepeticiones(metodo.getRepeticiones()+nuevo.getRepeticiones());
+                        listaMetodos.add(copia);
                     }
                 }
             }
         }
-        eliminarMetodosRepetidos();
-        double tamanioMetodos = listaMetodos.size();
-        double tamaño1 = lista1.size();
-        double tamaño2 = lista2.size();
-        double nuevoScore = (tamanioMetodos / (tamaño1 + tamaño2))*0.25;
+        double metodosRepetidos = 0;
+        double metodosProyecto1 = 0;
+        double metodosProyecto2 = 0;
+        for (int i = 0; i < listaMetodos.size(); i++) {
+            metodosRepetidos += listaMetodos.get(i).getRepeticiones();
+        }
+        for (int i = 0; i < lista1.size(); i++) {
+            metodosProyecto1 += lista1.get(i).getRepeticiones();
+        }
+        for (int i = 0; i < lista2.size(); i++) {
+            metodosProyecto2 += lista2.get(i).getRepeticiones();
+        }
+        double nuevoScore = (metodosRepetidos / (metodosProyecto1 + metodosProyecto2))*0.25;
         score = score + nuevoScore;
     }
-    /**
-     * Elimina los proyectos repetidos entre los proyectos 
-     */
-    public void eliminarMetodosRepetidos() {
-        for (int i = 0; i < listaMetodos.size(); i++) {
-            Metodo aux = listaMetodos.get(i);
-            for (int j = i + 1; j < listaMetodos.size(); j++) {
-                Metodo repetida = listaMetodos.get(j);
-                if (aux.getId().equals(repetida.getId()) && aux.getTipo().equals(repetida.getTipo()) && aux.getCantidad_parametros() == repetida.getCantidad_parametros()) {
-                    listaMetodos.remove(j);
-                    j--;
-                }
-            }
-        }
-    }
+    
     /**
      * Compara Los parametros de un metodo con otro.
      * @param lista1 La lista de parametros de el primer metodo
@@ -184,41 +200,39 @@ public class Comparacion {
      * @param lista1 La lista de comentarios del proyecto 1
      * @param lista2 La lista de comentarios del proyecto 2
      */
-    public void compararComentarios(ArrayList<String> lista1, ArrayList<String> lista2) {
+    public void compararComentarios(ArrayList<Comentario> lista1, ArrayList<Comentario> lista2) {
         for (int i = 0; i < lista1.size(); i++) {
             for (int j = 0; j < lista2.size(); j++) {
-                if (lista1.get(i).equals(lista2.get(j))) {
-                    listaComentarios.add(lista1.get(i));
+                if (lista1.get(i).getTexto().equals(lista2.get(j).getTexto())) {
+                    Comentario copia = new Comentario();
+                    copia.setTexto(lista1.get(i).getTexto());
+                    copia.setRepeticiones(lista1.get(i).getRepeticiones() + lista2.get(i).getRepeticiones());
+                    listaComentarios.add(copia);
                 }
             }
         }
-        eliminarComentariosRepetidos();
-        double tamanioComentarios = listaComentarios.size();
-        double tamaño1 = lista1.size();
-        double tamaño2 = lista2.size();
-        double nuevoScore = (tamanioComentarios / (tamaño1 + tamaño2))*0.25;
+        double comentariosRepetidos = 0;
+        double comentariosProyecto1 = 0;
+        double comentariosProyecto2 = 0;
+        for (int i = 0; i < listaComentarios.size(); i++) {
+            comentariosRepetidos += listaComentarios.get(i).getRepeticiones();
+        }
+        for (int i = 0; i < lista1.size(); i++) {
+            comentariosProyecto1 += lista1.get(i).getRepeticiones();
+        }
+        for (int i = 0; i < lista2.size(); i++) {
+            comentariosProyecto2 += lista2.get(i).getRepeticiones();
+        }
+        double nuevoScore = (comentariosRepetidos / (comentariosProyecto1 + comentariosProyecto2))*0.25;
         score = score + nuevoScore;
     }
-    /**
-     * Elimina los comentarios repetidos del proyecto
-     */
-    public void eliminarComentariosRepetidos(){
-        for (int i = 0; i < listaComentarios.size(); i++) {
-            String aux = listaComentarios.get(i);
-            for (int j = i + 1; j < listaComentarios.size(); j++) {
-                String repetida = listaComentarios.get(j);
-                if (aux.equals(repetida)) {
-                    listaComentarios.remove(j);
-                    j--;
-                }
-            }
-        }
-    }
+
     /**
      * Quita los saltos del linea, tabulacion, etc. Para que el comentario quede en una sola linea.
      */
     public void arreglarComentarios() {
-        for (String comentario : listaComentarios) {
+        for (Comentario cm : listaComentarios) {
+            String comentario = cm.getTexto();
             String nuevo = "";
             for (int i = 0; i < comentario.length(); i++) {
                 String letra = comentario.substring(i, i + 1);

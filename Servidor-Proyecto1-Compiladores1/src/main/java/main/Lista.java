@@ -3,12 +3,13 @@ package main;
 import clases.Clase;
 import clases.Metodo;
 import clases.Variable;
+import clases.Comentario;
 import java.util.ArrayList;
 
 public class Lista {
 
-    private ArrayList<String> listaComentarios = new ArrayList<>();
-    private ArrayList<Clase> listaClase = new ArrayList<>();
+    private ArrayList<Comentario> listaComentarios = new ArrayList<>();
+    private ArrayList<Clase> listaClases = new ArrayList<>();
     private ArrayList<Metodo> listaMetodos = new ArrayList<>();
     private ArrayList<Variable> listaVariables = new ArrayList<>();
 
@@ -22,20 +23,20 @@ public class Lista {
     public Lista() {
     }
 
-    public ArrayList<String> getListaComentarios() {
+    public ArrayList<Comentario> getListaComentarios() {
         return listaComentarios;
     }
 
-    public void setListaComentarios(ArrayList<String> listaComentarios) {
+    public void setListaComentarios(ArrayList<Comentario> listaComentarios) {
         this.listaComentarios = listaComentarios;
     }
 
     public ArrayList<Clase> getListaClase() {
-        return listaClase;
+        return listaClases;
     }
 
     public void setListaClase(ArrayList<Clase> listaClase) {
-        this.listaClase = listaClase;
+        this.listaClases = listaClase;
     }
 
     public ArrayList<Metodo> getListaMetodos() {
@@ -58,7 +59,9 @@ public class Lista {
      * @param comentario 
      */
     public void añadirComentario(String comentario) {
-        listaComentarios.add(comentario);
+        Comentario nuevo = new Comentario();
+        nuevo.setTexto(comentario);
+        listaComentarios.add(nuevo);
     }
     /**
      * Añade una variable nueva obtenida desde el analizador sintactico
@@ -120,7 +123,7 @@ public class Lista {
         for (int i = numero; i < listaMetodos.size(); i++) {
             clase.agregarMetodo(listaMetodos.get(i));
         }
-        listaClase.add(clase);
+        listaClases.add(clase);
         agregarClasesPadre(id);
         Clase nueva = new Clase();
         clase = nueva;
@@ -131,7 +134,7 @@ public class Lista {
      */
     public int contarMetodos() {
         int numero = 0;
-        for (Clase cl : listaClase) {
+        for (Clase cl : listaClases) {
             numero = numero + cl.getCantidadMetodos();
         }
         return numero;
@@ -148,20 +151,73 @@ public class Lista {
             }
         }
     }
+    
+    /**
+     * Elimina las clases repetidas que se encuentren en la lista final
+     */
+    public void eliminarClasesRepetidas() {
+        for (int i = 0; i < listaClases.size(); i++) {
+            Clase aux = listaClases.get(i);
+            for (int j = i + 1; j < listaClases.size(); j++) {
+                Clase repetida = listaClases.get(j);
+                if (aux.getId().equals(repetida.getId())) {
+                    aux.aumentarRepeticiones(1);
+                    listaClases.remove(j);
+                    j--;
+                }
+            }
+        }
+    }
+    
+    /**
+     * Elimina los proyectos repetidos entre los proyectos 
+     */
+    public void eliminarMetodosRepetidos() {
+        for (int i = 0; i < listaMetodos.size(); i++) {
+            Metodo aux = listaMetodos.get(i);
+            for (int j = i + 1; j < listaMetodos.size(); j++) {
+                Metodo repetida = listaMetodos.get(j);
+                if (aux.getId().equals(repetida.getId()) && aux.getTipo().equals(repetida.getTipo()) && aux.getCantidad_parametros() == repetida.getCantidad_parametros()) {
+                    aux.aumentarRepeticiones(1);
+                    listaMetodos.remove(j);
+                    j--;
+                }
+            }
+        }
+    }
+    
     /**
      * Elimina las variables repetidas para agregar los valores a los padres
      */
-    public void eliminarRepetidos(){
+    public void eliminarVariablesRepetidas(){
         for (int i = 0; i < listaVariables.size(); i++) {
             Variable aux = listaVariables.get(i);
             for (int j = i+1; j < listaVariables.size(); j++) {
                 Variable repetida = listaVariables.get(j);
                 if(aux.getId().equals(repetida.getId()) && aux.getTipo().equals(repetida.getTipo())){
+                    aux.aumentarRepeticiones(1);
                     ArrayList<String> padres = repetida.getPadres();
                     for (int k = 0; k < padres.size(); k++) {
                         aux.agregarPadre(padres.get(k));                                         
                     }
                     listaVariables.remove(j);
+                    j--;
+                }
+            }
+        }
+    }
+    
+    /**
+     * Elimina los comentarios repetidos
+     */
+    public void eliminarComentariosRepetidos(){
+        for (int i = 0; i < listaComentarios.size(); i++) {
+            Comentario aux = listaComentarios.get(i);
+            for (int j = i+1; j < listaComentarios.size(); j++) {
+                Comentario repetido = listaComentarios.get(j);
+                if(aux.getTexto().equals(repetido.getTexto())){
+                    aux.aumentarRepeticiones(1);
+                    listaComentarios.remove(j);
                     j--;
                 }
             }

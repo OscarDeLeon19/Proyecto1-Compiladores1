@@ -10,6 +10,7 @@ public class Metodo {
     private String tipo;
     private int cantidad_parametros = 0;
     private ArrayList<Variable> listaParametros = new ArrayList<>();
+    private int repeticiones = 1;
     /**
      * Constructor de la clase Metodo
      * Guarda un metodo obtenido del analisis sintactico
@@ -17,6 +18,14 @@ public class Metodo {
     public Metodo() {
     }
 
+    public int getRepeticiones() {
+        return repeticiones;
+    }
+
+    public void setRepeticiones(int repeticiones) {
+        this.repeticiones = repeticiones;
+    }
+    
     public String getId() {
         return id;
     }
@@ -60,5 +69,9 @@ public class Metodo {
      */
     public void reiniciarListaParametros(){
         listaParametros.clear();
+    }
+    
+    public void aumentarRepeticiones(int cantidad){
+        repeticiones += cantidad;
     }
 }
