@@ -5,19 +5,23 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Carga {
-
+    /**
+     * Constructor de la clase Carga
+     */
     public Carga() {
     }
-
+    /**
+     * Obtiene la direccio de un archivo y guarda sus datos en un area de texto.
+     * @param path La direccion del archivo.
+     * @param areaTexto El area de texto en donde se guardaran los datos.
+     */
     public void cargarArchivo(String path, JTextArea areaTexto) {
-
         try {
             File fichero = new File(path);
             FileReader Lector = new FileReader(fichero);
@@ -32,7 +36,10 @@ public class Carga {
             JOptionPane.showMessageDialog(null, "Error al agregar archivo");
         }
     }
-
+    /**
+     * Obtiene todas las direcciones de un archivo .copy 
+     * @return El array donde estan guardadas las direcciones del proyecto.
+     */
     public String[] obtenerCOPY() {
         String[] paths = new String[3];
         File fichero;
@@ -56,19 +63,26 @@ public class Carga {
             }
             if (paths[0].endsWith(".def") == false) {
                 JOptionPane.showMessageDialog(null, "Error al obtener DEF");
+                paths[0] = null;
             }
             if (paths[1].endsWith(".json") == false) {
                 JOptionPane.showMessageDialog(null, "Error al obtener JSON");
+                paths[1] = null;
             }
             if (paths[2].endsWith(".html") == false) {
                 JOptionPane.showMessageDialog(null, "Error al obtener HTML");
+                paths[2] = null;
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al agregar archivo");
         }
         return paths;
     }
-
+    /**
+     * Guarda un texto en la direccion indicada.
+     * @param path La direccion del archivo en donde se guardara el texto
+     * @param texto El texto que se va a guardar.
+     */
     public void guardar(String path, String texto) {
         int decision = JOptionPane.showConfirmDialog(null, "¿Estas seguro de guardar el archivo?");
         if (decision == JOptionPane.YES_OPTION) {
@@ -85,7 +99,11 @@ public class Carga {
             }
         }
     }
-
+    /**
+     * Exporta un reporte a un archivo HMTL.
+     * @param path La direccion del archivo
+     * @param cuerpo El body del archivo html.
+     */
     public void exportarHTML(String path, String cuerpo) {
         System.out.println(path);
         String textoHTML = "<!DOCTYPE html>\n"

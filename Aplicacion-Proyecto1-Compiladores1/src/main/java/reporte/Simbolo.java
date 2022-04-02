@@ -62,7 +62,9 @@ public class Simbolo {
     public void setColumna(int columna) {
         this.columna = columna;
     }
-
+    /**
+     * Suma una unidad al valor del simbolo.
+     */
     public void sumarValor() {
         try {
             int cantidad = Integer.parseInt(valor);

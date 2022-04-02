@@ -2,18 +2,21 @@
 package main;
 
 import java.io.File;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 
 
 public class Proceso extends Thread {
 
-    String[] paths;
-
+    private String[] paths;
+    /**
+     * Constructor de la clase proceso. Crea un hilo donde se ejecutan las acciones del servidor.
+     * @param paths Los paths del primer y segundo proyecto
+     */
     public Proceso(String[] paths) {
         this.paths = paths;
     }
-
+    /**
+     * Inicia el analisis de de los proyectos.
+     */
     @Override
     public void run() {
         Analisis analisis = new Analisis();

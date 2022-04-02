@@ -6,13 +6,19 @@ import java.util.ArrayList;
 
 public class VentanaServidor extends javax.swing.JFrame {
 
-    
+    /**
+     * Constructor de la clase VentanaServidor
+     * Muestra los errores que se encuentren con el analisis lexico y sintactico.
+     */
     public VentanaServidor() {
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
     }
-   
+    /**
+     * Agrega la lista de errores al TextArea para visualizar los errores.
+     * @param errores La lista de errores.
+     */
     public void agregarErrores(ArrayList<String> errores){
         for (String error : errores) {
             areaTexto.append("1. " + error);

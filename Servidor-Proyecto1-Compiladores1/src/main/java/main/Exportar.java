@@ -2,18 +2,22 @@ package main;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
 import javax.swing.JFileChooser;
 
 public class Exportar {
 
-    
+    /**
+     * Constructor de la clase exportar
+     */
     public Exportar() {
           
     }
-
-    public void exportarJISON(String jison, String carpeta) {
+    /**
+     * Exporta la carpeta del proyecto con el archivo .copy, reportes.def, y el archivo json.
+     * @param json El texto donde van incluidas todas las clases, variables, metodos y comentarios repetidos.
+     * @param carpeta El nombre de la carpeta donde se guardaran los archivos.
+     */
+    public void exportarJISON(String json, String carpeta) {
         try {
             File fichero;
             System.out.println("Inicio exportacion");
@@ -43,7 +47,7 @@ public class Exportar {
             archivoCOPY.createNewFile();
             FileWriter escribirJISON = new FileWriter(archivoJISON, false);
             FileWriter escribirCOPY = new FileWriter(archivoCOPY, false);
-            escribirJISON.write(jison);
+            escribirJISON.write(json);
             escribirJISON.close();
             escribirCOPY.write(textoCOPY);
             escribirCOPY.close();

@@ -14,10 +14,16 @@ public class Comparacion {
     private ArrayList<Variable> listaVariables = new ArrayList<>();
     private ArrayList<String> listaArreglados = new ArrayList<>();
     private double score = 0;
-
+    /**
+     * Constructor de la clase comparacion
+     */
     public Comparacion() {
     }
-
+    /**
+     * Compara las clases del proyecto 1 y del segundo
+     * @param lista1 Lista de clases del proyecto 1
+     * @param lista2 Lista de clases del proyecto 2
+     */
     public void compararClases(ArrayList<Clase> lista1, ArrayList<Clase> lista2) {
         for (int i = 0; i < lista1.size(); i++) {
             Clase clase = lista1.get(i);
@@ -38,7 +44,9 @@ public class Comparacion {
         double nuevoScore = (tamanioClase / (tamaño1 + tamaño2))*0.25;
         score = score + nuevoScore;
     }
-
+    /**
+     * Elimina las clases repetidas que se encuentren en la lista final
+     */
     public void eliminarClasesRepetidas() {
         for (int i = 0; i < listaClases.size(); i++) {
             Clase aux = listaClases.get(i);
@@ -51,7 +59,12 @@ public class Comparacion {
             }
         }
     }
-
+    /**
+     * Compara los metodos de una clase con la de otra para corroborar que son clases repetidas.
+     * @param lista1 Lista de metodos del proyecto 1
+     * @param lista2 Lista de metodos del proyecto 1
+     * @return Verdadero si la clase esta repetida y falso si es lo contrario
+     */
     private boolean compararMetodosClase(ArrayList<Metodo> lista1, ArrayList<Metodo> lista2) {
         boolean comparacion = true;
         if (lista1.size() == lista2.size()) {
@@ -73,7 +86,11 @@ public class Comparacion {
         }
         return comparacion;
     }
-
+    /**
+     * Compara las variable de un proyecto con el de otro
+     * @param lista1 La lista de variables del proyecto 1
+     * @param lista2 La lista de variables del proyecto 2
+     */
     public void compararVariables(ArrayList<Variable> lista1, ArrayList<Variable> lista2) {
         for (int i = 0; i < lista1.size(); i++) {
             Variable var1 = lista1.get(i);
@@ -95,7 +112,11 @@ public class Comparacion {
         double nuevoScore = (tamanioVariable / (tamaño1 + tamaño2))*0.25;
         score = score + nuevoScore;
     }
-
+    /**
+     * Compara los metodos de los proyectos
+     * @param lista1 La lista de metodos del proyecto 1
+     * @param lista2 La lista de metodos del proyecto 2
+     */
     public void compararMetodos(ArrayList<Metodo> lista1, ArrayList<Metodo> lista2) {
         for (int i = 0; i < lista1.size(); i++) {
             Metodo metodo = lista1.get(i);
@@ -116,7 +137,9 @@ public class Comparacion {
         double nuevoScore = (tamanioMetodos / (tamaño1 + tamaño2))*0.25;
         score = score + nuevoScore;
     }
-
+    /**
+     * Elimina los proyectos repetidos entre los proyectos 
+     */
     public void eliminarMetodosRepetidos() {
         for (int i = 0; i < listaMetodos.size(); i++) {
             Metodo aux = listaMetodos.get(i);
@@ -129,7 +152,12 @@ public class Comparacion {
             }
         }
     }
-
+    /**
+     * Compara Los parametros de un metodo con otro.
+     * @param lista1 La lista de parametros de el primer metodo
+     * @param lista2 La lista de parametros de el segundo metodo
+     * @return Verdadero si tienen los mismos metodos y falso si es lo contrario.
+     */
     private boolean compararParametrosMetodo(ArrayList<Variable> lista1, ArrayList<Variable> lista2) {
         boolean comparacion = true;
         if (lista1.size() == lista2.size()) {
@@ -151,7 +179,11 @@ public class Comparacion {
         }
         return comparacion;
     }
-
+    /**
+     * Compara los comentarios repetidos de un proyecto con otro
+     * @param lista1 La lista de comentarios del proyecto 1
+     * @param lista2 La lista de comentarios del proyecto 2
+     */
     public void compararComentarios(ArrayList<String> lista1, ArrayList<String> lista2) {
         for (int i = 0; i < lista1.size(); i++) {
             for (int j = 0; j < lista2.size(); j++) {
@@ -167,7 +199,9 @@ public class Comparacion {
         double nuevoScore = (tamanioComentarios / (tamaño1 + tamaño2))*0.25;
         score = score + nuevoScore;
     }
-
+    /**
+     * Elimina los comentarios repetidos del proyecto
+     */
     public void eliminarComentariosRepetidos(){
         for (int i = 0; i < listaComentarios.size(); i++) {
             String aux = listaComentarios.get(i);
@@ -180,7 +214,9 @@ public class Comparacion {
             }
         }
     }
-    
+    /**
+     * Quita los saltos del linea, tabulacion, etc. Para que el comentario quede en una sola linea.
+     */
     public void arreglarComentarios() {
         for (String comentario : listaComentarios) {
             String nuevo = "";
@@ -195,7 +231,9 @@ public class Comparacion {
             listaArreglados.add(nuevo);
         }
     }
-
+    /**
+     * Crea el texto json para posteriormente exportar los archivos.
+     */
     public void exportar() {
         arreglarComentarios();
         String json = "{\n"

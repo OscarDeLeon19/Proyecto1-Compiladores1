@@ -8,7 +8,7 @@ package jison.analisis.sintactico;
 import java_cup.runtime.Symbol;
 import jison.analisis.lexico.*;
 import java.util.ArrayList;
-import jison.Jison;
+import jison.Json;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -219,9 +219,9 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
     private ArrayList<String> errores = new ArrayList<>();
-    private Jison jison;
+    private Json jison;
 
-    public void setJison(Jison jison) {
+    public void setJson(Json jison) {
         this.jison = jison;
     }
 

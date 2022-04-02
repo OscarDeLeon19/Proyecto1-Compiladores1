@@ -1,20 +1,16 @@
 package main;
 
-import clases.Clase;
-import clases.Metodo;
-import clases.Variable;
+
 import files.Carga;
 import java.io.File;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.ArrayList;
-import javax.swing.JEditorPane;
 import javax.swing.JOptionPane;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.text.BadLocationException;
-import jison.DatosJISON;
-import jison.Jison;
+import jison.DatosJSON;
+import jison.Json;
 import lineas.Numeracion;
 import reporte.DatosReporte;
 import reporte.analisis.lexico.LexerReporte;
@@ -24,11 +20,16 @@ public class App extends javax.swing.JFrame {
 
     private Carga carga = new Carga();
     private ArrayList<String> errores = new ArrayList<String>();
-    private Jison jison;
+    private Json jison;
     private String pathDEF;
     private String pathJSON;
     private String pathReporte;
-
+    /**
+     * Constructor de la clase App
+     * @param pathDEF La direccion del archivo DEF
+     * @param pathJSON La direccion del archivo JSON
+     * @param pathReporte La direccion del archivo HTML
+     */
     public App(String pathDEF, String pathJSON, String pathReporte) {
         initComponents();
         setLocationRelativeTo(null);
@@ -69,7 +70,9 @@ public class App extends javax.swing.JFrame {
             }
         });
     }
-
+    /**
+     * Llama a los metodos de cargar archivos para que se visualicen en la ventana de la aplicacion
+     */
     public void cargarArchivos() {
         carga.cargarArchivo(pathDEF, area1);
         carga.cargarArchivo(pathJSON, area2);
@@ -265,15 +268,25 @@ public class App extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Llama al metodo de compilar Json
+     * @param evt 
+     */
     private void botonCompilarJISONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCompilarJISONActionPerformed
         compilarJison();
     }//GEN-LAST:event_botonCompilarJISONActionPerformed
-
+    /**
+     * Llama al metodo para guardar el contenio del json en su archivo de texto
+     * @param evt 
+     */
     private void itemGuardarJisonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGuardarJisonActionPerformed
         carga.guardar(pathJSON, area2.getText());
     }//GEN-LAST:event_itemGuardarJisonActionPerformed
-
+    /**
+     * Llama a los metodos para iniciar el analisis lexico y sintactico del archivo DEF.
+     * Si no hay errores entonces exporta el analisis a un archivo DEF.
+     * @param evt 
+     */
     private void botonReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonReporteActionPerformed
         DatosReporte dtsRep = new DatosReporte(jison);
         areaErrores.setText("");        
@@ -302,11 +315,17 @@ public class App extends javax.swing.JFrame {
             agregarErrores();
         }
     }//GEN-LAST:event_botonReporteActionPerformed
-
+    /**
+     * Guarda el contenido del area de texto en un archivo .def
+     * @param evt 
+     */
     private void itemGuardarDEFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemGuardarDEFActionPerformed
         carga.guardar(pathDEF, area1.getText());
     }//GEN-LAST:event_itemGuardarDEFActionPerformed
-
+    /**
+     * Abre un proyecto nuevo obteniendo la direccion de archivo .copy
+     * @param evt 
+     */
     private void itemAbrirProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAbrirProyectoActionPerformed
         try {
             String[] paths = carga.obtenerCOPY();
@@ -317,18 +336,23 @@ public class App extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se eligio un archivo correctamente");
         }
     }//GEN-LAST:event_itemAbrirProyectoActionPerformed
-
+    /**
+     * Abre una ventana para poder comparar dos proyecto java.
+     * @param evt 
+     */
     private void itemCompararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCompararActionPerformed
         VentanaComparar vtnComparar = new VentanaComparar();
         vtnComparar.setVisible(true);
     }//GEN-LAST:event_itemCompararActionPerformed
-
+    /**
+     * Llama al metodo para analizar el archivo Json.
+     */
     public void compilarJison() {
         String texto = area2.getText();
-        DatosJISON datos = new DatosJISON();
+        DatosJSON datos = new DatosJSON();
         areaErrores.setText("");   
         errores.clear();
-        jison = datos.analizarJISON(texto, errores);
+        jison = datos.analizarJSON(texto, errores);
 
         if (errores.isEmpty() == false) {
             areaErrores.append("Errores en el archivo Jison");
@@ -337,7 +361,9 @@ public class App extends javax.swing.JFrame {
         }
 
     }
-
+    /**
+     * Agrega los errores de cualquier archivo al area de texto de errores.
+     */
     public void agregarErrores() {
         areaErrores.setText("");
         for (String error : errores) {
@@ -345,9 +371,10 @@ public class App extends javax.swing.JFrame {
             areaErrores.append("\n");
         }
     }
-
+    /**
+     * Abre una ventana donde se pueda visualizar un reporte.
+     */
     public void visualizarReporte() {
-
         try {            
             File file = new File(pathReporte);         
             Reporte reporte = new Reporte();

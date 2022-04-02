@@ -5,7 +5,7 @@ import clases.Metodo;
 import clases.Variable;
 import java.util.ArrayList;
 
-public class Jison {
+public class Json {
 
     private String score;
     private ArrayList<Clase> clases = new ArrayList<>();
@@ -13,8 +13,10 @@ public class Jison {
     private ArrayList<Variable> variables = new ArrayList<>();
     private ArrayList<String> comentarios = new ArrayList<>();
     private Variable var = new Variable();
-
-    public Jison() {
+    /**
+     * Constructor de la clase JSon
+     */
+    public Json() {
 
     }
 
@@ -57,17 +59,27 @@ public class Jison {
     public void setComentarios(ArrayList<String> comentarios) {
         this.comentarios = comentarios;
     }
-
+    /**
+     * Agrega una clase a la lista de clases del Json
+     * @param nombre El nombre
+     */
     public void agregarClase(String nombre) {
         Clase clase = new Clase();
         clase.setId(nombre);
         clases.add(clase);
     }
-
+    /**
+     * Agrega el nombre de una funcion al valor padre de una variable
+     * @param funcion EL nombre de la funcion.
+     */
     public void agregarFuncion(String funcion) {
         var.agregarPadre(funcion);
     }
-
+    /**
+     * Agrega una variable a la lista de variables 
+     * @param nombre El nombre de la variable
+     * @param tipo El tipo de la variable
+     */
     public void agregarVariable(String nombre, String tipo) {
         var.setId(nombre);
         var.setTipo(tipo);
@@ -75,7 +87,12 @@ public class Jison {
         Variable nueva = new Variable();
         var = nueva;
     }
-
+    /**
+     * Agrega un metodo a la lista de metodos del archivo Json
+     * @param nombre El nombre del metodo
+     * @param tipo El tipo del metodo
+     * @param param La cantidad de parametros que contiene el metodo.
+     */
     public void agregarMetodo(String nombre, String tipo, int param) {
         Metodo metodo = new Metodo();
         metodo.setId(nombre);
@@ -83,11 +100,19 @@ public class Jison {
         metodo.setCantidad_parametros(param);
         metodos.add(metodo);
     }
-
+    /**
+     * Agrega un comentario a la lista de comentarios
+     * @param comentario El texto del comentario
+     */
     public void agregarComentario(String comentario) {
         comentarios.add(comentario);
     }
-
+    /**
+     * Obtiene el nombre de una clase solicitada.
+     * @param parametro El tipo de valor necesario de la clase
+     * @param i El lugar en donde se encuentra la clase en la lista.
+     * @return El nombre de la clase
+     */
     public String obtenerParametrosClases(String parametro, int i) {
         String valor = "";
         Clase clase = clases.get(i);
@@ -96,7 +121,12 @@ public class Jison {
         }
         return valor;
     }
-
+    /**
+     * Obtiene el parametro de una variable
+     * @param parametro El tipo de parametro necesario
+     * @param i El lugar de la variable en la lista
+     * @return El parametro solicitado.
+     */
     public String obtenerParametrosVariables(String parametro, int i) {
         String valor = "";
         Variable variable = variables.get(i);
@@ -110,7 +140,12 @@ public class Jison {
         }
         return valor;
     }
-
+    /**
+     * Obtiene el parametro de un metodo
+     * @param parametro El tipo de parametro solicitado
+     * @param i El lugar de el metodo que se solicita
+     * @return El valor del parametro solicitado.
+     */
     public String obtenerParametrosMetodos(String parametro, int i) {
         String valor = "";
         Metodo metodo = metodos.get(i);
@@ -124,7 +159,12 @@ public class Jison {
         }
         return valor;
     }
-
+    /**
+     * Obtiene el texto de un comentario
+     * @param parametro el tipo de parametro
+     * @param i El lugar del comentario en la lista
+     * @return El valor solicitado.
+     */
     public String obtenerParametrosComentarios(String parametro, int i) {
         String valor = "";
         if (parametro.equals("Texto")) {

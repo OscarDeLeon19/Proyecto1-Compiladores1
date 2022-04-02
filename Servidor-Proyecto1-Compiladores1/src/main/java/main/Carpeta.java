@@ -1,21 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package main;
 
-/**
- *
- * @author oscar
- */
+
 public class Carpeta extends javax.swing.JFrame {
 
     Exportar exportar = new Exportar();
-    String jison = "";
-    
-    public Carpeta(String jison) {
-        this.jison = jison;
+    String json = "";
+    /**
+     * Constructor de la clase carpeta. Donde elegimos el nombre de la carpeta de nuestro proyecto.
+     * @param json Archivo de texto donde se encuentran los datos del json
+     */
+    public Carpeta(String json) {
+        this.json = json;
         initComponents();
         setLocationRelativeTo(null);
         setResizable(false);
@@ -73,16 +69,16 @@ public class Carpeta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Obtiene el texto de la carpeta y llama al metodo a exportar
+     * @param evt 
+     */
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
         if (text.equals("") == false){
-            exportar.exportarJISON(jison, text.getText());
+            exportar.exportarJISON(json, text.getText());
             dispose();
         }
     }//GEN-LAST:event_botonIngresarActionPerformed
-
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonIngresar;

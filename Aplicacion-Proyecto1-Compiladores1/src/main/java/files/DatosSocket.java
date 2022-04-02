@@ -5,15 +5,21 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import javax.net.ssl.SSLSocket;
+import javax.swing.JOptionPane;
 
 
 public class DatosSocket {
-
+    /**
+     * Constructor de la clase DatosSocket
+     */
     public DatosSocket() {
     }
-    
-    public void enviarParametros(String path1, String path2){
-        
+    /**
+     * Inicia la conexion con el servidor. Y envia los parametros para que el servidor realice sus acciones.
+     * @param path1 La direccion de la carpeta del proyecto 1
+     * @param path2 La direccion de la carpeta del proyecto 2
+     */
+    public void enviarParametros(String path1, String path2){       
         final String HOST = "192.168.1.13";
         final int puerto = 6000;
         DataInputStream in;
@@ -25,13 +31,11 @@ public class DatosSocket {
             
             out.writeUTF(path1 + "\n" + path2);
             
-            String mensaje = in.readUTF();
-            
+            String mensaje = in.readUTF();            
             System.out.println(mensaje);
-            
-            socket.close();
-            
+            socket.close();           
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error para realizar la conexion con el servidor");
         }
         
         

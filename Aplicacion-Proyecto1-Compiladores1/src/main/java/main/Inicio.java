@@ -5,8 +5,10 @@ import javax.swing.JOptionPane;
 
 public class Inicio extends javax.swing.JFrame {
 
-    Carga carga = new Carga();
-
+    private Carga carga = new Carga();
+    /**
+     * Constructor de la clase inicio
+     */
     public Inicio() {
         initComponents();
         setResizable(false);
@@ -62,12 +64,18 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Abre una ventana para poder comparar dos proyecto java.
+     * @param evt 
+     */
     private void BotonCompararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCompararActionPerformed
         VentanaComparar vtnComparar = new VentanaComparar();
         vtnComparar.setVisible(true);
     }//GEN-LAST:event_BotonCompararActionPerformed
-
+    /**
+     * Abre un proyecto nuevo obteniendo la direccion de archivo .copy
+     * @param evt 
+     */
     private void BotonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbrirActionPerformed
         try {
             String[] paths = carga.obtenerCOPY();

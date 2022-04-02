@@ -7,7 +7,10 @@ public class Variable {
     private String id;
     private String tipo;
     private ArrayList<String> padres = new ArrayList<>();
-    
+    /**
+     * Constructor de la clase variable.
+     * Crea un objeto de tipo variable obtenido del analisis sintactico.
+     */
     public Variable() {
     }
 

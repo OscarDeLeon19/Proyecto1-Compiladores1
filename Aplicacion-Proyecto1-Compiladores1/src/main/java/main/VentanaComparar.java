@@ -108,7 +108,10 @@ public class VentanaComparar extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Agrega la direccion de la carpeta del proyecto 1.
+     * @param evt 
+     */
     private void boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1ActionPerformed
         File fichero;
         JFileChooser seleccionar = new JFileChooser();
@@ -118,7 +121,10 @@ public class VentanaComparar extends javax.swing.JFrame {
         fichero = seleccionar.getSelectedFile();
         text1.setText(fichero.getAbsolutePath());
     }//GEN-LAST:event_boton1ActionPerformed
-
+    /**
+     * Agrega la direccion de la carpeta del proyecto 2.
+     * @param evt 
+     */
     private void boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton2ActionPerformed
         File fichero;
         JFileChooser seleccionar = new JFileChooser();
@@ -128,7 +134,10 @@ public class VentanaComparar extends javax.swing.JFrame {
         fichero = seleccionar.getSelectedFile();
         text2.setText(fichero.getAbsolutePath());
     }//GEN-LAST:event_boton2ActionPerformed
-
+    /**
+     * Envia los datos al socket para que se ejecute el analisis de los proyectos.
+     * @param evt 
+     */
     private void botonCompararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCompararActionPerformed
         if (text1.getText().equals("") || text2.getText().equals("")) {
             
@@ -136,7 +145,6 @@ public class VentanaComparar extends javax.swing.JFrame {
             DatosSocket dtsSocket = new DatosSocket();
             dtsSocket.enviarParametros(text1.getText(), text2.getText());
         }
-
     }//GEN-LAST:event_botonCompararActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

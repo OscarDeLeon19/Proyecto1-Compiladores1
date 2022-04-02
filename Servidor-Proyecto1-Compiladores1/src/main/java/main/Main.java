@@ -9,14 +9,20 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
+/**
+ * Clase inicial del servidor
+ * @author oscar 
+ */
 public class Main {
-
+    /**
+     * Metodo donde inicia el servidor. Recibe la informacion del socket y realiza el proceso de comparacion
+     * @param args 
+     * @throws Exception Error si el servidor no esta activo 
+     */
     public static void main(String[] args) throws Exception {
         Analisis analisis = new Analisis();
         /*
-        
-        
+  
         File fichero1;
         
         JFileChooser seleccionar = new JFileChooser();
@@ -56,8 +62,6 @@ public class Main {
             out.writeUTF("Directorios Recibidos");            
             socket.close();
             }
-           
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al obtener los datos");
         }

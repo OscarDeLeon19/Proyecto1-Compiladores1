@@ -8,9 +8,6 @@ import clases.Variable;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Analisis {
 
@@ -27,7 +24,10 @@ public class Analisis {
       
     public Analisis() {
     }
-
+    /**
+     * Inicia el analisis lexico del primer proyecto que obtengamos
+     * @param fichero El directorio donde se encuentra la carpeta del proyecto
+     */
     public void iniciarAnalisisProyecto1(File fichero) {
         Lista lista1 = new Lista();
         try {
@@ -49,8 +49,7 @@ public class Analisis {
                 }
 
             }
-            
-            
+                        
             lista1.eliminarRepetidos();
             listaComentarios1 = lista1.getListaComentarios();
             listaClase1 = lista1.getListaClase();
@@ -59,10 +58,13 @@ public class Analisis {
 
            
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar archivo");
+            Alerta alerta = new Alerta("Error al agregar archivo");
         }
     }
-
+    /**
+     * Inicia el analisis lexico del segundo proyecto que obtengamos
+     * @param fichero El directorio donde se encuentra la carpeta del proyecto
+     */
     public void iniciarAnalisisProyecto2(File fichero) {
         Lista lista2 = new Lista();
         try {
@@ -92,10 +94,12 @@ public class Analisis {
             listaVariables2 = lista2.getListaVariables();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar archivo");
+            Alerta alerta = new Alerta("Error al agregar archivo");
         }
     }
-
+    /**
+     * Llama a los metodos para comparar las listas de objetos obtenidos de los analisis
+     */
     public void comparar(){
         if (errores.isEmpty()){
         Comparacion comparacion = new Comparacion();

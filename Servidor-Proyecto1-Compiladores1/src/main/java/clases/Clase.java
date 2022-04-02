@@ -7,7 +7,9 @@ public class Clase {
     private String id;
     private ArrayList<Metodo> lista_metodos = new ArrayList<>();
     private int cantidadMetodos = 0;
-    
+    /**
+     * Constructor de la clase "Clase"
+     */
     public Clase() {
     }
 
@@ -26,7 +28,10 @@ public class Clase {
     public void setLista_metodos(ArrayList<Metodo> lista_metodos) {
         this.lista_metodos = lista_metodos;
     }
-
+    /**
+     * Agrega un metodo a la lista de metodos de la clase
+     * @param nuevo_metodo 
+     */
     public void agregarMetodo(Metodo nuevo_metodo) {
         lista_metodos.add(nuevo_metodo);
         cantidadMetodos++;

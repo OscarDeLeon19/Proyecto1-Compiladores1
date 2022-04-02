@@ -22,7 +22,11 @@ public class TablaSimbolos {
     public void agregarSimbolo(Simbolo simbolo){
         tabla.add(simbolo);
     }
-    
+    /**
+     * Comprueba si un simbolo ya se encuentra repetido en la tabla de simbolos
+     * @param s El simbolo que se comprobara
+     * @return True si el simbolo es repetido y false si no esta repetido.
+     */
     public boolean comprobarSimbolo(Simbolo s){
         boolean comprobacion = false;
         for (Simbolo simbolo : tabla) {
@@ -33,7 +37,9 @@ public class TablaSimbolos {
         }
         return comprobacion;
     }
-    
+    /**
+     * Muestra todos los simbolos de la tabla de simbolos
+     */
     public void pintarSimbolos(){
         for (Simbolo simbolo: tabla){
             System.out.println("Simbolo:");

@@ -15,14 +15,17 @@ import javax.swing.JOptionPane;
 public class Reporte extends javax.swing.JFrame {
 
     /**
-     * Creates new form Reporte
+     * Constructor de la clase reporte
      */
     public Reporte() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
     }
-
+    /**
+     * Agrega el archivo HTML a la ventana y la visualiza-
+     * @param file El fichero del archivo HTML.
+     */
     public void verReporte(File file){
         try {
             editorPane.setPage(file.toURI().toURL());
@@ -73,9 +76,6 @@ public class Reporte extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JEditorPane editorPane;
