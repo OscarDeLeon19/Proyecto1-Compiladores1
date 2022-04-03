@@ -79,7 +79,7 @@ public class Inicio extends javax.swing.JFrame {
     private void BotonAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAbrirActionPerformed
         try {
             String[] paths = carga.obtenerCOPY();
-            App app = new App(paths[0], paths[1], paths[2]);
+            App app = new App(paths[3],paths[0], paths[1], paths[2]);
             app.setVisible(true);
             dispose();
         } catch (Exception e) {

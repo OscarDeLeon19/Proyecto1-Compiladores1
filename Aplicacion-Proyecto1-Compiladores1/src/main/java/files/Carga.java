@@ -41,7 +41,7 @@ public class Carga {
      * @return El array donde estan guardadas las direcciones del proyecto.
      */
     public String[] obtenerCOPY() {
-        String[] paths = new String[3];
+        String[] paths = new String[4];
         File fichero;
         JFileChooser seleccionar = new JFileChooser();
 
@@ -61,6 +61,7 @@ public class Carga {
                 i++;
 
             }
+            paths[3] = fichero.getName();
             if (paths[0].endsWith(".def") == false) {
                 JOptionPane.showMessageDialog(null, "Error al obtener DEF");
                 paths[0] = null;

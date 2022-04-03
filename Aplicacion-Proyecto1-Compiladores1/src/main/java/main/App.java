@@ -30,8 +30,9 @@ public class App extends javax.swing.JFrame {
      * @param pathJSON La direccion del archivo JSON
      * @param pathReporte La direccion del archivo HTML
      */
-    public App(String pathDEF, String pathJSON, String pathReporte) {
+    public App(String nombre, String pathDEF, String pathJSON, String pathReporte) {
         initComponents();
+        setTitle(nombre);
         setLocationRelativeTo(null);
         setResizable(false);
         this.pathDEF = pathDEF;
@@ -329,7 +330,7 @@ public class App extends javax.swing.JFrame {
     private void itemAbrirProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAbrirProyectoActionPerformed
         try {
             String[] paths = carga.obtenerCOPY();
-            App app = new App(paths[0], paths[1], paths[2]);
+            App app = new App(paths[3],paths[0], paths[1], paths[2]);
             app.setVisible(true);
             dispose();
         } catch (Exception e) {
