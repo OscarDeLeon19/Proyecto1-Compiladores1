@@ -14,7 +14,7 @@ import java.util.ArrayList;
 %cupdebug
 
 
-L=[a-zA-Z_]
+L=[a-zA-Z_ñÑ]
 D=[0-9]
 punto=[.]
 espacio=[ ]+
@@ -68,9 +68,9 @@ br {return new Symbol(sym.BR, yyline+1, yycolumn+1, yytext());}
 {rot} {/*ignorar*/}
 {decimal} { return new Symbol(sym.DECIMAL, yyline+1, yycolumn+1, yytext());}
 {entero} {return new Symbol(sym.ENTERO, yyline+1, yycolumn+1, Integer.parseInt(yytext()));}
-{comilla}({id}|{entero}|{decimal}|{espacio}|"+"|"-"|"*"|"/"|":"|";"|"<"|">")*{comilla} {return new Symbol(sym.CADENA, yyline+1, yycolumn+1, yytext());}
+{comilla}({id}|{entero}|{decimal}|{espacio}|{punto}|"+"|"-"|"*"|"/"|":"|";"|"<"|">"|"="|"["|"]"|"("|")"|"$"|",")*{comilla} {return new Symbol(sym.CADENA, yyline+1, yycolumn+1, yytext());}
 {id}+ {return new Symbol(sym.ID, yyline+1, yycolumn+1, yytext());}
-"</".*"/>" {System.out.println(yytext());}
+"</".*"/>" {}
 {punto} {return new Symbol(sym.PUNTO, yyline+1, yycolumn+1, yytext()); }
 "$$" {return new Symbol(sym.DOLAR, yyline+1, yycolumn+1, yytext());}
 "+" {return new Symbol(sym.SUMA, yyline+1, yycolumn+1, yytext());}

@@ -3,6 +3,7 @@ package main;
 import files.DatosSocket;
 import java.io.File;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class VentanaComparar extends javax.swing.JFrame {
 
@@ -110,37 +111,51 @@ public class VentanaComparar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * Agrega la direccion de la carpeta del proyecto 1.
-     * @param evt 
+     *
+     * @param evt
      */
     private void boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1ActionPerformed
-        File fichero;
-        JFileChooser seleccionar = new JFileChooser();
-        seleccionar.setAcceptAllFileFilterUsed(false);
-        seleccionar.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        seleccionar.showOpenDialog(null);
-        fichero = seleccionar.getSelectedFile();
-        text1.setText(fichero.getAbsolutePath());
+        try {
+            File fichero;
+            JFileChooser seleccionar = new JFileChooser();
+            seleccionar.setAcceptAllFileFilterUsed(false);
+            seleccionar.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            seleccionar.showOpenDialog(null);
+            fichero = seleccionar.getSelectedFile();
+            text1.setText(fichero.getAbsolutePath());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se escogio ningun archivo");
+            text1.setText(null);
+        }
     }//GEN-LAST:event_boton1ActionPerformed
     /**
      * Agrega la direccion de la carpeta del proyecto 2.
-     * @param evt 
+     *
+     * @param evt
      */
     private void boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton2ActionPerformed
-        File fichero;
-        JFileChooser seleccionar = new JFileChooser();
-        seleccionar.setAcceptAllFileFilterUsed(false);
-        seleccionar.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        seleccionar.showOpenDialog(null);
-        fichero = seleccionar.getSelectedFile();
-        text2.setText(fichero.getAbsolutePath());
+        try {
+            File fichero;
+            JFileChooser seleccionar = new JFileChooser();
+            seleccionar.setAcceptAllFileFilterUsed(false);
+            seleccionar.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            seleccionar.showOpenDialog(null);
+            fichero = seleccionar.getSelectedFile();
+            text2.setText(fichero.getAbsolutePath());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se escogio ningun archivo");
+            text2.setText(null);
+        }
     }//GEN-LAST:event_boton2ActionPerformed
     /**
-     * Envia los datos al socket para que se ejecute el analisis de los proyectos.
-     * @param evt 
+     * Envia los datos al socket para que se ejecute el analisis de los
+     * proyectos.
+     *
+     * @param evt
      */
     private void botonCompararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCompararActionPerformed
         if (text1.getText().equals("") || text2.getText().equals("")) {
-            
+
         } else {
             DatosSocket dtsSocket = new DatosSocket();
             dtsSocket.enviarParametros(text1.getText(), text2.getText());

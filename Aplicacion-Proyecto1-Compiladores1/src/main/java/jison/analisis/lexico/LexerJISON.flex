@@ -14,7 +14,7 @@ import java.util.ArrayList;
 %cupdebug
 
 
-L=[a-zA-Z_]
+L=[a-zA-Z_nÑ]
 D=[0-9]
 punto=[.]
 espacio=[ ]+
