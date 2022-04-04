@@ -20,9 +20,11 @@ public class VentanaServidor extends javax.swing.JFrame {
      * @param errores La lista de errores.
      */
     public void agregarErrores(ArrayList<String> errores){
+        int i = 1;
         for (String error : errores) {
-            areaTexto.append("1. " + error);
+            areaTexto.append(i + ". " + error);
             areaTexto.append("\n");
+            i++; 
         }
         
     }

@@ -87,6 +87,16 @@ funciones ::=
 
 identificador ::=
     COMILLA ID:var COMILLA {:RESULT = var;:}
+    | COMILLA SCORE:var COMILLA {:RESULT = String.valueOf(var);:}
+    | COMILLA CLASES:var COMILLA {:RESULT = String.valueOf(var);:}
+    | COMILLA VARIABLES:var COMILLA {:RESULT = String.valueOf(var);:}
+    | COMILLA METODOS:var COMILLA {:RESULT = String.valueOf(var);:}
+    | COMILLA COMENTARIOS:var COMILLA {:RESULT = String.valueOf(var);:}
+    | COMILLA NOMBRE:var COMILLA {:RESULT = String.valueOf(var);:}
+    | COMILLA TIPO:var COMILLA {:RESULT = String.valueOf(var);:}
+    | COMILLA FUNCION:var COMILLA {:RESULT = String.valueOf(var);:}
+    | COMILLA PARAMETROS:var COMILLA {:RESULT = String.valueOf(var);:}
+    | COMILLA TEXTO:var COMILLA {:RESULT = String.valueOf(var);:}
 ;
 
 metodo ::=
