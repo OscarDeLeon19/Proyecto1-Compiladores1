@@ -64,6 +64,11 @@ br {return new Symbol(Simbolos.BR, yyline+1, yycolumn+1, yytext());}
 {comilla}({id}|{entero}|{decimal}|{espacio}|"+"|"-"|"*"|"/"|":"|";"|"<"|">")*{comilla} {return new Symbol(Simbolos.CADENA, yyline+1, yycolumn+1, yytext());}
 {id}+ {return new Symbol(Simbolos.ID, yyline+1, yycolumn+1, yytext());}
 {punto} {return new Symbol(Simbolos.PUNTO, yyline+1, yycolumn+1, yytext()); }
+"$$" {return new Symbol(Simbolos.DOLAR, yyline+1, yycolumn+1, yytext());}
+";" {return new Symbol(Simbolos.PUNTO_COMA, yyline+1, yycolumn+1, yytext());}
+":" {return new Symbol(Simbolos.DOS_PUNTOS, yyline+1, yycolumn+1, yytext());}
+"," {return new Symbol(Simbolos.COMA, yyline+1, yycolumn+1, yytext());}
+"=" {return new Symbol(Simbolos.SIGNO_IGUAL, yyline+1, yycolumn+1, yytext());}
 "+" {return new Symbol(Simbolos.SUMA, yyline+1, yycolumn+1, yytext());}
 "-" {return new Symbol(Simbolos.RESTA, yyline+1, yycolumn+1, yytext());}
 "*" {return new Symbol(Simbolos.MULTIPLICACION, yyline+1, yycolumn+1, yytext());}

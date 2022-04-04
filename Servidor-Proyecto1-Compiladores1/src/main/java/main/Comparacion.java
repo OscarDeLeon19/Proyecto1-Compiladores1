@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class Comparacion {
 
-    private Exportar exportar = new Exportar();
     private ArrayList<Comentario> listaComentarios = new ArrayList<>();
     private ArrayList<Clase> listaClases = new ArrayList<>();
     private ArrayList<Metodo> listaMetodos = new ArrayList<>();
