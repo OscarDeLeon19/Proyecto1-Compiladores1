@@ -150,7 +150,7 @@ sentencia_switch ::=
 ;
 
 sentencia_default ::=
-    DEFAULT DOS_PUNTOS sentencias sentencia_case
+    DEFAULT DOS_PUNTOS sentencias
 ;
 
 sentencia_case ::=
@@ -197,7 +197,9 @@ param_sentencia ::=
     bandera
     | bandera logicos param_sentencia 
     | ID
-    | ID logicos param_sentencia   
+    | ID logicos param_sentencia 
+    | ID relacionales ID logicos param_sentencia
+    | ID relacionales ID
     | ID relacionales resultado logicos param_sentencia  
     | ID relacionales resultado 
     | PARENTESIS_A param_sentencia PARENTESIS_C
@@ -206,6 +208,7 @@ param_sentencia ::=
 
 ciclo_for ::= 
     FOR PARENTESIS_A INT ID SIGNO_IGUAL ENTERO PUNTO_COMA ID relacionales valor PUNTO_COMA ID aumento PARENTESIS_C LLAVE_A sentencias LLAVE_C 
+    | FOR PARENTESIS_A ID SIGNO_IGUAL ENTERO PUNTO_COMA ID relacionales valor PUNTO_COMA ID aumento PARENTESIS_C LLAVE_A sentencias LLAVE_C 
 ;
 
 aumento ::=
@@ -294,7 +297,7 @@ asignacion ::=
 ;
 
 resultado ::=
-    expresion
+     expresion
     | CADENA c
     | LETRA
     | bandera
